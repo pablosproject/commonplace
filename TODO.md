@@ -28,12 +28,12 @@
 
 ### 2. Add Postgres + Drizzle
 
-- [ ] Add `docker-compose.yml` with local Postgres.
-- [ ] Add env config for API database connection.
-- [ ] Install and configure Drizzle.
-- [ ] Add initial Drizzle schema.
-- [ ] Add migration generation/run scripts.
-- [ ] Add seed script using `data/samples/wc8FBhQtdsA/video-recap-data.json`.
+- [x] Add `docker-compose.yml` with local Postgres.
+- [x] Add env config for API database connection.
+- [x] Install and configure Drizzle.
+- [x] Add initial Drizzle schema.
+- [x] Add migration generation/run scripts.
+- [x] Add seed script using `data/samples/wc8FBhQtdsA/video-recap-data.json`.
 
 ### 3. First database model
 
