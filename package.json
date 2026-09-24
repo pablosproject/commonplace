@@ -1,0 +1,22 @@
+{
+  "name": "video-project",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,green \"npm run dev -w @video-recap/api\" \"npm run dev -w @video-recap/web\"",
+    "dev:api": "npm run dev -w @video-recap/api",
+    "dev:web": "npm run dev -w @video-recap/web",
+    "build": "npm run build -w @video-recap/api && npm run build -w @video-recap/web",
+    "check": "npm run check -w @video-recap/api && npm run check -w @video-recap/web",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
+  }
+}

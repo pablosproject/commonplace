@@ -19,12 +19,12 @@
 
 ### 1. Scaffold the runnable app
 
-- [ ] Initialize package/workspace structure.
-- [ ] Add Vite React TypeScript frontend.
-- [ ] Add Hono TypeScript API server.
-- [ ] Add shared TypeScript types package/folder if useful.
-- [ ] Add basic dev scripts for frontend, API, and full dev mode.
-- [ ] Add minimal formatting/linting only if it does not slow MVP down.
+- [x] Initialize package/workspace structure.
+- [x] Add Vite React TypeScript frontend.
+- [x] Add Hono TypeScript API server.
+- [x] Defer shared TypeScript types package/folder until useful.
+- [x] Add basic dev scripts for frontend, API, and full dev mode.
+- [x] Add minimal formatting/linting only if it does not slow MVP down.
 
 ### 2. Add Postgres + Drizzle
 
