@@ -58,3 +58,12 @@ Seed the sample recap:
 ```sh
 npm run db:seed
 ```
+
+Submit or replace a recap manually:
+
+```sh
+curl --request POST \
+  --header 'Content-Type: application/json' \
+  --data @data/samples/wc8FBhQtdsA/video-recap-data.json \
+  http://localhost:3000/api/videos
+```

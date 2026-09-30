@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { testClient } from "hono/testing";
 import { beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { createApp } from "../app.js";
 import type { Database } from "../db/client.js";
@@ -16,10 +17,12 @@ const samplePath = path.join(
 
 let db: Database;
 let app: ReturnType<typeof createApp>;
+let client: ReturnType<typeof testClient<ReturnType<typeof createApp>>>;
 
 beforeAll(async () => {
   db = await createTestDb();
   app = createApp({ db });
+  client = testClient(app);
 });
 
 beforeEach(async () => {
@@ -45,10 +48,13 @@ describe("GET /api/videos", () => {
       mainTakeaway: "A takeaway",
     });
 
-    const response = await app.request("/api/videos");
-    const body = (await response.json()) as {
-      videos: Record<string, unknown>[];
-    };
+    const response = await client.api.videos.$get();
+
+    if (response.status !== 200) {
+      throw new Error("Expected the video list");
+    }
+
+    const body = await response.json();
 
     expect(body.videos).toHaveLength(1);
     expect(body.videos[0]).toMatchObject({
@@ -73,10 +79,13 @@ describe("GET /api/videos", () => {
       createdAt: new Date("2026-06-01T00:00:00Z"),
     });
 
-    const response = await app.request("/api/videos");
-    const body = (await response.json()) as {
-      videos: { youtubeVideoId: string }[];
-    };
+    const response = await client.api.videos.$get();
+
+    if (response.status !== 200) {
+      throw new Error("Expected the video list");
+    }
+
+    const body = await response.json();
 
     expect(body.videos.map((video) => video.youtubeVideoId)).toEqual([
       "newer",
@@ -92,13 +101,15 @@ describe("GET /api/videos/:youtubeVideoId", () => {
 
     await insertRecap(db, video.id, recapJson, recapJson.schemaVersion);
 
-    const response = await app.request("/api/videos/wc8FBhQtdsA");
-    const body = (await response.json()) as {
-      video: {
-        youtubeVideoId: string;
-        recap: { schemaVersion: string; recapJson: unknown };
-      };
-    };
+    const response = await client.api.videos[":youtubeVideoId"].$get({
+      param: { youtubeVideoId: "wc8FBhQtdsA" },
+    });
+
+    if (response.status !== 200) {
+      throw new Error("Expected the stored video");
+    }
+
+    const body = await response.json();
 
     expect(response.status).toBe(200);
     expect(body.video.youtubeVideoId).toBe("wc8FBhQtdsA");
@@ -114,5 +125,142 @@ describe("GET /api/videos/:youtubeVideoId", () => {
     await expect(response.json()).resolves.toEqual({
       error: "Video not found",
     });
+  });
+});
+
+describe("POST /api/videos", () => {
+  it("stores a valid recap and returns its location", async () => {
+    const recapJson = JSON.parse(await readFile(samplePath, "utf8"));
+
+    const response = await app.request("/api/videos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(recapJson),
+    });
+
+    expect(response.status).toBe(201);
+    expect(response.headers.get("Location")).toBe("/api/videos/wc8FBhQtdsA");
+    await expect(response.json()).resolves.toEqual({
+      video: { youtubeVideoId: "wc8FBhQtdsA" },
+      created: true,
+    });
+
+    const storedResponse = await client.api.videos[":youtubeVideoId"].$get({
+      param: { youtubeVideoId: "wc8FBhQtdsA" },
+    });
+
+    if (storedResponse.status !== 200) {
+      throw new Error("Expected the stored video");
+    }
+
+    const storedBody = await storedResponse.json();
+
+    expect(storedBody.video.recap.recapJson).toEqual(recapJson);
+  });
+
+  it("replaces an existing video and recap", async () => {
+    const original = JSON.parse(await readFile(samplePath, "utf8"));
+    const replacement = structuredClone(original);
+    replacement.video.title = "Updated title";
+    replacement.abstract = "Updated abstract";
+    delete replacement.video.channel;
+    delete replacement.video.duration;
+
+    await app.request("/api/videos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(original),
+    });
+    const videoBeforeReplacement = await db.query.videos.findFirst({
+      where: (video, { eq }) => eq(video.youtubeVideoId, "wc8FBhQtdsA"),
+    });
+
+    if (!videoBeforeReplacement) {
+      throw new Error("Expected the original video");
+    }
+
+    const response = await app.request("/api/videos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(replacement),
+    });
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toEqual({
+      video: { youtubeVideoId: "wc8FBhQtdsA" },
+      created: false,
+    });
+
+    const storedResponse = await client.api.videos[":youtubeVideoId"].$get({
+      param: { youtubeVideoId: "wc8FBhQtdsA" },
+    });
+    const videoAfterReplacement = await db.query.videos.findFirst({
+      where: (video, { eq }) => eq(video.youtubeVideoId, "wc8FBhQtdsA"),
+    });
+
+    if (storedResponse.status !== 200 || !videoAfterReplacement) {
+      throw new Error("Expected the replaced video");
+    }
+
+    const storedBody = await storedResponse.json();
+
+    expect(videoAfterReplacement.id).toBe(videoBeforeReplacement.id);
+    expect(videoAfterReplacement.createdAt).toEqual(
+      videoBeforeReplacement.createdAt,
+    );
+    expect(storedBody.video.title).toBe("Updated title");
+    expect(storedBody.video.abstract).toBe("Updated abstract");
+    expect(storedBody.video.channel).toBeNull();
+    expect(storedBody.video.durationSeconds).toBeNull();
+    expect(storedBody.video.recap.recapJson).toEqual(replacement);
+  });
+
+  it("returns useful validation errors without storing invalid data", async () => {
+    const recapJson = JSON.parse(await readFile(samplePath, "utf8"));
+    delete recapJson.abstract;
+
+    const response = await app.request("/api/videos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(recapJson),
+    });
+
+    expect(response.status).toBe(422);
+    await expect(response.json()).resolves.toMatchObject({
+      error: "Invalid recap",
+      issues: [{ path: "abstract" }],
+    });
+
+    const listResponse = await app.request("/api/videos");
+    await expect(listResponse.json()).resolves.toEqual({ videos: [] });
+  });
+
+  it("accepts a recap without optional video metadata", async () => {
+    const recapJson = JSON.parse(await readFile(samplePath, "utf8"));
+    delete recapJson.video.channel;
+    delete recapJson.video.duration;
+    delete recapJson.footerText;
+    delete recapJson.generation;
+
+    const response = await app.request("/api/videos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(recapJson),
+    });
+
+    expect(response.status).toBe(201);
+
+    const storedResponse = await client.api.videos[":youtubeVideoId"].$get({
+      param: { youtubeVideoId: "wc8FBhQtdsA" },
+    });
+
+    if (storedResponse.status !== 200) {
+      throw new Error("Expected the stored video");
+    }
+
+    const storedBody = await storedResponse.json();
+
+    expect(storedBody.video.channel).toBeNull();
+    expect(storedBody.video.durationSeconds).toBeNull();
   });
 });

@@ -60,12 +60,12 @@ Architecture and testing conventions live in `CODE_STYLE.md`.
 ### 5. Ingestion after the UI proves useful
 
 - [x] Decide validation library: Zod, already used for route validation.
-- [ ] Add endpoint to submit recap JSON.
-- [ ] Validate against `data/video-recap.schema.json` or equivalent runtime schema.
-- [ ] Extract indexed fields into `videos`.
-- [ ] Store full original payload in `video_recaps.recap_json`.
-- [ ] Return friendly validation errors.
-- [ ] Initially allow local/manual submission; require login later.
+- [x] Add endpoint to submit recap JSON.
+- [x] Validate against `data/video-recap.schema.json` or equivalent runtime schema.
+- [x] Extract indexed fields into `videos`.
+- [x] Store full original payload in `video_recaps.recap_json`.
+- [x] Return friendly validation errors.
+- [x] Initially allow local/manual submission; require login later.
 
 ### 6. Auth after ingestion shape is clear
 

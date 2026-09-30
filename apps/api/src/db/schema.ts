@@ -35,6 +35,7 @@ export const videoRecaps = pgTable("video_recaps", {
   id: uuid("id").defaultRandom().primaryKey(),
   videoId: uuid("video_id")
     .notNull()
+    .unique()
     .references(() => videos.id, { onDelete: "cascade" }),
   schemaVersion: text("schema_version").notNull(),
   recapJson: jsonb("recap_json").notNull(),
