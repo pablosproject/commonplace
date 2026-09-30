@@ -35,47 +35,31 @@
 - [x] Add migration generation/run scripts.
 - [x] Add seed script using `data/samples/wc8FBhQtdsA/video-recap-data.json`.
 
-### 3. First database model
+### 3. API for seeded browsing
 
-Use original recap JSON as source of truth, plus extracted columns for browse/search.
+Architecture and testing conventions live in `CODE_STYLE.md`.
 
-- [ ] `videos` table:
-  - [ ] YouTube video id.
-  - [ ] URL.
-  - [ ] title.
-  - [ ] channel.
-  - [ ] duration seconds/formatted.
-  - [ ] abstract.
-  - [ ] main takeaway.
-  - [ ] created/submitted timestamp.
-- [ ] `video_recaps` table:
-  - [ ] video reference.
-  - [ ] schema version.
-  - [ ] full recap JSONB payload.
-- [ ] Defer `users` and `upvotes` until after browse/detail works.
+- [x] `GET /api/videos` returns indexed video cards.
+- [x] `GET /api/videos/:youtubeVideoId` returns full recap data.
+- [x] `GET /api/search?q=...` for simple search.
+- [x] Add health check endpoint.
+- [x] Add route integration tests on PGlite.
 
-### 4. API for seeded browsing
+### 4. Consumption UI thin slice
 
-- [ ] `GET /api/videos` returns indexed video cards.
-- [ ] `GET /api/videos/:id` returns full recap data.
-- [ ] `GET /api/search?q=...` or query param on `/api/videos` for simple search.
-- [ ] Add health check endpoint.
+- [x] Homepage/browse page with seeded videos.
+- [x] Search box over title, abstract, and maybe main takeaway.
+- [x] Video card with title, channel, duration, abstract, and placeholder upvote count.
+- [x] Video recap detail page.
+- [x] Embedded YouTube player.
+- [x] Highlights list.
+- [x] Sections/timepoints list.
+- [x] Clicking a timestamp jumps the player to that second.
+- [x] Use `reference-render.html` as inspiration, not as code to preserve exactly.
 
-### 5. Consumption UI thin slice
+### 5. Ingestion after the UI proves useful
 
-- [ ] Homepage/browse page with seeded videos.
-- [ ] Search box over title, abstract, and maybe main takeaway.
-- [ ] Video card with title, channel, duration, abstract, and placeholder upvote count.
-- [ ] Video recap detail page.
-- [ ] Embedded YouTube player.
-- [ ] Highlights list.
-- [ ] Sections/timepoints list.
-- [ ] Clicking a timestamp jumps the player to that second.
-- [ ] Use `reference-render.html` as inspiration, not as code to preserve exactly.
-
-### 6. Ingestion after the UI proves useful
-
-- [ ] Decide validation library: Ajv matches existing JSON Schema; Zod may be nicer for app types.
+- [x] Decide validation library: Zod, already used for route validation.
 - [ ] Add endpoint to submit recap JSON.
 - [ ] Validate against `data/video-recap.schema.json` or equivalent runtime schema.
 - [ ] Extract indexed fields into `videos`.
@@ -83,14 +67,14 @@ Use original recap JSON as source of truth, plus extracted columns for browse/se
 - [ ] Return friendly validation errors.
 - [ ] Initially allow local/manual submission; require login later.
 
-### 7. Auth after ingestion shape is clear
+### 6. Auth after ingestion shape is clear
 
 - [ ] Pick MVP auth approach.
 - [ ] Add registration/login.
 - [ ] Restrict submitting videos to registered users.
 - [ ] Record submitter on videos.
 
-### 8. Upvotes after auth
+### 7. Upvotes after auth
 
 - [ ] Add `upvotes` table.
 - [ ] Add upvote/un-upvote endpoint.
@@ -98,11 +82,32 @@ Use original recap JSON as source of truth, plus extracted columns for browse/se
 - [ ] Show upvote count on cards and detail page.
 - [ ] Add popular sort.
 
-### 9. Companion recap skill/tool later
+### 8. Companion recap skill/tool later
 
 - [ ] Define how users generate recap JSON from a YouTube video.
 - [ ] Ensure generated JSON matches ingestion schema.
 - [ ] Decide sharing flow: copy/paste JSON, API token, or direct upload.
+
+### 9. Proper database design
+
+The current schema (`apps/api/src/db/schema.ts`) is temporary: `videos` with extracted browse fields plus `video_recaps` holding the full recap JSONB. Build on it for now; design it properly once the app shape is clear.
+
+- [ ] Review `data/video-recap.schema.json` and decide which entities deserve their own tables (sections, highlights, timepoints) vs. staying in JSONB.
+- [ ] Decide the source of truth: original recap JSON, normalized tables, or both.
+- [ ] Design search support (Postgres full-text search, indexes).
+- [ ] Design recap versioning (multiple recaps per video, schema version upgrades).
+- [ ] Design `users`, `upvotes`, and submitter relations properly.
+- [ ] Write the new schema and migrate away from the temporary one.
+
+## Possible improvements
+
+Not blocking anything; pick up when the pain is felt.
+
+- [ ] Speed up test-database startup. Booting PGlite dominates test time (3 boots measured at 5-8s, 14 boots at 14-17s) while queries take 1-50ms. Options, cheapest first:
+  - [ ] Reuse the compiled WASM module across instances via PGlite's `pgliteWasmModule` option, compiling `pglite.wasm` once per worker.
+  - [ ] Memoize one instance per worker process and run test files in a single process, so the suite boots once instead of once per file.
+  - [ ] Prepare one instance and `clone()` it per test file.
+  - [ ] Benchmark before adopting: the win was never measured, only the API confirmed to exist.
 
 ## First milestone
 
