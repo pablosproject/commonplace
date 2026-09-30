@@ -1,7 +1,9 @@
 import { serve } from "@hono/node-server";
-import { app } from "./app.js";
+import { createApp } from "./app.js";
+import { db } from "./db/client.js";
 
 const port = Number(process.env.PORT ?? 3000);
+const app = createApp({ db });
 
 serve(
   {

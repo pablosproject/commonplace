@@ -15,7 +15,8 @@
     "db:migrate": "npm run db:migrate -w @video-recap/api",
     "db:seed": "npm run db:seed -w @video-recap/api",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "test": "npm run test -w @video-recap/api"
   },
   "devDependencies": {
     "concurrently": "^9.0.1",
