@@ -5,9 +5,10 @@ export default defineConfig({
   schema: "./src/db/schema.ts",
   out: "./drizzle",
   dialect: "postgresql",
+  migrations: { prefix: "timestamp" },
   dbCredentials: {
     url:
       process.env.DATABASE_URL ??
-      "postgres://video_recaps:video_recaps@localhost:5432/video_recaps",
+      "postgres://video_recaps:video_recaps@localhost:55432/video_recaps",
   },
 });
