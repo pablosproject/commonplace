@@ -1,5 +1,6 @@
 # Agent Instructions
 
+- Read `CODE_STYLE.md` before adding or moving files: it defines the API architecture and conventions.
 - Use conventional commits.
 - Always ask before committing changes for a task.
 - Choose simplicity over complexity.
