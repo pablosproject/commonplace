@@ -7,6 +7,8 @@
   ],
   "scripts": {
     "dev": "concurrently -n api,web -c blue,green \"npm run dev -w @video-recap/api\" \"npm run dev -w @video-recap/web\"",
+    "herdr": "./herdr-dev.sh",
+    "dev:herdr": "./herdr-dev.sh",
     "dev:api": "npm run dev -w @video-recap/api",
     "dev:web": "npm run dev -w @video-recap/web",
     "build": "npm run build -w @video-recap/api && npm run build -w @video-recap/web",
