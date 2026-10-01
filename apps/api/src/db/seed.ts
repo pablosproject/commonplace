@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { db, sql } from "./client.js";
@@ -8,15 +8,27 @@ import { ingestRecap } from "../services/ingest-recap.js";
 const currentFile = fileURLToPath(import.meta.url);
 const apiDir = path.resolve(path.dirname(currentFile), "../..");
 const repoRoot = path.resolve(apiDir, "../..");
-const samplePath = path.join(
-  repoRoot,
-  "data/samples/wc8FBhQtdsA/video-recap-data.json",
+const samplesDir = path.join(repoRoot, "data/samples");
+
+const sampleDirs = (await readdir(samplesDir, { withFileTypes: true })).filter(
+  (entry) => entry.isDirectory(),
+);
+const recaps = await Promise.all(
+  sampleDirs.map(async (sampleDir) => {
+    const samplePath = path.join(
+      samplesDir,
+      sampleDir.name,
+      "video-recap-data.json",
+    );
+
+    return recapSchema.parse(JSON.parse(await readFile(samplePath, "utf8")));
+  }),
 );
 
-const recap = recapSchema.parse(JSON.parse(await readFile(samplePath, "utf8")));
-
-await ingestRecap(db, recap);
+for (const recap of recaps) {
+  await ingestRecap(db, recap);
+}
 
 await sql.end();
 
-console.log(`Seeded ${recap.video.id}`);
+console.log(`Seeded ${recaps.length} recaps`);

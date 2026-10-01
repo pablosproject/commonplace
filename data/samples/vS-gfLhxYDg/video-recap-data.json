@@ -1,0 +1,377 @@
+{
+  "schemaVersion": "1.0",
+  "video": {
+    "id": "vS-gfLhxYDg",
+    "url": "https://www.youtube.com/watch?v=vS-gfLhxYDg",
+    "title": "I had Fable build several projects for me. I'm disturbed by what I saw.",
+    "duration": {
+      "seconds": 1280,
+      "formatted": "00:21:20"
+    }
+  },
+  "abstract": "Mo Bitar demos several apps and games built with Anthropic's temporary Fable / Claude Mythos coding model, then explains why the results felt unusually beautiful and unsettling. His conclusion is that the magic is real for one-shot demos, but the hard parts of software—debugging, maintainability, and economics—still keep humans firmly in the loop.",
+  "mainTakeaway": "Fable can create striking, almost magical prototypes, but it does not solve software engineering: the last 20% of bug-fixing, code quality, and cost is still where expertise matters most. Video Float − + Dock",
+  "highlights": [
+    {
+      "time": "00:00:54",
+      "seconds": 54,
+      "title": "Token Mania demo",
+      "description": "a Factorio-like AI-lab game shows how much Fable can generate from a simple prompt.",
+      "emphasis": [
+        "Token Mania demo"
+      ]
+    },
+    {
+      "time": "00:02:03",
+      "seconds": 123,
+      "title": "Geodrift atmosphere",
+      "description": "the floating relic game is where Bitar says the model started to feel unusually beautiful.",
+      "emphasis": [
+        "Geodrift atmosphere"
+      ]
+    },
+    {
+      "time": "00:04:00",
+      "seconds": 240,
+      "title": "“Inside Fable's mind”",
+      "description": "he describes the visuals and music as emotionally convincing enough to create a sense of longing.",
+      "emphasis": [
+        "“Inside Fable's mind”"
+      ]
+    },
+    {
+      "time": "00:09:04",
+      "seconds": 544,
+      "title": "Shipping problem appears",
+      "description": "a weird water-rendering bug becomes the example of why flashy demos are easier than finished products.",
+      "emphasis": [
+        "Shipping problem appears"
+      ]
+    },
+    {
+      "time": "00:10:04",
+      "seconds": 604,
+      "title": "The 80/20 rule",
+      "description": "models can get you most of the way, but the last 20% is brutal if you are not an expert.",
+      "emphasis": [
+        "The 80/20 rule"
+      ]
+    },
+    {
+      "time": "00:14:14",
+      "seconds": 854,
+      "title": "Benchmarks miss the point",
+      "description": "the linked article captures why some users felt Fable was special in ways numbers do not measure.",
+      "emphasis": [
+        "Benchmarks miss the point"
+      ]
+    },
+    {
+      "time": "00:17:25",
+      "seconds": 1045,
+      "title": "Economics reality check",
+      "description": "he estimates the demos could have cost thousands of dollars through the API.",
+      "emphasis": [
+        "Economics reality check"
+      ]
+    },
+    {
+      "time": "00:21:20",
+      "seconds": 1280,
+      "title": "Final framing",
+      "description": "François Chollet's “force multiplier” line becomes Bitar's closing thesis about humans staying essential.",
+      "emphasis": [
+        "Final framing"
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "title": "Why Fable felt special right away",
+      "points": [
+        {
+          "time": "00:00:00",
+          "seconds": 0,
+          "title": "Bitar opens with an article describing a feeling of",
+          "description": "Bitar opens with an article describing a feeling of longing for Fable and says he felt it too.",
+          "emphasis": [
+            "Bitar opens with an article describing a feeling of"
+          ]
+        },
+        {
+          "time": "00:00:35",
+          "seconds": 35,
+          "title": "He sets up the experiment",
+          "description": "show what Fable built for him, mostly games.",
+          "emphasis": [
+            "He sets up the experiment"
+          ]
+        },
+        {
+          "time": "00:00:54",
+          "seconds": 54,
+          "title": "Token Mania starts as a Factorio-style game about building",
+          "description": "Token Mania starts as a Factorio-style game about building an AI lab.",
+          "emphasis": [
+            "Token Mania starts as a Factorio-style game about building"
+          ]
+        },
+        {
+          "time": "00:01:43",
+          "seconds": 103,
+          "title": "The demo quickly reaches data centers wires water GPUs",
+          "description": "The demo quickly reaches data centers, wires, water, GPUs, and model training with very little manual design.",
+          "emphasis": [
+            "The demo quickly reaches data centers wires water GPUs"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "The beautiful demo phase",
+      "points": [
+        {
+          "time": "00:02:03",
+          "seconds": 123,
+          "title": "A second project becomes an ethereal floating game focused",
+          "description": "A second project becomes an ethereal floating game focused on mood, relic collection, and music.",
+          "emphasis": [
+            "A second project becomes an ethereal floating game focused"
+          ]
+        },
+        {
+          "time": "00:04:00",
+          "seconds": 240,
+          "title": "He says this is why the model felt beautiful",
+          "description": "he barely specified the aesthetics, yet the result felt coherent.",
+          "emphasis": [
+            "He says this is why the model felt beautiful"
+          ]
+        },
+        {
+          "time": "00:05:08",
+          "seconds": 308,
+          "title": "He warns that the code is probably a black",
+          "description": "He warns that the code is probably a black box and easy to overestimate if you never inspect it.",
+          "emphasis": [
+            "He warns that the code is probably a black"
+          ]
+        },
+        {
+          "time": "00:06:04",
+          "seconds": 364,
+          "title": "He notes that LLMs impress non-experts most so he",
+          "description": "He notes that LLMs impress non-experts most, so he is careful not to overclaim from game demos.",
+          "emphasis": [
+            "He notes that LLMs impress non-experts most so he"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Why demos are not the same as shipping",
+      "points": [
+        {
+          "time": "00:06:22",
+          "seconds": 382,
+          "title": "He shows an open-world three js crafting game with",
+          "description": "He shows an open-world three.js crafting game with logic-gate mechanics.",
+          "emphasis": [
+            "He shows an open-world three js crafting game with"
+          ]
+        },
+        {
+          "time": "00:07:30",
+          "seconds": 450,
+          "title": "He pivots to an even more impressive community-made browser",
+          "description": "He pivots to an even more impressive community-made browser game built with Fable.",
+          "emphasis": [
+            "He pivots to an even more impressive community-made browser"
+          ]
+        },
+        {
+          "time": "00:08:40",
+          "seconds": 520,
+          "title": "He stresses that great demos have been possible for",
+          "description": "He stresses that great demos have been possible for a while and do not mean programming is solved.",
+          "emphasis": [
+            "He stresses that great demos have been possible for"
+          ]
+        },
+        {
+          "time": "00:09:04",
+          "seconds": 544,
+          "title": "A water-rendering issue becomes the concrete example of how",
+          "description": "A water-rendering issue becomes the concrete example of how hard natural-language debugging still is.",
+          "emphasis": [
+            "A water-rendering issue becomes the concrete example of how"
+          ]
+        },
+        {
+          "time": "00:10:04",
+          "seconds": 604,
+          "title": "His core rule",
+          "description": "LLMs get you 80% there, but the last 20% is where non-experts get stuck.",
+          "emphasis": [
+            "His core rule"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Music tools reinforce the same pattern",
+      "points": [
+        {
+          "time": "00:10:18",
+          "seconds": 618,
+          "title": "He moves to a piano-practice app and generated compositions",
+          "description": "He moves to a piano-practice app and generated compositions, saying this part is less unique.",
+          "emphasis": [
+            "He moves to a piano-practice app and generated compositions"
+          ]
+        },
+        {
+          "time": "00:12:10",
+          "seconds": 730,
+          "title": "A MIDI/microphone practice tool works but still misfires again",
+          "description": "A MIDI/microphone practice tool works but still misfires, again showing the stubborn last-mile problem.",
+          "emphasis": [
+            "A MIDI/microphone practice tool works but still misfires again"
+          ]
+        },
+        {
+          "time": "00:12:24",
+          "seconds": 744,
+          "title": "An improv-learning wizard is genuinely useful because the model",
+          "description": "An improv-learning wizard is genuinely useful because the model can explain how it generated the music.",
+          "emphasis": [
+            "An improv-learning wizard is genuinely useful because the model"
+          ]
+        },
+        {
+          "time": "00:13:03",
+          "seconds": 783,
+          "title": "He argues that part of Fable's emotional effect comes",
+          "description": "He argues that part of Fable's emotional effect comes from attributing beauty in the output back to the model itself.",
+          "emphasis": [
+            "He argues that part of Fable's emotional effect comes"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Article commentary, Anthropic, and the closed-window feeling",
+      "points": [
+        {
+          "time": "00:14:14",
+          "seconds": 854,
+          "title": "He turns to the article claiming Fable felt special",
+          "description": "He turns to the article claiming Fable felt special beyond benchmarks and says it matches his own experience.",
+          "emphasis": [
+            "He turns to the article claiming Fable felt special"
+          ]
+        },
+        {
+          "time": "00:15:10",
+          "seconds": 910,
+          "title": "He narrows the claim",
+          "description": "he mostly felt this difference in programming, not in generic conversation or writing.",
+          "emphasis": [
+            "He narrows the claim"
+          ]
+        },
+        {
+          "time": "00:16:01",
+          "seconds": 961,
+          "title": "He connects Fable to a broader sense that Anthropic",
+          "description": "He connects Fable to a broader sense that Anthropic may be leading the frontier .",
+          "emphasis": [
+            "He connects Fable to a broader sense that Anthropic"
+          ]
+        },
+        {
+          "time": "00:16:53",
+          "seconds": 1013,
+          "title": "He echoes the article's idea that the window to",
+          "description": "He echoes the article's idea that the window to catch the frontier may already be closing.",
+          "emphasis": [
+            "He echoes the article's idea that the window to"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "The real constraints: cost, geopolitics, and human direction",
+      "points": [
+        {
+          "time": "00:17:25",
+          "seconds": 1045,
+          "title": "He says Mythos may be economically inviable despite how",
+          "description": "He says Mythos may be economically inviable despite how impressive it feels.",
+          "emphasis": [
+            "He says Mythos may be economically inviable despite how"
+          ]
+        },
+        {
+          "time": "00:17:46",
+          "seconds": 1066,
+          "title": "He estimates his demos might have cost roughly 2",
+          "description": "He estimates his demos might have cost roughly $2,000–$3,000 in API usage.",
+          "emphasis": [
+            "He estimates his demos might have cost roughly 2"
+          ]
+        },
+        {
+          "time": "00:18:26",
+          "seconds": 1106,
+          "title": "He expands the argument into compute geopolitics and chip",
+          "description": "He expands the argument into compute geopolitics and chip controls.",
+          "emphasis": [
+            "He expands the argument into compute geopolitics and chip"
+          ]
+        },
+        {
+          "time": "00:19:32",
+          "seconds": 1172,
+          "title": "Even after all this he still rejects the idea",
+          "description": "Even after all this, he still rejects the idea that AI replaces humans because he was directing every step.",
+          "emphasis": [
+            "Even after all this he still rejects the idea"
+          ]
+        },
+        {
+          "time": "00:20:05",
+          "seconds": 1205,
+          "title": "He dismisses exaggerated claims like 100 hours with Opus",
+          "description": "He dismisses exaggerated claims like “100 hours with Opus becomes 1 hour with Fable” as hype, even if the difference felt tangible.",
+          "emphasis": [
+            "He dismisses exaggerated claims like 100 hours with Opus"
+          ]
+        },
+        {
+          "time": "00:20:48",
+          "seconds": 1248,
+          "title": "He says most progress now shows up in verifiable",
+          "description": "He says most progress now shows up in verifiable domains like coding and math, not softer tasks like writing.",
+          "emphasis": [
+            "He says most progress now shows up in verifiable"
+          ]
+        },
+        {
+          "time": "00:21:20",
+          "seconds": 1280,
+          "title": "He closes with François Chollet's view that AI is",
+          "description": "He closes with François Chollet's view that AI is leverage, not autonomy, and still needs a human in the loop.",
+          "emphasis": [
+            "He closes with François Chollet's view that AI is"
+          ]
+        }
+      ]
+    }
+  ],
+  "conclusion": "Bitar's verdict is emotionally mixed: Fable really did feel like a leap in coding fluency and aesthetic coherence, but the leap is easiest to notice in demos. Once the conversation turns to maintainable code, debugging, cost, and responsibility, the old truth returns: AI is powerful leverage, not a replacement for engineering judgment.",
+  "generation": {
+    "createdAt": "2026-10-01T00:00:00.000Z",
+    "notes": "Converted from gist 340a332b36a13b1842b514b40c3b752c derived HTML recap."
+  }
+}
