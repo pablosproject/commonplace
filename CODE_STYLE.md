@@ -90,7 +90,7 @@ Frontend rules:
 
 - Pages own screen workflows.
 - A page may keep private `api.ts`, `hooks.ts`, `store.ts`, `types.ts`, and
-  `*.module.css` files next to it.
+  `*.styles.ts` files next to it.
 - Do not introduce `features/` by default.
 - Move code to `shared/` only after at least two pages need it.
 - Consume the API through the Hono RPC client typed from `AppType`. Do not
@@ -115,12 +115,14 @@ State rules:
 
 CSS rules:
 
-- Use plain CSS and CSS Modules.
+- Use Linaria for component and page styles. Colocate styles in
+  `Component.styles.ts` or page-level `*.styles.ts` files.
+- Use Linaria's `styled` interface for semantic elements and reusable UI.
 - Do not use Tailwind.
 - Use global CSS only for reset, base typography, tokens, app shell primitives,
   and unavoidable third-party overrides.
-- Use `Component.module.css` or page-level modules for scoped styles.
-- Prefer low-specificity class selectors and CSS custom properties.
+- Prefer CSS custom properties for values supplied at runtime and `data-*`
+  attributes for visual states.
 
 Testing:
 

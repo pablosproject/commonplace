@@ -8,6 +8,7 @@ import {
   timestamp,
   uuid,
 } from "drizzle-orm/pg-core";
+import type { Recap } from "../schemas/recaps.js";
 
 export const videos = pgTable(
   "videos",
@@ -38,7 +39,7 @@ export const videoRecaps = pgTable("video_recaps", {
     .unique()
     .references(() => videos.id, { onDelete: "cascade" }),
   schemaVersion: text("schema_version").notNull(),
-  recapJson: jsonb("recap_json").notNull(),
+  recapJson: jsonb("recap_json").$type<Recap>().notNull(),
   createdAt: timestamp("created_at", { withTimezone: true })
     .defaultNow()
     .notNull(),

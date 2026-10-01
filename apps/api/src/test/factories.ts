@@ -1,5 +1,6 @@
 import type { Database } from "../db/client.js";
 import { videoRecaps, videos } from "../db/schema.js";
+import type { Recap } from "../schemas/recaps.js";
 
 type VideoOverrides = Partial<typeof videos.$inferInsert>;
 
@@ -33,7 +34,7 @@ export const insertVideo = async (
 export const insertRecap = async (
   db: Database,
   videoId: string,
-  recapJson: unknown,
+  recapJson: Recap,
   schemaVersion = "1.0.0",
 ) => {
   const [recap] = await db
