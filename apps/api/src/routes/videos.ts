@@ -1,12 +1,19 @@
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
+import type { YouTubeMetadataClient } from "../clients/youtube.js";
 import type { Database } from "../db/client.js";
 import { getVideoByYoutubeId, listVideos } from "../queries/videos.js";
 import { recapSchema } from "../schemas/recaps.js";
 import { videoParamsSchema } from "../schemas/videos.js";
 import { ingestRecap } from "../services/ingest-recap.js";
 
-export const createVideosRoutes = ({ db }: { db: Database }) =>
+export const createVideosRoutes = ({
+  db,
+  fetchYouTubeMetadata,
+}: {
+  db: Database;
+  fetchYouTubeMetadata?: YouTubeMetadataClient;
+}) =>
   new Hono()
     .post(
       "/",
@@ -25,7 +32,11 @@ export const createVideosRoutes = ({ db }: { db: Database }) =>
         }
       }),
       async (c) => {
-        const result = await ingestRecap(db, c.req.valid("json"));
+        const result = await ingestRecap(
+          db,
+          c.req.valid("json"),
+          fetchYouTubeMetadata,
+        );
 
         c.header(
           "Location",

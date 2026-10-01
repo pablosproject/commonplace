@@ -21,7 +21,7 @@ let client: ReturnType<typeof testClient<ReturnType<typeof createApp>>>;
 
 beforeAll(async () => {
   db = await createTestDb();
-  app = createApp({ db });
+  app = createApp({ db, fetchYouTubeMetadata: async () => null });
   client = testClient(app);
 });
 
@@ -213,6 +213,48 @@ describe("POST /api/videos", () => {
     expect(storedBody.video.channel).toBeNull();
     expect(storedBody.video.durationSeconds).toBeNull();
     expect(storedBody.video.recap.recapJson).toEqual(replacement);
+  });
+
+  it("uses YouTube metadata when ingesting a recap", async () => {
+    const recapJson = JSON.parse(await readFile(samplePath, "utf8"));
+    delete recapJson.video.channel;
+    recapJson.video.title = "Generated title";
+    const metadataApp = createApp({
+      db,
+      fetchYouTubeMetadata: async () => ({
+        title: "YouTube title",
+        channel: "YouTube channel",
+      }),
+    });
+
+    const response = await metadataApp.request("/api/videos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(recapJson),
+    });
+
+    expect(response.status).toBe(201);
+
+    const storedResponse = await metadataApp.request("/api/videos/wc8FBhQtdsA");
+
+    if (storedResponse.status !== 200) {
+      throw new Error("Expected the stored video");
+    }
+
+    const storedBody = (await storedResponse.json()) as {
+      video: {
+        title: string;
+        channel: string | null;
+        recap: { recapJson: typeof recapJson };
+      };
+    };
+
+    expect(storedBody.video.title).toBe("YouTube title");
+    expect(storedBody.video.channel).toBe("YouTube channel");
+    expect(storedBody.video.recap.recapJson.video.title).toBe("YouTube title");
+    expect(storedBody.video.recap.recapJson.video.channel).toBe(
+      "YouTube channel",
+    );
   });
 
   it("returns useful validation errors without storing invalid data", async () => {

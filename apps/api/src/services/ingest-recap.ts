@@ -1,25 +1,44 @@
+import {
+  fetchYouTubeVideoMetadata,
+  type YouTubeMetadataClient,
+} from "../clients/youtube.js";
 import type { Database } from "../db/client.js";
 import { upsertRecap, upsertVideo } from "../queries/recaps.js";
 import type { Recap } from "../schemas/recaps.js";
 
-export const ingestRecap = async (db: Database, recap: Recap) =>
-  db.transaction(async (tx) => {
+export const ingestRecap = async (
+  db: Database,
+  recap: Recap,
+  fetchMetadata: YouTubeMetadataClient = fetchYouTubeVideoMetadata,
+) => {
+  const metadata = await fetchMetadata(recap.video);
+  const enrichedRecap: Recap = {
+    ...recap,
+    video: {
+      ...recap.video,
+      title: metadata?.title ?? recap.video.title,
+      channel: metadata?.channel ?? recap.video.channel,
+    },
+  };
+
+  return db.transaction(async (tx) => {
     const video = await upsertVideo(tx, {
-      youtubeVideoId: recap.video.id,
-      url: recap.video.url,
-      title: recap.video.title,
-      channel: recap.video.channel ?? null,
-      durationSeconds: recap.video.duration?.seconds ?? null,
-      durationFormatted: recap.video.duration?.formatted ?? null,
-      abstract: recap.abstract,
-      mainTakeaway: recap.mainTakeaway,
+      youtubeVideoId: enrichedRecap.video.id,
+      url: enrichedRecap.video.url,
+      title: enrichedRecap.video.title,
+      channel: enrichedRecap.video.channel ?? null,
+      durationSeconds: enrichedRecap.video.duration?.seconds ?? null,
+      durationFormatted: enrichedRecap.video.duration?.formatted ?? null,
+      abstract: enrichedRecap.abstract,
+      mainTakeaway: enrichedRecap.mainTakeaway,
     });
 
     await upsertRecap(tx, {
       videoId: video.id,
-      schemaVersion: recap.schemaVersion,
-      recapJson: recap,
+      schemaVersion: enrichedRecap.schemaVersion,
+      recapJson: enrichedRecap,
     });
 
-    return { youtubeVideoId: recap.video.id, created: video.created };
+    return { youtubeVideoId: enrichedRecap.video.id, created: video.created };
   });
+};
