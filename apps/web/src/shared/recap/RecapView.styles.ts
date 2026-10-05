@@ -55,7 +55,7 @@ export const RecapShell = styled.div`
   display: grid;
 
   &[data-layout="reader"] {
-    grid-template-columns: minmax(0, 1fr) minmax(360px, var(--side-width));
+    grid-template-columns: minmax(0, var(--notes-width)) minmax(360px, 1fr);
     grid-template-areas: "notes video";
   }
 
@@ -64,7 +64,7 @@ export const RecapShell = styled.div`
   }
 
   &[data-layout="watch"] {
-    grid-template-columns: minmax(0, 1fr) minmax(360px, var(--side-width));
+    grid-template-columns: minmax(0, 1fr) minmax(360px, var(--notes-width));
     grid-template-areas: "video notes";
   }
 
@@ -278,7 +278,7 @@ export const SideResizer = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
-  right: calc(var(--side-width) - 7px);
+  right: calc(var(--notes-width) - 7px);
   z-index: 5;
   display: flex;
   align-items: center;
@@ -286,6 +286,11 @@ export const SideResizer = styled.div`
   width: 14px;
   cursor: col-resize;
   touch-action: none;
+
+  ${RecapShell}[data-layout="reader"] & {
+    right: auto;
+    left: calc(min(var(--notes-width), 100% - 360px) - 7px);
+  }
 
   &::before {
     content: "";

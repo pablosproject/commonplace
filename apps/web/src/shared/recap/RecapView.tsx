@@ -31,7 +31,7 @@ import {
   formatTime,
 } from "./timepoints";
 import type { Recap, SeekRequest } from "./types";
-import { useSideResize } from "./useSideResize";
+import { useNotesResize } from "./useNotesResize";
 
 const NARROW_QUERY = "(max-width: 980px)";
 
@@ -45,8 +45,8 @@ export function RecapView({ nav, recap }: RecapViewProps) {
   const [savedLayout, setLayout] = useLayout();
   const isNarrow = useMediaQuery(NARROW_QUERY);
   const layout: Layout = isNarrow ? "watch" : savedLayout;
-  const { currentSideWidth, resetSideWidth, startSideResize } =
-    useSideResize(layout);
+  const { currentNotesWidth, resetNotesWidth, startNotesResize } =
+    useNotesResize(layout);
   const [isPlayerFloating, setIsPlayerFloating] = useState(false);
   const [seekRequest, setSeekRequest] = useState<SeekRequest>({
     seconds: 0,
@@ -85,7 +85,7 @@ export function RecapView({ nav, recap }: RecapViewProps) {
 
   const changeLayout = (nextLayout: Layout) => {
     setLayout(nextLayout);
-    resetSideWidth();
+    resetNotesWidth();
   };
 
   const intro = (
@@ -115,7 +115,7 @@ export function RecapView({ nav, recap }: RecapViewProps) {
       <RecapShell
         data-layout={layout}
         data-floating={isPlayerFloating}
-        style={{ "--side-width": `${currentSideWidth}px` } as CSSProperties}
+        style={{ "--notes-width": `${currentNotesWidth}px` } as CSSProperties}
       >
         <VideoColumn aria-label="Video">
           <RecapPlayer
@@ -178,7 +178,10 @@ export function RecapView({ nav, recap }: RecapViewProps) {
         </NotesColumn>
 
         {layout === "reader" && isPlayerFloating ? null : (
-          <SideResizer title="Drag to resize" onPointerDown={startSideResize} />
+          <SideResizer
+            title="Drag to resize"
+            onPointerDown={startNotesResize}
+          />
         )}
       </RecapShell>
     </RecapPage>
