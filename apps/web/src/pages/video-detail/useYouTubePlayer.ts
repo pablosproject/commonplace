@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import { formatTime } from "./timepoints";
+import { useEffect, useRef } from "react";
 import type { SeekRequest } from "./types";
 
 const ACTIVE_SYNC_INTERVAL_MS = 500;
@@ -49,7 +48,6 @@ export function useYouTubePlayer({
 }: UseYouTubePlayerOptions) {
   const playerRef = useRef<YouTubePlayer | null>(null);
   const pendingSeekRef = useRef<number | null>(null);
-  const [status, setStatus] = useState("");
 
   useEffect(() => {
     let cancelled = false;
@@ -117,22 +115,10 @@ export function useYouTubePlayer({
       return;
     }
 
-    if (!playerRef.current) {
+    if (!seekPlayer(playerRef.current, seekRequest.seconds)) {
       pendingSeekRef.current = seekRequest.seconds;
-      setStatus(`Queued ${formatTime(seekRequest.seconds)}`);
-      return;
     }
-
-    if (seekPlayer(playerRef.current, seekRequest.seconds)) {
-      setStatus(`Jumped to ${formatTime(seekRequest.seconds)}`);
-      return;
-    }
-
-    pendingSeekRef.current = seekRequest.seconds;
-    setStatus(`Queued ${formatTime(seekRequest.seconds)}`);
   }, [seekRequest]);
-
-  return status;
 }
 
 function loadYouTubeApi() {

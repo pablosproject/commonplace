@@ -1,77 +1,82 @@
 import { styled } from "@linaria/react";
 import { Link } from "react-router-dom";
 
-export const HomeShell = styled.main`
-  display: grid;
-  gap: 32px;
+export const HomeShell = styled.div`
   min-height: 100vh;
-  padding: 32px clamp(18px, 4vw, 56px);
-  background: #0c100e;
-  color: #edf3ef;
+`;
+
+export const Brand = styled(Link)`
+  flex-grow: 1;
+  color: var(--text-strong);
+  font-size: 16px;
+  font-weight: 700;
+
+  &:hover {
+    color: var(--text-strong);
+    text-decoration: none;
+  }
+`;
+
+export const HomeContent = styled.main`
+  display: grid;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 56px clamp(16px, 4vw, 56px) 80px;
 
   @media (max-width: 620px) {
-    padding: 22px 14px;
+    gap: 32px;
+    padding-top: 32px;
   }
 `;
 
 export const BrowseHero = styled.section`
   display: grid;
-  justify-items: center;
-  gap: 24px;
-  padding: 52px 20px 44px;
-  border-bottom: 1px solid #2b332f;
-  text-align: center;
+  gap: 28px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
 `;
 
 export const HeroContent = styled.div`
   display: grid;
-  justify-items: center;
+  gap: 14px;
+  max-width: 760px;
 
   h1 {
-    margin-bottom: 18px;
-    max-width: 960px;
-    font-size: 3.25rem;
-    line-height: 1;
-  }
-
-  @media (max-width: 620px) {
-    h1 {
-      font-size: 2rem;
-    }
+    margin: 0;
+    color: var(--text-strong);
+    font-size: clamp(32px, 4.4vw, 48px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
   }
 `;
 
 export const Eyebrow = styled.p`
-  margin: 0 0 10px;
-  color: #9aa8a0;
-  font-size: 0.76rem;
-  font-weight: 800;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 `;
 
 export const HeroCopy = styled.p`
-  margin-bottom: 0;
-  max-width: 780px;
-  color: #acb8b1;
-  font-size: 1.06rem;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 17px;
   line-height: 1.6;
 `;
 
 export const SearchPanel = styled.form`
   display: grid;
-  gap: 10px;
-  width: min(100%, 680px);
-  padding: 16px;
-  border: 1px solid #303a35;
-  border-radius: 8px;
-  background: #151b18;
-  text-align: left;
+  gap: 8px;
+  width: min(100%, 640px);
 
   label {
-    color: #c3ccc7;
-    font-size: 0.85rem;
-    font-weight: 800;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
   }
 `;
 
@@ -82,21 +87,22 @@ export const SearchRow = styled.div`
 
   input {
     min-width: 0;
-    border: 1px solid #3b4741;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid var(--border-control);
     border-radius: 8px;
-    padding: 12px 14px;
-    background: #0f1412;
-    color: #edf3ef;
+    background: var(--surface);
+    color: var(--text);
     outline: none;
   }
 
   input:focus {
-    border-color: #76bdf2;
-    box-shadow: 0 0 0 3px rgba(118, 189, 242, 0.18);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
   }
 
   input::placeholder {
-    color: #738078;
+    color: var(--faint);
   }
 
   @media (max-width: 620px) {
@@ -105,42 +111,36 @@ export const SearchRow = styled.div`
 `;
 
 export const SearchButton = styled.button`
+  min-height: 44px;
+  padding: 0 20px;
   border: 0;
   border-radius: 8px;
-  padding: 0 18px;
-  background: #d8f171;
-  color: #101510;
+  background: var(--accent);
+  color: var(--on-accent);
   cursor: pointer;
-  font-weight: 700;
+  font-weight: 600;
 
   &:hover {
-    background: #e5f79a;
-  }
-
-  @media (max-width: 620px) {
-    min-height: 44px;
+    background: var(--accent-hover);
   }
 `;
 
 export const VideoLibrary = styled.section`
   display: grid;
-  gap: 18px;
+  gap: 20px;
 `;
 
 export const SectionHeading = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: 20px;
   align-items: end;
-
-  h2,
-  p {
-    margin-bottom: 0;
-  }
+  gap: 20px;
 
   h2 {
-    font-size: 1.45rem;
-    line-height: 1.15;
+    margin: 4px 0 0;
+    color: var(--text-strong);
+    font-size: 22px;
+    line-height: 1.2;
   }
 
   @media (max-width: 620px) {
@@ -149,13 +149,15 @@ export const SectionHeading = styled.div`
 `;
 
 export const ResultCount = styled.p`
-  color: #9aa8a0;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
 `;
 
 export const VideoGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 360px));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
 
   @media (max-width: 620px) {
     grid-template-columns: 1fr;
@@ -164,9 +166,9 @@ export const VideoGrid = styled.div`
 
 export const LibraryCard = styled.article`
   overflow: hidden;
-  border: 1px solid #2b332f;
-  border-radius: 8px;
-  background: #151b18;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
 `;
 
 export const ThumbnailLink = styled(Link)`
@@ -174,7 +176,7 @@ export const ThumbnailLink = styled(Link)`
   display: block;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: #111a16;
+  background: var(--player-bg);
 
   img {
     width: 100%;
@@ -187,42 +189,46 @@ export const DurationChip = styled.span`
   position: absolute;
   right: 10px;
   bottom: 10px;
+  padding: 2px 7px;
   border-radius: 6px;
-  background: rgba(17, 26, 22, 0.9);
+  background: rgba(10, 10, 10, 0.85);
   color: #ffffff;
-  font-size: 0.76rem;
-  font-weight: 800;
-  padding: 4px 7px;
+  font-family: var(--font-mono);
+  font-size: 12px;
 `;
 
 export const LibraryCardBody = styled.div`
   display: grid;
-  gap: 10px;
+  gap: 8px;
   padding: 16px;
 
   h3,
   p {
-    margin-bottom: 0;
+    margin: 0;
   }
 
   h3 {
-    font-size: 1.05rem;
-    line-height: 1.25;
+    font-size: 17px;
+    line-height: 1.3;
+  }
+
+  h3 a {
+    color: var(--text-strong);
   }
 
   p {
     display: -webkit-box;
     overflow: hidden;
-    color: #acb8b1;
-    line-height: 1.5;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.55;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4;
   }
 `;
 
 export const VideoMeta = styled.div`
-  display: flex;
-  color: #95a29b;
-  font-size: 0.82rem;
-  font-weight: 700;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
 `;

@@ -3,12 +3,16 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { api } from "../../shared/api/client";
 import type { LoadState } from "../../shared/lib/load-state";
 import { EmptyState } from "../../shared/ui/EmptyState";
+import { ThemeSelect } from "../../shared/ui/ThemeSelect";
+import { TopBar } from "../../shared/ui/TopBar";
 import {
+  Brand,
   BrowseHero,
   DurationChip,
   Eyebrow,
   HeroContent,
   HeroCopy,
+  HomeContent,
   HomeShell,
   LibraryCard,
   LibraryCardBody,
@@ -72,67 +76,74 @@ export function HomePage() {
 
   return (
     <HomeShell>
-      <BrowseHero aria-labelledby="browse-title">
-        <HeroContent>
-          <Eyebrow>Video Recaps</Eyebrow>
-          <h1 id="browse-title">
-            Find the useful parts before you press play.
-          </h1>
-          <HeroCopy>
-            Search indexed YouTube recaps, skim the takeaway, then open the
-            detail view to jump straight to highlights and sections.
-          </HeroCopy>
-        </HeroContent>
+      <TopBar>
+        <Brand to="/">Video Recaps</Brand>
+        <ThemeSelect />
+      </TopBar>
 
-        <SearchPanel role="search" onSubmit={onSubmit}>
-          <label htmlFor="video-search">Search recaps</label>
-          <SearchRow>
-            <input
-              id="video-search"
-              type="search"
-              value={draftQuery}
-              placeholder="Title, channel, summary, takeaway..."
-              onChange={(event) => setDraftQuery(event.target.value)}
-            />
-            <SearchButton type="submit">Search</SearchButton>
-          </SearchRow>
-        </SearchPanel>
-      </BrowseHero>
+      <HomeContent>
+        <BrowseHero aria-labelledby="browse-title">
+          <HeroContent>
+            <Eyebrow>Video Recaps</Eyebrow>
+            <h1 id="browse-title">
+              Find the useful parts before you press play.
+            </h1>
+            <HeroCopy>
+              Search indexed YouTube recaps, skim the takeaway, then open the
+              detail view to jump straight to highlights and sections.
+            </HeroCopy>
+          </HeroContent>
 
-      <VideoLibrary aria-labelledby="video-library-title">
-        <SectionHeading>
-          <div>
-            <Eyebrow>Library</Eyebrow>
-            <h2 id="video-library-title">{title}</h2>
-          </div>
-          {videosState.status === "ready" ? (
-            <ResultCount>
-              {videosState.data.length}{" "}
-              {videosState.data.length === 1 ? "recap" : "recaps"}
-            </ResultCount>
+          <SearchPanel role="search" onSubmit={onSubmit}>
+            <label htmlFor="video-search">Search recaps</label>
+            <SearchRow>
+              <input
+                id="video-search"
+                type="search"
+                value={draftQuery}
+                placeholder="Title, channel, summary, takeaway..."
+                onChange={(event) => setDraftQuery(event.target.value)}
+              />
+              <SearchButton type="submit">Search</SearchButton>
+            </SearchRow>
+          </SearchPanel>
+        </BrowseHero>
+
+        <VideoLibrary aria-labelledby="video-library-title">
+          <SectionHeading>
+            <div>
+              <Eyebrow>Library</Eyebrow>
+              <h2 id="video-library-title">{title}</h2>
+            </div>
+            {videosState.status === "ready" ? (
+              <ResultCount>
+                {videosState.data.length}{" "}
+                {videosState.data.length === 1 ? "recap" : "recaps"}
+              </ResultCount>
+            ) : null}
+          </SectionHeading>
+
+          {videosState.status === "loading" ? (
+            <EmptyState>Loading recaps...</EmptyState>
           ) : null}
-        </SectionHeading>
 
-        {videosState.status === "loading" ? (
-          <EmptyState>Loading recaps...</EmptyState>
-        ) : null}
+          {videosState.status === "error" ? (
+            <EmptyState>{videosState.message}</EmptyState>
+          ) : null}
 
-        {videosState.status === "error" ? (
-          <EmptyState>{videosState.message}</EmptyState>
-        ) : null}
+          {videosState.status === "ready" && videosState.data.length === 0 ? (
+            <EmptyState>No recaps match this search yet.</EmptyState>
+          ) : null}
 
-        {videosState.status === "ready" && videosState.data.length === 0 ? (
-          <EmptyState>No recaps match this search yet.</EmptyState>
-        ) : null}
-
-        {videosState.status === "ready" && videosState.data.length > 0 ? (
-          <VideoGrid>
-            {videosState.data.map((video) => (
-              <VideoCard key={video.youtubeVideoId} video={video} />
-            ))}
-          </VideoGrid>
-        ) : null}
-      </VideoLibrary>
+          {videosState.status === "ready" && videosState.data.length > 0 ? (
+            <VideoGrid>
+              {videosState.data.map((video) => (
+                <VideoCard key={video.youtubeVideoId} video={video} />
+              ))}
+            </VideoGrid>
+          ) : null}
+        </VideoLibrary>
+      </HomeContent>
     </HomeShell>
   );
 }

@@ -1,23 +1,20 @@
-import { useId, useRef } from "react";
+import { useId, type ReactNode } from "react";
 import {
-  NowPlaying,
   PlayerActions,
   PlayerButton,
   PlayerCard,
   PlayerDragbar,
   PlayerFrame,
-  PlayerHelp,
   PlayerLabel,
   PlayerSlot,
   ResizeHandle,
 } from "./RecapPlayer.styles";
-import { formatTime } from "./timepoints";
 import type { SeekRequest } from "./types";
 import { useFloatingPlayer } from "./useFloatingPlayer";
 import { useYouTubePlayer } from "./useYouTubePlayer";
 
 type RecapPlayerProps = {
-  activeTime: number;
+  children: ReactNode;
   isFloating: boolean;
   onFloatingChange: (isFloating: boolean) => void;
   onPlaybackTime: (seconds: number) => void;
@@ -27,7 +24,7 @@ type RecapPlayerProps = {
 };
 
 export function RecapPlayer({
-  activeTime,
+  children,
   isFloating,
   onFloatingChange,
   onPlaybackTime,
@@ -37,13 +34,11 @@ export function RecapPlayer({
 }: RecapPlayerProps) {
   const reactId = useId();
   const playerElementId = `youtube-player-${reactId.replaceAll(":", "")}`;
-  const cardRef = useRef<HTMLDivElement | null>(null);
   const floatingPlayer = useFloatingPlayer({
-    cardRef,
     isFloating,
     onFloatingChange,
   });
-  const status = useYouTubePlayer({
+  useYouTubePlayer({
     elementId: playerElementId,
     onPlaybackTime,
     seekRequest,
@@ -54,16 +49,15 @@ export function RecapPlayer({
     <PlayerSlot>
       <PlayerCard
         data-floating={isFloating}
-        ref={cardRef}
         style={floatingPlayer.style}
         aria-label={`Video player for ${title}`}
       >
         <PlayerDragbar
           data-floating={isFloating}
           onPointerDown={floatingPlayer.startDrag}
-          title="Drag to move the player while floating"
+          title={isFloating ? "Drag to move the player" : undefined}
         >
-          <PlayerLabel>Video</PlayerLabel>
+          <PlayerLabel>Now playing</PlayerLabel>
           <PlayerActions aria-label="Video player controls">
             {isFloating ? (
               <>
@@ -95,6 +89,10 @@ export function RecapPlayer({
                 onClick={floatingPlayer.float}
                 aria-label="Float video player"
               >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="3" y="4" width="18" height="16" rx="2" />
+                  <rect x="12" y="12" width="7" height="6" rx="1" />
+                </svg>
                 Float
               </PlayerButton>
             )}
@@ -105,21 +103,14 @@ export function RecapPlayer({
           <div id={playerElementId} />
         </PlayerFrame>
 
-        {!isFloating ? (
-          <PlayerHelp>
-            Click any timestamp in the notes to seek the video. Drag the divider
-            to resize the split, or Float to detach the player.
-          </PlayerHelp>
-        ) : null}
-        <NowPlaying>
-          {status || `Now playing ${formatTime(activeTime)}`}
-        </NowPlaying>
         {isFloating ? (
           <ResizeHandle
             onPointerDown={floatingPlayer.startResize}
             title="Drag to resize"
           />
-        ) : null}
+        ) : (
+          children
+        )}
       </PlayerCard>
     </PlayerSlot>
   );

@@ -1,11 +1,10 @@
 import { styled } from "@linaria/react";
 import { Link } from "react-router-dom";
 
-export const DetailPage = styled.main`
-  width: 100%;
+export const DetailPage = styled.div`
+  display: flex;
+  flex-direction: column;
   height: 100dvh;
-  margin: 0;
-  padding: 8px;
 
   @media (max-width: 980px) {
     height: auto;
@@ -13,191 +12,316 @@ export const DetailPage = styled.main`
   }
 `;
 
-export const DetailShell = styled.div`
-  --dock-width: 50vw;
-  position: relative;
-  height: 100%;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(360px, var(--dock-width));
-  gap: 12px;
-  align-items: stretch;
+export const BackLink = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: var(--text);
+  font-weight: 600;
 
-  &[data-floating="true"] {
-    grid-template-columns: minmax(0, 1fr);
+  &:hover {
+    color: var(--text);
   }
 
-  @media (max-width: 980px) {
-    height: auto;
-    grid-template-columns: 1fr;
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 `;
 
-export const NotesPane = styled.article`
+export const Separator = styled.span`
+  color: var(--separator);
+`;
+
+export const Breadcrumb = styled.span`
+  flex-grow: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+export const WatchLink = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  @media (max-width: 620px) {
+    span {
+      display: none;
+    }
+  }
+`;
+
+export const DetailShell = styled.div`
+  position: relative;
+  flex-grow: 1;
+  min-height: 0;
+  display: grid;
+
+  &[data-layout="reader"] {
+    grid-template-columns: minmax(0, 1fr) minmax(360px, var(--side-width));
+    grid-template-areas: "notes video";
+  }
+
+  &[data-layout="reader"][data-floating="true"] {
+    grid-template-columns: minmax(0, 1fr) 0;
+  }
+
+  &[data-layout="watch"] {
+    grid-template-columns: minmax(0, 1fr) minmax(360px, var(--side-width));
+    grid-template-areas: "video notes";
+  }
+
+  @media (max-width: 980px) {
+    &[data-layout] {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: "video" "notes";
+    }
+  }
+`;
+
+export const VideoColumn = styled.div`
+  grid-area: video;
+  position: relative;
+  display: flex;
+  flex-direction: column;
   min-width: 0;
   min-height: 0;
   overflow-y: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
 
-  &::-webkit-scrollbar {
-    display: none;
+  ${DetailShell}[data-layout="reader"] & {
+    gap: 20px;
+    padding: 24px;
+    border-left: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  ${DetailShell}[data-layout="reader"][data-floating="true"] & {
+    overflow: hidden;
+    padding: 0;
+    border: 0;
+  }
+
+  ${DetailShell}[data-layout="watch"] & {
+    gap: 28px;
+    padding: 24px 32px 56px;
   }
 
   @media (max-width: 980px) {
-    overflow: visible;
+    ${DetailShell}[data-layout] & {
+      overflow: visible;
+      padding: 16px;
+      border-left: 0;
+      border-bottom: 1px solid var(--border);
+    }
   }
 `;
 
-export const BackLink = styled(Link)`
-  display: inline-flex;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: rgba(17, 24, 39, 0.92);
-  color: var(--text);
-  font-size: 13px;
-  font-weight: 800;
-  padding: 7px 12px;
-  margin-bottom: 20px;
-`;
-
-export const SummaryHeader = styled.header`
-  padding: 34px;
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  background: linear-gradient(
-    135deg,
-    rgba(17, 24, 39, 0.96),
-    rgba(31, 41, 55, 0.82)
-  );
-  box-shadow: 0 24px 60px var(--shadow);
-  margin-bottom: 28px;
-
-  h1 {
-    margin: 10px 0 14px;
-    font-size: clamp(30px, 5vw, 52px);
-    line-height: 1.05;
-  }
-`;
-
-export const Eyebrow = styled.div`
-  color: var(--accent-2);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 12px;
-`;
-
-export const Subtitle = styled.p`
-  color: var(--muted);
-  font-size: 18px;
-  max-width: 880px;
-`;
-
-export const Source = styled.p`
-  margin-top: 20px;
-`;
-
-export const HeroTakeaway = styled.div`
-  margin-top: 22px;
-  padding: 18px 20px;
-  border: 1px solid rgba(52, 211, 153, 0.32);
-  border-radius: 18px;
-  background: linear-gradient(
-    135deg,
-    rgba(6, 78, 59, 0.36),
-    rgba(17, 24, 39, 0.7)
-  );
-
-  h2 {
-    color: #bbf7d0;
-    margin: 0 0 8px;
-    font-size: 20px;
-  }
-
-  p {
-    margin: 0;
-  }
-`;
-
-export const Content = styled.article`
-  min-width: 0;
-`;
-
-export const ContentGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 18px;
-`;
-
-export const SummarySection = styled.section`
-  padding: 26px;
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  background: rgba(17, 24, 39, 0.82);
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
-
-  h2 {
-    margin: 0 0 14px;
-    font-size: 24px;
-  }
-`;
-
-export const ConclusionSection = styled(SummarySection)`
-  border-color: rgba(52, 211, 153, 0.32);
-  background: linear-gradient(
-    135deg,
-    rgba(6, 78, 59, 0.42),
-    rgba(17, 24, 39, 0.86)
-  );
-
-  h2 {
-    color: #bbf7d0;
-  }
-`;
-
-export const SummaryFooter = styled.footer`
-  color: var(--muted);
-  text-align: center;
-  margin-top: 28px;
-  font-size: 13px;
-`;
-
-export const VideoPane = styled.aside`
+export const NotesColumn = styled.main`
+  grid-area: notes;
   position: relative;
   min-width: 0;
   min-height: 0;
 
-  &[data-floating="true"] {
-    position: absolute;
-    width: 0;
-    height: 0;
+  ${DetailShell}[data-layout="watch"] & {
+    border-left: 1px solid var(--border);
+    background: var(--surface);
   }
 `;
 
-export const DockResizer = styled.div`
+export const NotesScroll = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+
+  ${DetailShell}[data-layout="reader"] & {
+    gap: 44px;
+    padding: 48px max(56px, calc((100% - 700px) / 2)) 80px;
+  }
+
+  ${DetailShell}[data-layout="watch"] & {
+    gap: 32px;
+    padding: 0 28px 64px;
+  }
+
+  @media (max-width: 980px) {
+    ${DetailShell}[data-layout] & {
+      height: auto;
+      overflow: visible;
+      padding: 24px 16px 48px;
+    }
+  }
+`;
+
+export const Intro = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 820px;
+
+  h1 {
+    margin: 0;
+    color: var(--text-strong);
+    font-size: clamp(26px, 2.8vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.14;
+  }
+`;
+
+export const Meta = styled.div`
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+`;
+
+export const Abstract = styled.p`
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 16px;
+  line-height: 1.6;
+`;
+
+export const PullQuote = styled.section`
+  padding-top: 18px;
+  border-top: 2px solid var(--rule);
+
+  p {
+    margin: 0;
+    color: var(--text-strong);
+  }
+
+  &[data-size="large"] {
+    margin-top: 8px;
+  }
+
+  &[data-size="large"] p {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+`;
+
+export const Label = styled.h2`
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+`;
+
+export const NotesSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+export const SectionHeading = styled.div`
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+
+  h2 {
+    flex-grow: 1;
+    margin: 0;
+    color: var(--text-strong);
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  ${DetailShell}[data-layout="reader"] & {
+    padding-bottom: 10px;
+    background: var(--bg);
+  }
+
+  ${DetailShell}[data-layout="reader"] & h2 {
+    font-size: 20px;
+  }
+
+  ${DetailShell}[data-layout="watch"] & {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 20px 0 10px;
+  }
+
+  ${DetailShell}[data-layout="watch"] & h2 {
+    font-size: 16px;
+  }
+`;
+
+export const ChapterNumber = styled.span`
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 12px;
+`;
+
+export const HeadingAside = styled.span`
+  color: var(--muted);
+  font-size: 13px;
+  white-space: nowrap;
+
+  &[data-mono="true"] {
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+`;
+
+export const Footer = styled.footer`
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+`;
+
+export const SideResizer = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
-  left: -14px;
-  width: 28px;
-  cursor: col-resize;
+  right: calc(var(--side-width) - 7px);
   z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  cursor: col-resize;
   touch-action: none;
 
   &::before {
     content: "";
-    position: absolute;
-    left: 13px;
-    top: 18px;
-    bottom: 18px;
-    width: 2px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.12);
+    width: 4px;
+    height: 36px;
+    border-radius: 2px;
+    background: var(--grip);
     transition: background 0.15s ease;
   }
 
   &:hover::before {
-    background: rgba(96, 165, 250, 0.6);
+    background: var(--accent);
   }
 
   @media (max-width: 980px) {
@@ -205,8 +329,10 @@ export const DockResizer = styled.div`
   }
 `;
 
-export const DetailMessagePage = styled(DetailPage)`
+export const DetailMessagePage = styled.main`
   display: grid;
   place-content: center;
   gap: 12px;
+  min-height: 100dvh;
+  padding: 16px;
 `;

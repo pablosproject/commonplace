@@ -2,13 +2,13 @@ import {
   useState,
   type CSSProperties,
   type PointerEvent as ReactPointerEvent,
-  type RefObject,
 } from "react";
 import { trackPointer } from "./pointer";
 
 const FLOAT_WIDTH_RATIO = 0.31;
 const MIN_FLOAT_WIDTH = 280;
 const EDGE_PADDING = 16;
+const FLOAT_CHROME_HEIGHT = 84;
 
 type FloatState = {
   left: number;
@@ -18,18 +18,16 @@ type FloatState = {
 };
 
 type UseFloatingPlayerOptions = {
-  cardRef: RefObject<HTMLDivElement | null>;
   isFloating: boolean;
   onFloatingChange: (isFloating: boolean) => void;
 };
 
 export function useFloatingPlayer({
-  cardRef,
   isFloating,
   onFloatingChange,
 }: UseFloatingPlayerOptions) {
   const [floatState, setFloatState] = useState<FloatState>(() =>
-    centerFloatState(defaultFloatWidth(), 0),
+    centerFloatState(defaultFloatWidth()),
   );
 
   const resize = (nextWidth: number) => {
@@ -47,7 +45,7 @@ export function useFloatingPlayer({
       ? floatState.width
       : defaultFloatWidth();
 
-    setFloatState(centerFloatState(width, cardRef.current?.offsetHeight ?? 0));
+    setFloatState(centerFloatState(width));
     onFloatingChange(true);
   };
 
@@ -102,10 +100,10 @@ export function useFloatingPlayer({
   };
 }
 
-function centerFloatState(width: number, cardHeight: number): FloatState {
+function centerFloatState(width: number): FloatState {
   const clampedWidth = clamp(width, MIN_FLOAT_WIDTH, maxFloatWidth());
   const estimatedHeight =
-    cardHeight > 0 ? cardHeight : Math.round((clampedWidth * 9) / 16) + 84;
+    Math.round((clampedWidth * 9) / 16) + FLOAT_CHROME_HEIGHT;
 
   return clampFloatState({
     customSize: width !== defaultFloatWidth(),
