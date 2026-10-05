@@ -1,14 +1,15 @@
-import { Navigate, Route, Routes } from "react-router-dom";
-import { HomePage } from "./pages/home/HomePage";
-import { VideoDetailPage } from "./pages/video-detail/VideoDetailPage";
+import { Route, Routes } from "react-router-dom";
+import { LandingPage } from "./pages/landing/LandingPage";
+import { NotFoundPage } from "./pages/not-found/NotFoundPage";
+import { PreviewPage } from "./pages/preview/PreviewPage";
 import "./App.css";
 
 export function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/videos/:youtubeVideoId" element={<VideoDetailPage />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/preview" element={<PreviewPage />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }

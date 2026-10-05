@@ -11,7 +11,7 @@ const timestampedPointSchema = z.strictObject({
 export const recapSchema = z.strictObject({
   schemaVersion: z.literal("1.0"),
   video: z.strictObject({
-    id: z.string().min(1),
+    id: z.string().regex(/^[A-Za-z0-9_-]{11}$/),
     url: z.url(),
     title: z.string().min(1),
     channel: z.string().optional(),

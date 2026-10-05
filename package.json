@@ -18,6 +18,7 @@
     "db:seed": "npm run db:seed -w @video-recap/api",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "preview:link": "node scripts/build-preview-link.mjs",
     "test": "npm run test -w @video-recap/api"
   },
   "devDependencies": {

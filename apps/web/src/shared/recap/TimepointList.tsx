@@ -1,4 +1,4 @@
-import { EmptyState } from "../../shared/ui/EmptyState";
+import { EmptyState } from "../ui/EmptyState";
 import { formatTime } from "./timepoints";
 import {
   KeyBadge,

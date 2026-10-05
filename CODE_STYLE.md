@@ -81,6 +81,7 @@ apps/web/src/
   pages/            page screens and their private pieces
   shared/
     api/            typed API client and query helpers
+    recap/          recap UI used by multiple pages
     ui/             reusable UI used by multiple pages
     lib/            pure helpers
   styles/           global reset, tokens, base styles

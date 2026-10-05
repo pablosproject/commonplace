@@ -1,5 +1,6 @@
 import type { Recap } from "../../../../api/src/schemas/recaps";
 
+export type { Recap };
 export type RecapPoint = Recap["highlights"][number];
 export type RecapSection = Recap["sections"][number];
 

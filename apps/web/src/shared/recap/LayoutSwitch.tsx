@@ -1,4 +1,4 @@
-import { usePersistentChoice } from "../../shared/lib/usePersistentChoice";
+import { usePersistentChoice } from "../lib/usePersistentChoice";
 import { SwitchButton, SwitchGroup } from "./LayoutSwitch.styles";
 
 const LAYOUTS = ["reader", "watch"] as const;
