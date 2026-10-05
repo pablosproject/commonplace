@@ -12,15 +12,15 @@ http://localhost:5173/preview#v=1&d=bZJBaxsxEIX_yjAXX5b1xsFxEZRSEnpoe6r...
                                  encoding version
 ```
 
-| Part                | Value                                                                    |
-| ------------------- | ------------------------------------------------------------------------ |
-| Path                | `/preview`                                                               |
-| Where the data goes | URL fragment (after `#`), never the query string                         |
-| Fragment syntax     | `URLSearchParams`: `v=<encoding version>&d=<payload>`                    |
-| `v`                 | `1`                                                                      |
-| `d` (for `v=1`)     | recap JSON → minified → UTF-8 → deflate-raw → base64url, no padding      |
-| Payload content     | a recap matching `data/video-recap.schema.json` (`schemaVersion: "1.0"`) |
-| Typical size        | 3–6 KB of payload for a 15–20 minute video                               |
+| Part                | Value                                                               |
+| ------------------- | ------------------------------------------------------------------- |
+| Path                | `/preview`                                                          |
+| Where the data goes | URL fragment (after `#`), never the query string                    |
+| Fragment syntax     | `URLSearchParams`: `v=<encoding version>&d=<payload>`               |
+| `v`                 | `1`                                                                 |
+| `d` (for `v=1`)     | recap JSON → minified → UTF-8 → deflate-raw → base64url, no padding |
+| Payload content     | a recap matching the recap schema (`schemaVersion: "1.0"`)          |
+| Typical size        | 3–6 KB of payload for a 15–20 minute video                          |
 
 ## Why the fragment
 
@@ -84,65 +84,14 @@ The `/preview` route should:
 
 Each failure should end on a readable error state ("This preview link is invalid or incomplete"), not a blank page. A link cut off by a chat app usually fails at step 3.
 
-Reference decoder (Web APIs only; runs in browsers and in Node). The canonical copy lives in the skill repository at `reference/decode-recap-link.ts` and is covered by its round-trip tests:
-
-```ts
-const DEFAULT_MAX_BYTES = 1_000_000;
-
-export async function decodeRecapLink(
-  hash: string,
-  { maxBytes = DEFAULT_MAX_BYTES }: { maxBytes?: number } = {},
-): Promise<unknown> {
-  const params = new URLSearchParams(hash.replace(/^#/, ""));
-  const version = params.get("v");
-  const payload = params.get("d");
-
-  if (version !== "1") {
-    throw new Error(`Unsupported recap link version: ${version}`);
-  }
-  if (!payload) {
-    throw new Error("Recap link is missing data");
-  }
-
-  return JSON.parse(await inflateBase64Url(payload, maxBytes));
-}
-
-async function inflateBase64Url(
-  payload: string,
-  maxBytes: number,
-): Promise<string> {
-  const binary = atob(payload.replace(/-/g, "+").replace(/_/g, "/"));
-  const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
-  const stream = new Blob([bytes])
-    .stream()
-    .pipeThrough(new DecompressionStream("deflate-raw"));
-
-  const reader = stream.getReader();
-  const chunks: Uint8Array[] = [];
-  let total = 0;
-  for (let read = await reader.read(); !read.done; read = await reader.read()) {
-    total += read.value.byteLength;
-    if (total > maxBytes) {
-      await reader.cancel();
-      throw new Error(
-        `Recap link payload exceeds ${maxBytes} bytes when decompressed`,
-      );
-    }
-    chunks.push(read.value);
-  }
-
-  return new TextDecoder().decode(await new Blob(chunks).arrayBuffer());
-}
-```
-
-The result then goes through the Zod schema, for example `recapSchema.safeParse(await decodeRecapLink(location.hash))`.
+The decoder is `decodePreviewHash` in `apps/web/src/pages/preview/previewLink.ts`. It uses Web APIs only (`atob`, `DecompressionStream`, `TextDecoder`), so it runs unchanged in browsers and in Node, and it applies steps 1–5: version and data checks, a 1 MB inflation cap, and `recapSchema.safeParse`. The skill's tests (`skills/youtube-recap/tests/preview-link.test.ts`) round-trip every sample recap through the skill's encoder and this decoder, and check the rejection cases below.
 
 ## The payload: recap schema
 
 The decoded payload is a recap object, the same shape `POST /api/videos` accepts and `video_recaps.recap_json` stores.
 
 - **Source of truth:** the Zod schema in `apps/api/src/schemas/recaps.ts`.
-- **JSON Schema:** `data/video-recap.schema.json`, used by the skill to validate before encoding. Planned: generate it from the Zod schema with `z.toJSONSchema()` so the two cannot drift. The skill copies it with `recap-pipeline.sh sync-schema`.
+- **JSON Schema:** `skills/youtube-recap/schemas/video-recap.schema.json`, generated from the Zod schema with `npm run schema:generate` (`z.toJSONSchema()`). The skill validates against it before encoding. `npm test` runs `npm run schema:check`, which fails when the file is out of date, so the skill cannot accept a recap the app rejects.
 
 Every object is strict: unknown properties are rejected.
 
@@ -248,9 +197,10 @@ Cases a decoder should reject:
 
 ## Where the code lives
 
-| Side                                   | Location                                                                                                                |
-| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| Producer                               | `youtube-recap` skill: `scripts/recap-link.mjs` (encoder), `scripts/recap-pipeline.sh link` (validates, encodes, opens) |
-| Reference decoder and round-trip tests | `youtube-recap` skill: `reference/decode-recap-link.ts`, `tests/link.test.mjs`                                          |
-| Consumer                               | this repo: `/preview` route in `apps/web`                                                                               |
-| Schema                                 | this repo: `apps/api/src/schemas/recaps.ts`, `data/video-recap.schema.json`                                             |
+| Side           | Location                                                                                                      |
+| -------------- | ------------------------------------------------------------------------------------------------------------- |
+| Producer       | `skills/youtube-recap/scripts/recap-link.mjs` (encoder), `recap-pipeline.sh link` (validates, encodes, opens) |
+| Dev shortcut   | `npm run preview:link -- <sample-id\|recap.json> [app-url] [--no-open]` (uses the skill's encoder)            |
+| Consumer       | `apps/web/src/pages/preview/` (`previewLink.ts` decodes, `PreviewPage.tsx` renders)                           |
+| Contract tests | `skills/youtube-recap/tests/preview-link.test.ts`                                                             |
+| Schema         | `apps/api/src/schemas/recaps.ts` (source), `skills/youtube-recap/schemas/video-recap.schema.json` (generated) |

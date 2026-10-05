@@ -11,7 +11,7 @@
 
 ## Current source data
 
-- Schema: `data/video-recap.schema.json`
+- Schema: `apps/api/src/schemas/recaps.ts` (Zod, source of truth); JSON Schema generated into `skills/youtube-recap/schemas/video-recap.schema.json` by `npm run schema:generate`
 - Sample recap: `data/samples/wc8FBhQtdsA/video-recap-data.json`
 - Visual reference: `data/samples/wc8FBhQtdsA/reference-render.html`
 
@@ -82,17 +82,26 @@ Architecture and testing conventions live in `CODE_STYLE.md`.
 - [ ] Show upvote count on cards and detail page.
 - [ ] Add popular sort.
 
-### 8. Companion recap skill/tool later
+### 8. Companion recap skill
 
-- [ ] Define how users generate recap JSON from a YouTube video.
-- [ ] Ensure generated JSON matches ingestion schema.
-- [ ] Decide sharing flow: copy/paste JSON, API token, or direct upload.
+The `youtube-recap` skill lives in `skills/youtube-recap/`. Decisions: `docs/sharing-modes.md`; link format: `docs/preview-link.md`.
+
+- [x] Define how users generate recap JSON from a YouTube video (the skill: transcript with `yt-dlp`, recap JSON, validation).
+- [x] Ensure generated JSON matches ingestion schema (JSON Schema generated from Zod; `npm test` fails when stale).
+- [x] Anonymous sharing: read-only `/preview` link with the recap in the URL fragment.
+- [x] Move the skill into this monorepo.
+- [ ] Archive the old `pablosproject/youtube-recap-skilll` repository (final README commit pointing here, then `gh repo archive`).
+- [ ] Decide how the skill is installed and kept up to date. Candidate: make this repo a Claude Code plugin marketplace like Plannotator (`/plugin marketplace add` + `/plugin install`, updated with `/plugin marketplace update`); check private-repo access and how `ajv` gets installed. Findings in `docs/sharing-modes.md`.
+- [ ] Point the skill's embedded app URL at the deployed app once it is live.
+- [ ] Consider a shared package for the link encoder/decoder (and schema) once the skill no longer has to be copied out as a self-contained folder.
+- [ ] Logged-in sharing: save recaps to an account. Needs auth on `POST /api/videos`, which today is unauthenticated and replaces existing recaps.
+- [ ] Handle chat apps truncating long preview links (e.g. an encrypted short link, as Plannotator does).
 
 ### 9. Proper database design
 
 The current schema (`apps/api/src/db/schema.ts`) is temporary: `videos` with extracted browse fields plus `video_recaps` holding the full recap JSONB. Build on it for now; design it properly once the app shape is clear.
 
-- [ ] Review `data/video-recap.schema.json` and decide which entities deserve their own tables (sections, highlights, timepoints) vs. staying in JSONB.
+- [ ] Review the recap schema (`apps/api/src/schemas/recaps.ts`) and decide which entities deserve their own tables (sections, highlights, timepoints) vs. staying in JSONB.
 - [ ] Decide the source of truth: original recap JSON, normalized tables, or both.
 - [ ] Design search support (Postgres full-text search, indexes).
 - [ ] Design recap versioning (multiple recaps per video, schema version upgrades).

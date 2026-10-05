@@ -29,7 +29,7 @@ Initial sample copied from:
 
 Repo copies:
 
-- `data/video-recap.schema.json`
+- `data/video-recap.schema.json` (since replaced by the Zod schema in `apps/api/src/schemas/recaps.ts`; the JSON Schema is generated into `skills/youtube-recap/schemas/`)
 - `data/samples/wc8FBhQtdsA/video-recap-data.json`
 - `data/samples/wc8FBhQtdsA/reference-render.html`
 

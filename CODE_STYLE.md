@@ -131,3 +131,26 @@ Testing:
 - Test pure helpers directly.
 - Test Zustand stores through exported selectors and actions.
 - Avoid snapshot tests for ordinary markup.
+
+## Skills
+
+`skills/<name>/` holds agent skills, one folder per skill, named after the
+skill's `name`. Each is an npm workspace.
+
+```txt
+skills/youtube-recap/
+  SKILL.md        instructions the agent follows
+  scripts/        what the agent runs (bash + plain Node ESM)
+  schemas/        generated JSON Schema, never edited by hand
+  tests/          vitest suites, run by the root `npm test`
+  evals/          evaluation prompts
+```
+
+Skill rules:
+
+- A skill must work when its folder is copied out of the repo: at runtime it
+  may import only Node built-ins and its own dependencies, never `apps/` code.
+- Shared contracts stay single-sourced through generation and tests instead:
+  generate schemas from `apps/api` Zod (`npm run schema:generate`), and test the
+  skill's output against the app code that consumes it.
+- Scripts are plain `.mjs` and `.sh` so they run without a build step.
