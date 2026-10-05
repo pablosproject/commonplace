@@ -1,4 +1,10 @@
-import { useMemo, useState, type CSSProperties, type ReactNode } from "react";
+import {
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 import { useMediaQuery } from "../lib/useMediaQuery";
 import { ThemeSelect } from "../ui/ThemeSelect";
 import { TopBar } from "../ui/TopBar";
@@ -31,6 +37,7 @@ import {
   formatTime,
 } from "./timepoints";
 import type { Recap, SeekRequest } from "./types";
+import { useFollowActivePoint } from "./useFollowActivePoint";
 import { useNotesResize } from "./useNotesResize";
 
 const NARROW_QUERY = "(max-width: 980px)";
@@ -70,6 +77,12 @@ export function RecapView({ nav, recap }: RecapViewProps) {
   const title = recap.video.title;
   const channel = recap.video.channel;
   const activeTime = findActiveTime(timepoints, playbackSeconds);
+  const notesScrollRef = useRef<HTMLDivElement>(null);
+  const skipFollowTo = useFollowActivePoint(
+    notesScrollRef,
+    activeTime,
+    !isNarrow,
+  );
   const meta = [channel, durationSeconds ? formatTime(durationSeconds) : null]
     .filter(Boolean)
     .join(" · ");
@@ -81,6 +94,11 @@ export function RecapView({ nav, recap }: RecapViewProps) {
       seconds,
       nonce: request.nonce + 1,
     }));
+  };
+
+  const seekFromNotes = (seconds: number) => {
+    skipFollowTo(seconds);
+    seekTo(seconds);
   };
 
   const changeLayout = (nextLayout: Layout) => {
@@ -140,7 +158,7 @@ export function RecapView({ nav, recap }: RecapViewProps) {
         </VideoColumn>
 
         <NotesColumn>
-          <NotesScroll>
+          <NotesScroll ref={notesScrollRef}>
             {layout === "reader" ? intro : null}
 
             <NotesSection aria-labelledby="key-moments">
@@ -151,7 +169,7 @@ export function RecapView({ nav, recap }: RecapViewProps) {
               <TimepointList
                 points={recap.highlights}
                 activeTime={activeTime}
-                onSeek={seekTo}
+                onSeek={seekFromNotes}
                 videoUrl={videoUrl}
               />
             </NotesSection>
@@ -163,7 +181,7 @@ export function RecapView({ nav, recap }: RecapViewProps) {
                 chapter={chapter}
                 keySeconds={keySeconds}
                 layout={layout}
-                onSeek={seekTo}
+                onSeek={seekFromNotes}
                 videoUrl={videoUrl}
               />
             ))}

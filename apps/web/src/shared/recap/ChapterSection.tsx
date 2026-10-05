@@ -26,7 +26,7 @@ export function ChapterSection({
   videoUrl,
 }: ChapterSectionProps) {
   return (
-    <NotesSection aria-labelledby={`chapter-${chapter.number}`}>
+    <NotesSection data-chapter aria-labelledby={`chapter-${chapter.number}`}>
       <SectionHeading>
         <ChapterNumber>
           {chapter.number.toString().padStart(2, "0")}
