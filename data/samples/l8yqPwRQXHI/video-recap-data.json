@@ -10,7 +10,7 @@
     }
   },
   "abstract": "David Cramer, co-founder of Sentry, gives a grounded view of AI-assisted software development: AI is useful, but production-quality software still requires judgment, verification, accountability, and maintenance.",
-  "mainTakeaway": "AI can meaningfully improve developer workflows, especially for search, summarization, knowledge retrieval, and prototypes. But Cramer rejects “100x developer” hype: LLMs often generate bloated or risky code, and verification remains the hard part . Video Float − + Dock",
+  "mainTakeaway": "AI can meaningfully improve developer workflows, especially for search, summarization, knowledge retrieval, and prototypes. But Cramer rejects “100x developer” hype: LLMs often generate bloated or risky code, and verification remains the hard part.",
   "highlights": [
     {
       "time": "00:00:00",

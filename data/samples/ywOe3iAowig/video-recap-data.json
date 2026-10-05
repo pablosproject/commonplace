@@ -10,7 +10,7 @@
     }
   },
   "abstract": "Anthony GG walks through moving his trading terminal Market Monkey from Go to Odin, showing what feels familiar, what gets faster or cleaner, and what new footguns appear. It matters because this is a real product-port discussion, not an abstract language war.",
-  "mainTakeaway": "Odin gives him the low-level control, rendering path, and simplicity he wanted, but the trade-off is explicit memory management and more manual, less type-safe patterns than Go. Video Float − + Dock",
+  "mainTakeaway": "Odin gives him the low-level control, rendering path, and simplicity he wanted, but the trade-off is explicit memory management and more manual, less type-safe patterns than Go.",
   "highlights": [
     {
       "time": "00:00:24",

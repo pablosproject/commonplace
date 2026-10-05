@@ -10,7 +10,7 @@
     }
   },
   "abstract": "Mo Bitar demos several apps and games built with Anthropic's temporary Fable / Claude Mythos coding model, then explains why the results felt unusually beautiful and unsettling. His conclusion is that the magic is real for one-shot demos, but the hard parts of software—debugging, maintainability, and economics—still keep humans firmly in the loop.",
-  "mainTakeaway": "Fable can create striking, almost magical prototypes, but it does not solve software engineering: the last 20% of bug-fixing, code quality, and cost is still where expertise matters most. Video Float − + Dock",
+  "mainTakeaway": "Fable can create striking, almost magical prototypes, but it does not solve software engineering: the last 20% of bug-fixing, code quality, and cost is still where expertise matters most.",
   "highlights": [
     {
       "time": "00:00:54",

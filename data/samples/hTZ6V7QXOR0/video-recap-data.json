@@ -10,7 +10,7 @@
     }
   },
   "abstract": "At this GDG Brescia talk, Matteo Gazzurelli argues that AI has not made developers obsolete; it has shifted their job from typing code to specifying intent, constraining agents, and verifying results. It is a practical case for treating AI-assisted development as an engineering-governance problem, not just a productivity story.",
-  "mainTakeaway": "The developer’s value is moving upward: the strongest engineers are the ones who can define clear specifications, design reliable agent loops, verify output, and keep responsibility for architecture and decisions instead of blindly trusting generated code. Video Float − + Dock",
+  "mainTakeaway": "The developer’s value is moving upward: the strongest engineers are the ones who can define clear specifications, design reliable agent loops, verify output, and keep responsibility for architecture and decisions instead of blindly trusting generated code.",
   "highlights": [
     {
       "time": "00:10:02",

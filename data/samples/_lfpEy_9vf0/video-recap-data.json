@@ -10,7 +10,7 @@
     }
   },
   "abstract": "Armin Ronacher, Ben Vinegar, and Mario Zechner compare the hype around agentic coding with their day-to-day experience using tools like Pi, Claude Code, and Fable. The conversation is valuable because it separates genuine workflow gains from benchmark theater, harness-specific quirks, and the rising economic cost of letting agents run wild.",
-  "mainTakeaway": "Agentic coding is improving mostly through harnesses, loops, and better orchestration—not through a clean jump in model intelligence—and that means developers still need strict tools, real evals, and skepticism about cost, regressions, and hype. Video Float − + Dock",
+  "mainTakeaway": "Agentic coding is improving mostly through harnesses, loops, and better orchestration—not through a clean jump in model intelligence—and that means developers still need strict tools, real evals, and skepticism about cost, regressions, and hype.",
   "highlights": [
     {
       "time": "00:06:43",
