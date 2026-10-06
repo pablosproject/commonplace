@@ -77,14 +77,14 @@ export function HomePage() {
   return (
     <HomeShell>
       <TopBar>
-        <Brand to="/">Video Recaps</Brand>
+        <Brand to="/">Commonplace</Brand>
         <ThemeSelect />
       </TopBar>
 
       <HomeContent>
         <BrowseHero aria-labelledby="browse-title">
           <HeroContent>
-            <Eyebrow>Video Recaps</Eyebrow>
+            <Eyebrow>Commonplace</Eyebrow>
             <h1 id="browse-title">
               Find the useful parts before you press play.
             </h1>

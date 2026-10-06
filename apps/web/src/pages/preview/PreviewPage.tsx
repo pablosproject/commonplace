@@ -2,6 +2,7 @@ import { decodePreviewHash } from "video-util";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import type { LoadState } from "../../shared/lib/load-state";
+import { LogoLink } from "../../shared/brand/Logo";
 import { RecapView } from "../../shared/recap/RecapView";
 import type { Recap } from "../../shared/recap/types";
 import { EmptyState } from "../../shared/ui/EmptyState";
@@ -48,7 +49,13 @@ export function PreviewPage() {
     return <PreviewMessage message={recapState.message} />;
   }
 
-  return <RecapView key={recapState.data.video.id} recap={recapState.data} />;
+  return (
+    <RecapView
+      key={recapState.data.video.id}
+      nav={<LogoLink />}
+      recap={recapState.data}
+    />
+  );
 }
 
 function PreviewMessage({ message }: { message: string }) {
