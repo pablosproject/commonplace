@@ -62,7 +62,7 @@ npm run preview:link -- <sample-id|recap.json> [app-url] [--no-open]
 - `scripts/preview-link.ts` is generated from the package's standalone encoder so the copied skill has no local-package dependency.
 - `tests/transcript.test.ts` covers the transcript cleaner.
 
-The link format is specified in [`docs/preview-link.md`](../../docs/preview-link.md); the decisions behind it are in [`docs/sharing-modes.md`](../../docs/sharing-modes.md).
+The link format is specified in [`docs/preview-link.md`](../../docs/preview-link.md).
 
 ## Files
 
