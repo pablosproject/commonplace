@@ -50,15 +50,15 @@ The underlying pipeline runs from a per-video output directory:
 
 ```bash
 npm install                      # installs every workspace, including this one
-npm test                         # schema check, API tests, this skill's tests
+npm test                         # schema check and workspace tests
 npm run schema:generate          # regenerate schemas/video-recap.schema.json from the Zod schema
+npm run skill:sync               # copy the package's encoder into the standalone skill
 npm run preview:link -- <sample-id|recap.json> [app-url] [--no-open]
 ```
 
-- `schemas/video-recap.schema.json` is **generated** from `apps/api/src/schemas/recaps.ts`. Do not edit it by hand; `npm test` fails when it is stale.
-- `tests/preview-link.test.ts` round-trips every recap in `data/samples/` through this skill's encoder and the web app's decoder (`apps/web/src/pages/preview/previewLink.ts`), and checks the cases the app must reject.
+- `schemas/video-recap.schema.json` is **generated** from `packages/video-util/src/codec.ts`. Do not edit it by hand; `npm test` fails when it is stale.
+- `scripts/preview-link.ts` is generated from the package's standalone encoder so the copied skill has no local-package dependency.
 - `tests/transcript.test.ts` covers the transcript cleaner.
-- `evals/evals.json` holds the prompts used to evaluate the skill with the skill-creator workflow.
 
 The link format is specified in [`docs/preview-link.md`](../../docs/preview-link.md); the decisions behind it are in [`docs/sharing-modes.md`](../../docs/sharing-modes.md).
 
@@ -67,11 +67,11 @@ The link format is specified in [`docs/preview-link.md`](../../docs/preview-link
 ```text
 SKILL.md                         instructions the agent follows
 scripts/recap-pipeline.sh        fetch, generate-json-stub, validate, link
-scripts/recap-link.mjs           link encoder
-scripts/clean-transcript.mjs     .srt to transcript.txt
+scripts/recap-link.ts            link CLI
+scripts/preview-link.ts          generated link encoder
+scripts/clean-transcript.ts      .srt to transcript.txt
 schemas/video-recap.schema.json  generated recap schema
-tests/                           vitest suites
-evals/evals.json                 evaluation prompts
+tests/                           transcript cleaner tests
 ```
 
 ## License

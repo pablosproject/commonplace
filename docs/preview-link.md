@@ -37,21 +37,16 @@ Given a recap object that is valid against the schema:
 
 1. **Minify.** `JSON.stringify(recap)` with no indentation. "Minification" means removing whitespace only: keys, key order and values are unchanged. Key names are not shortened because compression already removes most of their cost (repeated keys like `"description"` compress to a few bits each), and readable JSON keeps the format debuggable.
 2. **UTF-8.** Encode the string as UTF-8 bytes. Recaps contain non-ASCII text (curly quotes, en dashes, non-English titles).
-3. **Deflate-raw.** Compress with DEFLATE ([RFC 1951](https://www.rfc-editor.org/rfc/rfc1951)) **without** a zlib or gzip header or checksum. In browsers this is `CompressionStream('deflate-raw')`; in Node, `zlib.deflateRawSync`.
+3. **Deflate-raw.** Compress with DEFLATE ([RFC 1951](https://www.rfc-editor.org/rfc/rfc1951)) **without** a zlib or gzip header or checksum. The shared codec uses the cross-runtime `CompressionStream('deflate-raw')` API.
 4. **base64url.** Encode the bytes with the URL-safe alphabet ([RFC 4648 §5](https://www.rfc-editor.org/rfc/rfc4648#section-5)): `+` becomes `-`, `/` becomes `_`, and trailing `=` padding is removed. The result needs no further URL escaping.
 5. **Assemble.** `<app URL>#v=1&d=<payload>`.
 
-Producer reference (Node, from the skill):
+Producer reference:
 
 ```js
-import { deflateRawSync } from "node:zlib";
+import { buildPreviewLink } from "video-util";
 
-export function buildLink(appUrl, recap) {
-  const payload = deflateRawSync(Buffer.from(JSON.stringify(recap), "utf8"), {
-    level: 9,
-  }).toString("base64url");
-  return `${appUrl}#v=1&d=${payload}`;
-}
+const link = await buildPreviewLink(appUrl, recap);
 ```
 
 Different DEFLATE implementations (Node's zlib, the browser's `CompressionStream`, compression levels) can produce **different bytes for the same input**, and all of them decode correctly. Never compare payload strings; compare decoded JSON.
@@ -84,13 +79,13 @@ The `/preview` route should:
 
 Each failure should end on a readable error state ("This preview link is invalid or incomplete"), not a blank page. A link cut off by a chat app usually fails at step 3.
 
-The decoder is `decodePreviewHash` in `apps/web/src/pages/preview/previewLink.ts`. It uses Web APIs only (`atob`, `DecompressionStream`, `TextDecoder`), so it runs unchanged in browsers and in Node, and it applies steps 1–5: version and data checks, a 1 MB inflation cap, and `recapSchema.safeParse`. The skill's tests (`skills/youtube-recap/tests/preview-link.test.ts`) round-trip every sample recap through the skill's encoder and this decoder, and check the rejection cases below.
+The shared codec and recap validation live in `packages/video-util`. The web app imports its decoder directly, so every decoded payload is size-limited and validated before rendering.
 
 ## The payload: recap schema
 
 The decoded payload is a recap object, the same shape `POST /api/videos` accepts and `video_recaps.recap_json` stores.
 
-- **Source of truth:** the Zod schema in `apps/api/src/schemas/recaps.ts`.
+- **Source of truth:** the Zod schema in `packages/video-util/src/codec.ts`.
 - **JSON Schema:** `skills/youtube-recap/schemas/video-recap.schema.json`, generated from the Zod schema with `npm run schema:generate` (`z.toJSONSchema()`). The skill validates against it before encoding. `npm test` runs `npm run schema:check`, which fails when the file is out of date, so the skill cannot accept a recap the app rejects.
 
 Every object is strict: unknown properties are rejected.
@@ -197,10 +192,11 @@ Cases a decoder should reject:
 
 ## Where the code lives
 
-| Side           | Location                                                                                                      |
-| -------------- | ------------------------------------------------------------------------------------------------------------- |
-| Producer       | `skills/youtube-recap/scripts/recap-link.mjs` (encoder), `recap-pipeline.sh link` (validates, encodes, opens) |
-| Dev shortcut   | `npm run preview:link -- <sample-id\|recap.json> [app-url] [--no-open]` (uses the skill's encoder)            |
-| Consumer       | `apps/web/src/pages/preview/` (`previewLink.ts` decodes, `PreviewPage.tsx` renders)                           |
-| Contract tests | `skills/youtube-recap/tests/preview-link.test.ts`                                                             |
-| Schema         | `apps/api/src/schemas/recaps.ts` (source), `skills/youtube-recap/schemas/video-recap.schema.json` (generated) |
+| Side           | Location                                                                                                        |
+| -------------- | --------------------------------------------------------------------------------------------------------------- |
+| Shared codec   | `packages/video-util`                                                                                           |
+| Producer       | `skills/youtube-recap/scripts/recap-link.ts` (encoder), `recap-pipeline.sh link` (validates, encodes, opens)    |
+| Dev shortcut   | `npm run preview:link -- <sample-id\|recap.json> [app-url] [--no-open]` (uses the skill's encoder)              |
+| Consumer       | `apps/web/src/pages/preview/PreviewPage.tsx`                                                                    |
+| Contract tests | `packages/video-util/tests/`                                                                                    |
+| Schema         | `packages/video-util/src/codec.ts` (source), `skills/youtube-recap/schemas/video-recap.schema.json` (generated) |

@@ -4,6 +4,7 @@
   "type": "module",
   "workspaces": [
     "apps/*",
+    "packages/*",
     "skills/*"
   ],
   "scripts": {
@@ -12,22 +13,25 @@
     "dev:herdr": "./herdr-dev.sh",
     "dev:api": "npm run dev -w @video-recap/api",
     "dev:web": "npm run dev -w @video-recap/web",
-    "build": "npm run build -w @video-recap/api && npm run build -w @video-recap/web",
-    "check": "npm run check -w @video-recap/api && npm run check -w @video-recap/web",
+    "build": "npm run build -w video-util && npm run build -w @video-recap/api && npm run build -w @video-recap/web",
+    "check": "npm run build -w video-util && npm run check -w video-util && npm run check -w @video-recap/api && npm run check -w @video-recap/web && npm run check -w @video-recap/youtube-recap-skill",
     "db:generate": "npm run db:generate -w @video-recap/api",
     "db:migrate": "npm run db:migrate -w @video-recap/api",
     "db:seed": "npm run db:seed -w @video-recap/api",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "preview:link": "node scripts/preview-link.mjs",
-    "schema:generate": "tsx scripts/generate-recap-schema.ts",
-    "schema:check": "tsx scripts/generate-recap-schema.ts --check",
-    "test": "npm run schema:check && npm run test -w @video-recap/api && npm run test -w @video-recap/youtube-recap-skill"
+    "preview:link": "npm run build -w video-util && tsx scripts/preview-link.ts",
+    "schema:generate": "npm run build -w video-util && tsx scripts/generate-recap-schema.ts",
+    "schema:check": "npm run build -w video-util && tsx scripts/generate-recap-schema.ts --check",
+    "skill:sync": "tsx scripts/sync-skill-preview-link.ts",
+    "skill:check": "tsx scripts/sync-skill-preview-link.ts --check",
+    "test": "npm run schema:check && npm run skill:check && npm run test -w video-util && npm run test -w @video-recap/api && npm run test -w @video-recap/youtube-recap-skill"
   },
   "devDependencies": {
     "concurrently": "^9.0.1",
     "drizzle-orm": "^0.45.3",
     "prettier": "^3.3.3",
+    "tsx": "^4.19.2",
     "typescript": "^5.6.3"
   }
 }

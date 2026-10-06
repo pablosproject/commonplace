@@ -171,5 +171,5 @@
   ],
   "additionalProperties": false,
   "title": "YouTube Video Recap Data",
-  "description": "Generated from apps/api/src/schemas/recaps.ts by `npm run schema:generate`. Do not edit by hand."
+  "description": "Generated from packages/video-util/src/codec.ts by `npm run schema:generate`. Do not edit by hand."
 }

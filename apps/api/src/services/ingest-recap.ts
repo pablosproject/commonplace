@@ -4,7 +4,7 @@ import {
 } from "../clients/youtube.js";
 import type { Database } from "../db/client.js";
 import { upsertRecap, upsertVideo } from "../queries/recaps.js";
-import type { Recap } from "../schemas/recaps.js";
+import type { Recap } from "video-util";
 
 export const ingestRecap = async (
   db: Database,

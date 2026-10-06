@@ -1,7 +1,7 @@
 import { isDeepStrictEqual } from "node:util";
 import { readFileSync, writeFileSync } from "node:fs";
 import { z } from "zod";
-import { recapSchema } from "../apps/api/src/schemas/recaps";
+import { recapSchema } from "video-util";
 
 const outputPath = new URL(
   "../skills/youtube-recap/schemas/video-recap.schema.json",
@@ -12,7 +12,7 @@ const schema = {
   ...z.toJSONSchema(recapSchema, { target: "draft-2020-12" }),
   title: "YouTube Video Recap Data",
   description:
-    "Generated from apps/api/src/schemas/recaps.ts by `npm run schema:generate`. Do not edit by hand.",
+    "Generated from packages/video-util/src/codec.ts by `npm run schema:generate`. Do not edit by hand.",
 };
 
 if (process.argv.includes("--check")) {

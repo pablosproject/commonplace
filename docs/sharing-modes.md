@@ -23,7 +23,7 @@ Logged-in mode needs `POST /api/videos` to change first: today it has no authent
 - **deflate-raw + base64url.** 3–6 KB per real recap, and native in both Node (`zlib`) and browsers (`DecompressionStream`). Brotli is ~20% smaller but needs a library in the web bundle. Measurements are in `preview-link.md`.
 - **`v=1` versions the encoding; `schemaVersion` versions the recap shape.** They change independently.
 - **The skill embeds the app URL** (`http://localhost:5173/preview` until the app is deployed). `RECAP_APP_URL` overrides it.
-- **The Zod schema in `apps/api/src/schemas/recaps.ts` is the single source of truth.** The skill's JSON schema is generated from it (`npm run schema:generate`), and `npm test` fails if the generated file is stale.
+- **The Zod schema in `packages/video-util/src/codec.ts` is the single source of truth.** The skill's JSON schema is generated from it (`npm run schema:generate`), and `npm test` fails if the generated file is stale.
 - **The skill is self-contained at runtime.** It needs only Node built-ins and `ajv`, and keeps its own small encoder and generated schema, so it still works when its folder is copied out of the repo. The monorepo's tests keep it honest: they round-trip every sample recap through the skill's encoder and the web app's real decoder. A shared package for the encoder and decoder may come later (see `TODO.md`).
 - **Chat-app truncation of long links is deferred.**
 

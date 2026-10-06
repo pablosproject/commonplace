@@ -1,6 +1,6 @@
 import type { Database } from "../db/client.js";
 import { videoRecaps, videos } from "../db/schema.js";
-import type { Recap } from "../schemas/recaps.js";
+import type { Recap } from "video-util";
 
 type VideoOverrides = Partial<typeof videos.$inferInsert>;
 

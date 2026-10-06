@@ -1,4 +1,4 @@
-import type { Recap } from "../schemas/recaps.js";
+import type { Recap } from "video-util";
 
 export type YouTubeVideoMetadata = {
   title: string;
@@ -30,7 +30,10 @@ export const fetchYouTubeVideoMetadata: YouTubeMetadataClient = async (
       author_name?: unknown;
     };
 
-    if (typeof body.title !== "string" || typeof body.author_name !== "string") {
+    if (
+      typeof body.title !== "string" ||
+      typeof body.author_name !== "string"
+    ) {
       return null;
     }
 

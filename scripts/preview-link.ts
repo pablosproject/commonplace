@@ -3,7 +3,7 @@ import { spawn } from "node:child_process";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { buildLink } from "../skills/youtube-recap/scripts/recap-link.mjs";
+import { buildPreviewLink } from "video-util";
 
 const DEFAULT_APP_URL = "http://localhost:5173/preview";
 const REPO_ROOT = path.resolve(
@@ -36,7 +36,7 @@ if (!input) {
   process.exit(1);
 }
 
-const link = buildLink(
+const link = await buildPreviewLink(
   appUrl,
   JSON.parse(readFileSync(resolveRecapPath(input), "utf8")),
 );
@@ -47,7 +47,7 @@ if (shouldOpen) {
   spawn(opener, [link], { detached: true, stdio: "ignore" }).unref();
 }
 
-function resolveRecapPath(value) {
+function resolveRecapPath(value: string): string {
   const asPath = path.resolve(value);
   if (existsSync(asPath) && statSync(asPath).isFile()) {
     return asPath;
@@ -62,7 +62,7 @@ function resolveRecapPath(value) {
   process.exit(1);
 }
 
-function sampleIds() {
+function sampleIds(): string[] {
   return readdirSync(SAMPLES_DIR)
     .filter((name) =>
       existsSync(path.join(SAMPLES_DIR, name, "video-recap-data.json")),

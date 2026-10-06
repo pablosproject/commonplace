@@ -1,3 +1,4 @@
+import { decodePreviewHash } from "video-util";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import type { LoadState } from "../../shared/lib/load-state";
@@ -5,7 +6,6 @@ import { RecapView } from "../../shared/recap/RecapView";
 import type { Recap } from "../../shared/recap/types";
 import { EmptyState } from "../../shared/ui/EmptyState";
 import { MessagePage } from "../../shared/ui/MessagePage";
-import { decodePreviewHash } from "./previewLink";
 
 const INVALID_PREVIEW_MESSAGE = "This preview link is invalid or incomplete.";
 

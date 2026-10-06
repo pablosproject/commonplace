@@ -140,17 +140,20 @@ skill's `name`. Each is an npm workspace.
 ```txt
 skills/youtube-recap/
   SKILL.md        instructions the agent follows
-  scripts/        what the agent runs (bash + plain Node ESM)
+  scripts/        what the agent runs (bash + TypeScript via tsx)
   schemas/        generated JSON Schema, never edited by hand
-  tests/          vitest suites, run by the root `npm test`
-  evals/          evaluation prompts
+  tests/          focused vitest suites, run by the root `npm test`
 ```
 
 Skill rules:
 
 - A skill must work when its folder is copied out of the repo: at runtime it
-  may import only Node built-ins and its own dependencies, never `apps/` code.
-- Shared contracts stay single-sourced through generation and tests instead:
-  generate schemas from `apps/api` Zod (`npm run schema:generate`), and test the
-  skill's output against the app code that consumes it.
-- Scripts are plain `.mjs` and `.sh` so they run without a build step.
+  may import only Node built-ins, its own files, and published dependencies.
+  Code selected from a local package must be generated into the skill and
+  checked for drift.
+- Repository-only packages live under `packages/`, use an unscoped package name,
+  and set `private: true`.
+- Shared contracts live in local packages. Generate the skill's JSON Schema
+  from the shared Zod schema with `npm run schema:generate`; never import
+  application source from a skill.
+- Scripts are `.ts` and `.sh`; run TypeScript scripts with the skill's `tsx` dependency so they need no separate build step.

@@ -57,7 +57,7 @@ fetch_transcript() {
   fi
   [[ -n "$srt" ]] || { echo "No English transcript downloaded for $url (see yt-dlp errors above)" >&2; exit 1; }
 
-  node "$SCRIPT_DIR/clean-transcript.mjs" "$srt" > transcript.txt
+  npm exec --prefix "$SKILL_ROOT" -- tsx "$SCRIPT_DIR/clean-transcript.ts" "$srt" > transcript.txt
   echo "transcript: transcript.txt ($(wc -l < transcript.txt | tr -d ' ') lines, from ${source}, raw: ${srt})"
   echo "video info: video-info.json"
 }
@@ -143,7 +143,7 @@ open_url() {
 link_recap() {
   validate_json
   local link
-  link="$(node "$SCRIPT_DIR/recap-link.mjs" "$DATA_JSON" "$APP_URL")"
+  link="$(npm exec --prefix "$SKILL_ROOT" -- tsx "$SCRIPT_DIR/recap-link.ts" "$DATA_JSON" "$APP_URL")"
   echo "$link" > "$LINK_OUT"
   [[ -n "${RECAP_NO_OPEN:-}" ]] || open_url "$link"
   echo "$link"

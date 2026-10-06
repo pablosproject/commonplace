@@ -1,4 +1,4 @@
-import type { Recap } from "../../../../api/src/schemas/recaps";
+import type { Recap } from "video-util";
 
 export type { Recap };
 export type RecapPoint = Recap["highlights"][number];
