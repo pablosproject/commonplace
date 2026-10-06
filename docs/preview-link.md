@@ -195,7 +195,7 @@ Cases a decoder should reject:
 | Side           | Location                                                                                                        |
 | -------------- | --------------------------------------------------------------------------------------------------------------- |
 | Shared codec   | `packages/video-util`                                                                                           |
-| Producer       | `skills/youtube-recap/scripts/recap-link.ts` (encoder), `recap-pipeline.sh link` (validates, encodes, opens)    |
+| Producer       | `skills/youtube-recap/scripts/preview-link.ts` (encoder), `recap-pipeline.ts link` (validates, encodes, opens)  |
 | Dev shortcut   | `npm run preview:link -- <sample-id\|recap.json> [app-url] [--no-open]` (uses the skill's encoder)              |
 | Consumer       | `apps/web/src/pages/preview/PreviewPage.tsx`                                                                    |
 | Contract tests | `packages/video-util/tests/`                                                                                    |

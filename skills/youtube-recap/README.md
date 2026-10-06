@@ -2,7 +2,7 @@
 
 Turn long YouTube videos into structured recaps your agent hands you as a single link to the video recap web app.
 
-This Agent Skill downloads a transcript with `yt-dlp`, captures the recap as JSON validated against the recap schema, and encodes it into a `/preview` link. The recap travels inside the link, so nothing is uploaded or stored: the app decodes and renders it in the browser.
+This Agent Skill downloads a transcript through `youtube-dl-exec`, captures the recap as JSON validated against the recap schema, and encodes it into a `/preview` link. The recap travels inside the link, so nothing is uploaded or stored: the app decodes and renders it in the browser.
 
 It lives in the `video-project` monorepo next to the app it feeds. It was previously the standalone `pablosproject/youtube-recap-skilll` repository, now archived.
 
@@ -13,8 +13,8 @@ Each recap includes a concise summary, the main takeaway, timestamped highlights
 ## Requirements
 
 - An agent harness that supports Agent Skills / `SKILL.md` directories
-- [`yt-dlp`](https://github.com/yt-dlp/yt-dlp) on `PATH` (`brew install yt-dlp` or `pipx install yt-dlp`)
-- Node.js 18+ and npm
+- Node.js 20+ and npm
+- Skill dependencies installed with `npm install`; `youtube-dl-exec` downloads the `yt-dlp` binary during install
 - The recap web app reachable at the link's address (by default `http://localhost:5173`)
 
 ## Installation
@@ -37,14 +37,16 @@ Use the youtube-recap skill to summarize https://www.youtube.com/watch?v=VIDEO_I
 The underlying pipeline runs from a per-video output directory:
 
 ```bash
-/path/to/youtube-recap/scripts/recap-pipeline.sh fetch "https://www.youtube.com/watch?v=VIDEO_ID"
+PIPELINE=(npm exec --prefix /path/to/youtube-recap -- tsx /path/to/youtube-recap/scripts/recap-pipeline.ts)
+"${PIPELINE[@]}" fetch "https://www.youtube.com/watch?v=VIDEO_ID"
 # the agent writes video-recap-data.json from transcript.txt and video-info.json
-/path/to/youtube-recap/scripts/recap-pipeline.sh validate
-/path/to/youtube-recap/scripts/recap-pipeline.sh link
+"${PIPELINE[@]}" validate
+"${PIPELINE[@]}" link
 ```
 
 - `fetch` prefers the creator's uploaded subtitles over auto-generated captions and writes `transcript.txt` (one `[HH:MM:SS] text` line per caption, without the repetition of rolling auto-captions) and `video-info.json` (id, title, channel, duration, URL).
 - `link` validates the recap, prints the preview link, saves it to `preview_url.txt` and opens it. `RECAP_APP_URL` changes the target page; `RECAP_NO_OPEN=1` skips opening the browser.
+- Set `RECAP_COOKIES_FROM_BROWSER=chrome` with `fetch` when YouTube requires browser cookies.
 
 ## Development (from the monorepo root)
 
@@ -66,8 +68,7 @@ The link format is specified in [`docs/preview-link.md`](../../docs/preview-link
 
 ```text
 SKILL.md                         instructions the agent follows
-scripts/recap-pipeline.sh        fetch, generate-json-stub, validate, link
-scripts/recap-link.ts            link CLI
+scripts/recap-pipeline.ts        fetch, generate-json-stub, validate, link
 scripts/preview-link.ts          generated link encoder
 scripts/clean-transcript.ts      .srt to transcript.txt
 schemas/video-recap.schema.json  generated recap schema

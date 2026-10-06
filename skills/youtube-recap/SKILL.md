@@ -2,8 +2,8 @@
 name: youtube-recap
 description: Summarize a YouTube video into a structured recap (summary, main takeaway, timestamped highlights and chapters, conclusion) and return a link that opens it in the recap web app with an embedded, seekable player. Use this whenever the user shares a YouTube URL or video ID and wants a summary, recap, TL;DR, key moments, chapters, timestamps, or wants to know whether a video is worth watching, even if they don't say "recap".
 license: MIT
-compatibility: Requires yt-dlp for transcripts and Node.js 18+ for validation and link encoding.
-allowed-tools: Bash(yt-dlp *), Bash(node *), Bash(npm *), Bash(open *), Bash(xdg-open *), Bash(./scripts/recap-pipeline.sh *), Bash(scripts/recap-pipeline.sh *)
+compatibility: Requires Node.js 20+ and npm-installed dependencies; youtube-dl-exec supplies yt-dlp for transcripts.
+allowed-tools: Bash(node *), Bash(npm *), Bash(open *), Bash(xdg-open *)
 ---
 
 ## Purpose
@@ -19,13 +19,14 @@ The deliverable is a **preview link**. The recap data travels inside the link it
 
 ## Steps
 
-Work in a per-video folder (for example `./<video-title-slug>/`) and run the pipeline from there, using the skill-local script by absolute path:
+Work in a per-video folder (for example `./<video-title-slug>/`) and run the pipeline from there, using the skill-local TypeScript pipeline by absolute path:
 
 ```bash
-/path/to/youtube-recap/scripts/recap-pipeline.sh fetch "VIDEO_URL"   # 1. transcript
+PIPELINE=(npm exec --prefix /path/to/youtube-recap -- tsx /path/to/youtube-recap/scripts/recap-pipeline.ts)
+"${PIPELINE[@]}" fetch "VIDEO_URL"   # 1. transcript
 # 2. read the transcript and write video-recap-data.json
-/path/to/youtube-recap/scripts/recap-pipeline.sh validate            # 3. check while iterating
-/path/to/youtube-recap/scripts/recap-pipeline.sh link                # 4. build, save and open the link
+"${PIPELINE[@]}" validate            # 3. check while iterating
+"${PIPELINE[@]}" link                # 4. build, save and open the link
 ```
 
 If dependencies are missing, run `npm install` once in the skill directory.
@@ -40,7 +41,7 @@ If dependencies are missing, run `npm install` once in the skill directory.
 
 It prefers subtitles uploaded by the creator, which are punctuated and accurate, and falls back to auto-generated captions. It reports which one it used; mention auto-generated captions as a caveat, since names and terms may be misheard.
 
-If `fetch` fails with an age or login restriction, retry the download with your browser's cookies (`yt-dlp --cookies-from-browser chrome ...`). If YouTube answers `429 Too Many Requests`, wait a few minutes before retrying. If no transcript can be obtained at all, stop and tell the user: a recap invented without the transcript would misrepresent the video.
+If `fetch` fails with an age or login restriction, retry with browser cookies: `RECAP_COOKIES_FROM_BROWSER=chrome "${PIPELINE[@]}" fetch "VIDEO_URL"`. If YouTube answers `429 Too Many Requests`, wait a few minutes before retrying. If no transcript can be obtained at all, stop and tell the user: a recap invented without the transcript would misrepresent the video.
 
 ## Recap Data
 
@@ -104,7 +105,7 @@ Shape:
 
 <caveats, only those that apply: auto-generated captions; the link opens only where the recap app runs (localhost) — matters if they plan to share it; long links can be cut off by chat apps>
 
-Recap data: <path>/video-recap-data.json (regenerate the link any time with `recap-pipeline.sh link`). Link also saved in <path>/preview_url.txt.
+Recap data: <path>/video-recap-data.json (regenerate the link any time with the pipeline's `link` command). Link also saved in <path>/preview_url.txt.
 
 <the preview link>
 ```
