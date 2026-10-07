@@ -1,9 +1,8 @@
-import { LINK_VERSION } from "./encode.js";
-import { recapSchema, type Recap } from "./codec.js";
+import { LINK_VERSION } from "./version.js";
 
-export const MAX_DECOMPRESSED_BYTES = 1_000_000;
+const MAX_DECOMPRESSED_BYTES = 1_000_000;
 
-export function parsePreviewHash(hash: string): string {
+function parsePreviewHash(hash: string): string {
   const params = new URLSearchParams(hash.replace(/^#/, ""));
   const version = params.get("v");
   const payload = params.get("d");
@@ -18,20 +17,11 @@ export function parsePreviewHash(hash: string): string {
 export async function decodePreviewPayload(
   payload: string,
   maxDecompressedBytes = MAX_DECOMPRESSED_BYTES,
-): Promise<Recap> {
-  const parsed: unknown = JSON.parse(
-    await inflateBase64Url(payload, maxDecompressedBytes),
-  );
-  const result = recapSchema.safeParse(parsed);
-
-  if (!result.success) {
-    throw new Error("Preview link does not match the recap schema");
-  }
-
-  return result.data;
+): Promise<unknown> {
+  return JSON.parse(await inflateBase64Url(payload, maxDecompressedBytes));
 }
 
-export async function decodePreviewHash(hash: string): Promise<Recap> {
+export async function decodePreviewHash(hash: string): Promise<unknown> {
   return decodePreviewPayload(parsePreviewHash(hash));
 }
 

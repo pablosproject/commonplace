@@ -3,7 +3,7 @@ import { spawn } from "node:child_process";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { buildPreviewLink } from "video-util";
+import { encodePreview, parseRecap } from "video-util";
 
 const DEFAULT_APP_URL = "http://localhost:5173/preview";
 const REPO_ROOT = path.resolve(
@@ -36,10 +36,11 @@ if (!input) {
   process.exit(1);
 }
 
-const link = await buildPreviewLink(
-  appUrl,
+const recap = parseRecap(
   JSON.parse(readFileSync(resolveRecapPath(input), "utf8")),
 );
+const encoded = await encodePreview(recap);
+const link = `${appUrl}${encoded.hash}`;
 console.log(link);
 
 if (shouldOpen) {

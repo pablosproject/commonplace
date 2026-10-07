@@ -1,4 +1,4 @@
-import { decodePreviewHash } from "video-util";
+import { decodePreviewHash, parseRecap } from "video-util";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import type { LoadState } from "../../shared/lib/load-state";
@@ -21,7 +21,9 @@ export function PreviewPage() {
 
     setRecapState({ status: "loading" });
     decodePreviewHash(hash)
-      .then((recap) => {
+      .then((value) => {
+        const recap = parseRecap(value);
+
         if (!cancelled) {
           setRecapState({ status: "ready", data: recap });
         }

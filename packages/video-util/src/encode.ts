@@ -1,4 +1,12 @@
-export const LINK_VERSION = "1";
+import { LINK_VERSION } from "./version.js";
+
+type LinkVersion = typeof LINK_VERSION;
+
+export type EncodedPreviewPayload = {
+  version: LinkVersion;
+  payload: string;
+  hash: string;
+};
 
 export async function encodePreviewPayload(value: unknown): Promise<string> {
   const bytes = new TextEncoder().encode(JSON.stringify(value));
@@ -10,15 +18,14 @@ export async function encodePreviewPayload(value: unknown): Promise<string> {
   return toBase64Url(compressed);
 }
 
-export async function buildPreviewHash(value: unknown): Promise<string> {
-  return `#v=${LINK_VERSION}&d=${await encodePreviewPayload(value)}`;
-}
+export async function encodePreview(value: unknown): Promise<EncodedPreviewPayload> {
+  const payload = await encodePreviewPayload(value);
 
-export async function buildPreviewLink(
-  appUrl: string,
-  value: unknown,
-): Promise<string> {
-  return `${appUrl}${await buildPreviewHash(value)}`;
+  return {
+    version: LINK_VERSION,
+    payload,
+    hash: `#v=${LINK_VERSION}&d=${payload}`,
+  };
 }
 
 function toBase64Url(bytes: Uint8Array): string {

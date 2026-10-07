@@ -45,3 +45,50 @@ export const recapSchema = z.strictObject({
 });
 
 export type Recap = z.infer<typeof recapSchema>;
+
+export const validRecapSchema = recapSchema.superRefine((recap, context) => {
+  for (const [index, point] of recap.highlights.entries()) {
+    validateTimepoint(point, ["highlights", index], context);
+  }
+
+  for (const [sectionIndex, section] of recap.sections.entries()) {
+    for (const [pointIndex, point] of section.points.entries()) {
+      validateTimepoint(
+        point,
+        ["sections", sectionIndex, "points", pointIndex],
+        context,
+      );
+    }
+  }
+});
+
+export function parseRecap(value: unknown): Recap {
+  return validRecapSchema.parse(value);
+}
+
+export function safeParseRecap(value: unknown) {
+  return validRecapSchema.safeParse(value);
+}
+
+function validateTimepoint(
+  point: { time: string; seconds: number },
+  path: Array<string | number>,
+  context: z.RefinementCtx,
+) {
+  const match = /^(\d{2}):(\d{2}):(\d{2})$/.exec(point.time);
+
+  if (!match) {
+    return;
+  }
+
+  const expected =
+    Number(match[1]) * 3600 + Number(match[2]) * 60 + Number(match[3]);
+
+  if (point.seconds !== expected) {
+    context.addIssue({
+      code: "custom",
+      path: [...path, "seconds"],
+      message: `Timestamp mismatch for ${point.time}: expected ${expected}, got ${point.seconds}`,
+    });
+  }
+}

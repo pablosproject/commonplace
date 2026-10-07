@@ -1,6 +1,6 @@
 # Preview link format
 
-A preview link carries a complete video recap inside the URL, so the web app can render it without the recap ever being sent to or stored on the server. This document is the contract between the code that **produces** links (the `youtube-recap` agent skill) and the code that **consumes** them (the `/preview` route in `apps/web`).
+A preview link carries a complete video recap inside the URL, so the web app can render it without the recap ever being sent to or stored on the server. This document is the contract between the code that **produces** links (the `@video-recap/youtube-recap-cli` package, which the `youtube-recap` agent skill runs) and the code that **consumes** them (the `/preview` route in `apps/web`).
 
 Status: format version `v=1`, decided 2026-10-01. The `/preview` route is implemented in `apps/web`.
 
@@ -44,9 +44,11 @@ Given a recap object that is valid against the schema:
 Producer reference:
 
 ```js
-import { buildPreviewLink } from "video-util";
+import { encodePreview, parseRecap } from "video-util";
 
-const link = await buildPreviewLink(appUrl, recap);
+const recap = parseRecap(value);
+const encoded = await encodePreview(recap);
+const link = `${appUrl}${encoded.hash}`;
 ```
 
 Different DEFLATE implementations (Node's zlib, the browser's `CompressionStream`, compression levels) can produce **different bytes for the same input**, and all of them decode correctly. Never compare payload strings; compare decoded JSON.
@@ -79,14 +81,14 @@ The `/preview` route should:
 
 Each failure should end on a readable error state ("This preview link is invalid or incomplete"), not a blank page. A link cut off by a chat app usually fails at step 3.
 
-The shared codec and recap validation live in `packages/video-util`. The web app imports its decoder directly, so every decoded payload is size-limited and validated before rendering.
+The shared encoding, decoding and recap validation building blocks live in `packages/video-util`. The web app imports its decoder and validates the decoded value before rendering.
 
 ## The payload: recap schema
 
 The decoded payload is a recap object, the same shape `POST /api/videos` accepts and `video_recaps.recap_json` stores.
 
-- **Source of truth:** the Zod schema in `packages/video-util/src/codec.ts`.
-- **JSON Schema:** `skills/youtube-recap/schemas/video-recap.schema.json`, generated from the Zod schema with `npm run schema:generate` (`z.toJSONSchema()`). The skill validates against it before encoding. `npm test` runs `npm run schema:check`, which fails when the file is out of date, so the skill cannot accept a recap the app rejects.
+- **Source of truth:** the shape schema and full recap validity module in `packages/video-util/src/recap.ts`.
+- **CLI validation:** `packages/youtube-recap-cli` imports and bundles `video-util`, so it validates with the same full recap validity module before encoding. The CLI package version is the validation boundary; no generated JSON Schema is shipped for runtime validation.
 
 Every object is strict: unknown properties are rejected.
 
@@ -109,13 +111,13 @@ Every object is strict: unknown properties are rejected.
 
 A **timestamped point**:
 
-| Field         | Type        | Required | Notes                                                                  |
-| ------------- | ----------- | -------- | ---------------------------------------------------------------------- |
-| `time`        | `HH:MM:SS`  | yes      | zero-padded, e.g. `00:04:07`                                           |
-| `seconds`     | integer ≥ 0 | yes      | the same moment in seconds (`247`); the skill checks it matches `time` |
-| `title`       | string      | yes      |                                                                        |
-| `description` | string      | yes      |                                                                        |
-| `emphasis`    | string[]    | no       | phrases worth highlighting; currently not rendered                     |
+| Field         | Type        | Required | Notes                                                                |
+| ------------- | ----------- | -------- | -------------------------------------------------------------------- |
+| `time`        | `HH:MM:SS`  | yes      | zero-padded, e.g. `00:04:07`                                         |
+| `seconds`     | integer ≥ 0 | yes      | the same moment in seconds (`247`); the CLI checks it matches `time` |
+| `title`       | string      | yes      |                                                                      |
+| `description` | string      | yes      |                                                                      |
+| `emphasis`    | string[]    | no       | phrases worth highlighting; currently not rendered                   |
 
 ## Versioning
 
@@ -130,7 +132,7 @@ Consumers reject what they do not know. Links already shared keep working as lon
 
 ## Test vector
 
-A minimal valid recap and a link the skill produced for it. A decoder is correct if decoding this fragment yields exactly this JSON.
+A minimal valid recap and a link the CLI produced for it. A decoder is correct if decoding this fragment yields exactly this JSON.
 
 Recap (formatted here; it is minified before encoding, 683 bytes minified):
 
@@ -187,16 +189,16 @@ Cases a decoder should reject:
 ## Known limitations
 
 - **Chat apps truncate long links.** Some messaging apps cut URLs past roughly 2 KB, and every real recap link is longer. Not handled yet. One option, used by Plannotator, is an opt-in short link that stores only an encrypted payload and keeps the key in the fragment.
-- **The app URL is localhost** until the app is deployed, so links open only where the app runs. The skill embeds the URL; `RECAP_APP_URL` overrides it.
+- **The app URL is localhost** until the app is deployed, so links open only where the app runs. The CLI embeds the URL; `RECAP_APP_URL` overrides it.
 - **Nothing is saved.** A recap opened from a preview link is not searchable on the site. Storing recaps is planned for logged-in users.
 
 ## Where the code lives
 
-| Side           | Location                                                                                                        |
-| -------------- | --------------------------------------------------------------------------------------------------------------- |
-| Shared codec   | `packages/video-util`                                                                                           |
-| Producer       | `skills/youtube-recap/scripts/preview-link.ts` (encoder), `recap-pipeline.ts link` (validates, encodes, opens)  |
-| Dev shortcut   | `npm run preview:link -- <sample-id\|recap.json> [app-url] [--no-open]` (uses the skill's encoder)              |
-| Consumer       | `apps/web/src/pages/preview/PreviewPage.tsx`                                                                    |
-| Contract tests | `packages/video-util/tests/`                                                                                    |
-| Schema         | `packages/video-util/src/codec.ts` (source), `skills/youtube-recap/schemas/video-recap.schema.json` (generated) |
+| Side           | Location                                                                                                              |
+| -------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Shared codec   | `packages/video-util`                                                                                                 |
+| Producer       | `packages/youtube-recap-cli` (`youtube-recap encode` / `link`: validates, encodes the hash with `video-util`, assembles the app URL locally) |
+| Dev shortcut   | `npm run preview:link -- <sample-id\|recap.json> [app-url] [--no-open]` (validates and encodes with `video-util`, assembles the app URL locally) |
+| Consumer       | `apps/web/src/pages/preview/PreviewPage.tsx`                                                                          |
+| Contract tests | `packages/video-util/tests/`, `packages/youtube-recap-cli/tests/preview-link.test.ts`                                 |
+| Recap schema   | `packages/video-util/src/recap.ts`                                                                                    |

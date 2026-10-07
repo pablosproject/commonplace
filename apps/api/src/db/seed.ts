@@ -2,7 +2,7 @@ import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { db, sql } from "./client.js";
-import { recapSchema } from "video-util";
+import { parseRecap } from "video-util";
 import { ingestRecap } from "../services/ingest-recap.js";
 
 const currentFile = fileURLToPath(import.meta.url);
@@ -21,7 +21,7 @@ const recaps = await Promise.all(
       "video-recap-data.json",
     );
 
-    return recapSchema.parse(JSON.parse(await readFile(samplePath, "utf8")));
+    return parseRecap(JSON.parse(await readFile(samplePath, "utf8")));
   }),
 );
 
