@@ -1,5 +1,5 @@
 {
-  "name": "video-util",
+  "name": "@commonplace/video-util",
   "private": true,
   "type": "module",
   "sideEffects": false,

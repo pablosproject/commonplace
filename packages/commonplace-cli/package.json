@@ -1,11 +1,11 @@
 {
-  "name": "@video-recap/youtube-recap-cli",
+  "name": "commonplace-cli",
   "version": "0.1.0",
-  "description": "CLI that turns YouTube videos into recap preview links for the youtube-recap agent skill",
+  "description": "Commonplace CLI: turns YouTube videos into recap preview links for the commonplace-youtube-recap agent skill",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "youtube-recap": "dist/cli.mjs"
+    "commonplace": "dist/cli.mjs"
   },
   "files": [
     "dist"
@@ -30,7 +30,7 @@
     "@types/node": "^22.9.0",
     "tsup": "^8.5.1",
     "typescript": "^5.6.3",
-    "video-util": "*",
+    "@commonplace/video-util": "*",
     "vitest": "^5.0.2"
   }
 }

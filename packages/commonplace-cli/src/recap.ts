@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs";
-import { safeParseRecap, type Recap } from "video-util";
+import { safeParseRecap, type Recap } from "@commonplace/video-util";
 
 export function validateRecap(dataPath: string): Recap {
   let value: unknown;

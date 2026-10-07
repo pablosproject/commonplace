@@ -3,7 +3,7 @@ import { spawn } from "node:child_process";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { encodePreview, parseRecap } from "video-util";
+import { encodePreview, parseRecap } from "@commonplace/video-util";
 
 const DEFAULT_APP_URL = "http://localhost:5173/preview";
 const REPO_ROOT = path.resolve(

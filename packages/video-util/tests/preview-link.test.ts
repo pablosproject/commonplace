@@ -51,7 +51,9 @@ describe("preview links", () => {
   test("rejects a truncated payload", async () => {
     const encoded = await encodePreview(recap);
 
-    await expect(decodePreviewHash(encoded.hash.slice(0, -10))).rejects.toThrow();
+    await expect(
+      decodePreviewHash(encoded.hash.slice(0, -10)),
+    ).rejects.toThrow();
   });
 
   test("stops decompression past the size limit", async () => {

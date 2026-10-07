@@ -1,10 +1,10 @@
-# YouTube Recap Skill
+# Commonplace YouTube Recap Skill
 
-Turn long YouTube videos into structured recaps your agent hands you as a single link to the video recap web app.
+Turn long YouTube videos into structured recaps your agent hands you as a single link to the Commonplace web app.
 
 The recap travels inside the link, so nothing is uploaded or stored: the app decodes and renders it in the browser.
 
-It lives in the `video-project` monorepo next to the app it feeds. It was previously the standalone `pablosproject/youtube-recap-skilll` repository, now archived.
+It lives in the Commonplace monorepo next to the app it feeds. It was previously the standalone `pablosproject/youtube-recap-skilll` repository, now archived.
 
 ## What it creates
 
@@ -12,12 +12,12 @@ Each recap includes a concise summary, the main takeaway, timestamped highlights
 
 ## Architecture
 
-The skill is a thin instruction file. All executable work lives in the npm CLI package [`@video-recap/youtube-recap-cli`](../../packages/youtube-recap-cli/README.md), which `SKILL.md` invokes with `npx`:
+The skill is a thin instruction file. All executable work lives in the npm CLI package [`commonplace-cli`](../../packages/commonplace-cli/README.md), which `SKILL.md` invokes with `npx`:
 
 ```bash
-npx --yes @video-recap/youtube-recap-cli@<version> fetch "VIDEO_URL"
-npx --yes @video-recap/youtube-recap-cli@<version> validate
-npx --yes @video-recap/youtube-recap-cli@<version> link
+npx --yes commonplace-cli@<version> fetch "VIDEO_URL"
+npx --yes commonplace-cli@<version> validate
+npx --yes commonplace-cli@<version> link
 ```
 
 - The CLI downloads and cleans the transcript, validates the recap JSON, and encodes the preview link.
@@ -40,14 +40,14 @@ The `<!-- managed-by: ... -->` marker records which package version installed th
 - Node.js 20+ with `npx`
 - Python 3.9+ available as `python3` (the `yt-dlp` that `youtube-dl-exec` downloads is a Python zipapp)
 - `ffmpeg` on `PATH` (used to convert subtitles to `.srt`)
-- The recap web app reachable at the link's address (by default `http://localhost:5173`)
+- The Commonplace web app reachable at the link's address (by default `http://localhost:5173`)
 
 ## Installation
 
 The CLI will install the rendered skill with:
 
 ```bash
-npx --yes @video-recap/youtube-recap-cli@<version> install --agent pi
+npx --yes commonplace-cli@<version> install --agent pi
 ```
 
 The `install` command is not implemented yet, and the package is not published yet.
@@ -69,10 +69,10 @@ To be written.
 ## Usage
 
 ```text
-Use the youtube-recap skill to summarize https://www.youtube.com/watch?v=VIDEO_ID
+Use the commonplace-youtube-recap skill to summarize https://www.youtube.com/watch?v=VIDEO_ID
 ```
 
-Environment variables for the CLI (`RECAP_APP_URL`, `RECAP_NO_OPEN`, `RECAP_COOKIES_FROM_BROWSER`, and others) are documented in the [CLI README](../../packages/youtube-recap-cli/README.md#environment).
+Environment variables for the CLI (`RECAP_APP_URL`, `RECAP_NO_OPEN`, `RECAP_COOKIES_FROM_BROWSER`, and others) are documented in the [CLI README](../../packages/commonplace-cli/README.md#environment).
 
 The link format is specified in [`docs/preview-link.md`](../../docs/preview-link.md).
 

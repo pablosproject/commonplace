@@ -8,7 +8,7 @@ import {
   timestamp,
   uuid,
 } from "drizzle-orm/pg-core";
-import type { Recap } from "video-util";
+import type { Recap } from "@commonplace/video-util";
 
 export const videos = pgTable(
   "videos",

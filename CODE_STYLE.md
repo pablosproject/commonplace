@@ -139,7 +139,7 @@ skill's `name`. A skill is a thin `SKILL.md` template plus docs; it holds no
 code and is not an npm workspace.
 
 ```txt
-skills/youtube-recap/
+skills/commonplace-youtube-recap/
   SKILL.md        instructions the agent follows, rendered by the installer
   README.md
   LICENSE
@@ -148,7 +148,7 @@ skills/youtube-recap/
 The code a skill runs lives in a CLI package under `packages/`:
 
 ```txt
-packages/youtube-recap-cli/
+packages/commonplace-cli/
   src/cli.ts      command entry point, bundled to dist/cli.mjs by tsup
   src/recap.ts    recap validation and encoding
   src/lib/        pure helpers
@@ -160,11 +160,12 @@ Skill rules:
 - `SKILL.md` runs its CLI through `npx --yes <package>@<version>`; the skill
   folder needs no `npm install`.
 - The CLI must work outside the repo: bundle local packages such as
-  `video-util` into `dist/`, and keep only published packages as runtime
-  `dependencies`. Resolve shipped assets relative to `import.meta.url`.
-- Repository-only packages live under `packages/`, use an unscoped package name,
-  and set `private: true`. Publishable CLI packages may use their intended npm
-  scope and must omit `private: true`.
+  `@commonplace/video-util` into `dist/`, and keep only published packages as
+  runtime `dependencies`. Resolve shipped assets relative to `import.meta.url`.
+- Repository-only packages use the `@commonplace/` scope and set
+  `private: true`. That scope belongs to someone else on npm, so they must never
+  be published. Publishable CLI packages use an unscoped name, such as
+  `commonplace-cli`, and omit `private: true`.
 - Shared contracts live in local packages. The CLI imports and bundles those
-  packages, such as `video-util`; never import application source from a skill
-  or its CLI.
+  packages, such as `@commonplace/video-util`; never import application source
+  from a skill or its CLI.

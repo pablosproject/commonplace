@@ -11,10 +11,10 @@
 
 **Commonplace**: a commonplace book for video. It helps people consume better content by turning YouTube videos into recaps they can skim, navigate and share: a summary, the main takeaway, timestamped highlights and sections, and a conclusion, shown next to an embedded player whose timestamps seek the video.
 
-- **Recaps are generated locally** by the `youtube-recap` agent skill (`skills/youtube-recap/`), which runs the `@video-recap/youtube-recap-cli` package (`packages/youtube-recap-cli/`): it fetches the transcript, validates the recap JSON and encodes it into a preview link.
+- **Recaps are generated locally** by the `commonplace-youtube-recap` agent skill (`skills/commonplace-youtube-recap/`), which runs the `commonplace` command from the `commonplace-cli` npm package (`packages/commonplace-cli/`): it fetches the transcript, validates the recap JSON and encodes it into a preview link.
 - **The web app** (`apps/web/`) renders recaps. Today it opens anonymous preview links at `/preview`, where the recap travels in the URL fragment and nothing is stored. The link format is in `docs/preview-link.md`.
 - **The API** (`apps/api/`, Hono + Postgres) is for stored recaps, browsing and search, and later logged-in sharing.
-- **Branding:** the logo files are in `docs/branding/`. Packages, the repository and infrastructure still use the old `video-recap` names until they are renamed.
+- **Naming:** workspace packages use the `@commonplace/` scope and stay private (the scope is owned by someone else on npm); only `commonplace-cli` is published. The logo files are in `docs/branding/`.
 
 Glossary: a **recap** is the structured summary of one video; a **timepoint** is a timestamped highlight or section point that seeks the player.
 

@@ -6,7 +6,7 @@ import {
   decodePreviewPayload,
   encodePreview,
   parseRecap,
-} from "video-util";
+} from "@commonplace/video-util";
 import { validateRecap } from "../src/recap.js";
 
 const samplesDir = fileURLToPath(
@@ -25,6 +25,8 @@ describe("encode output decodes in the web app", () => {
     expect(parseRecap(await decodePreviewHash(encoded.hash))).toEqual(
       JSON.parse(readFileSync(samplePath, "utf8")),
     );
-    expect(parseRecap(await decodePreviewPayload(encoded.payload))).toEqual(recap);
+    expect(parseRecap(await decodePreviewPayload(encoded.payload))).toEqual(
+      recap,
+    );
   });
 });

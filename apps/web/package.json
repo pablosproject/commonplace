@@ -1,17 +1,17 @@
 {
-  "name": "@video-recap/web",
+  "name": "@commonplace/web",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "npm run build -w video-util && vite",
-    "build": "npm run build -w video-util && tsc -p tsconfig.json && vite build",
+    "dev": "npm run build -w @commonplace/video-util && vite",
+    "build": "npm run build -w @commonplace/video-util && tsc -p tsconfig.json && vite build",
     "preview": "vite preview",
-    "check": "npm run build -w video-util && tsc -p tsconfig.json --noEmit"
+    "check": "npm run build -w @commonplace/video-util && tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
     "@fontsource-variable/instrument-sans": "^5.3.0",
-    "video-util": "*",
+    "@commonplace/video-util": "*",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "@linaria/core": "^8.2.0",
     "@linaria/react": "^8.2.0",

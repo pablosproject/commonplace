@@ -1,4 +1,4 @@
-import { encodePreview } from "video-util";
+import { encodePreview } from "@commonplace/video-util";
 import { validateRecap } from "./recap.js";
 import { generateJsonStub } from "./recap-stub.js";
 import {
@@ -9,7 +9,7 @@ import {
 } from "./workspace.js";
 import { fetchTranscript } from "./youtube-transcript.js";
 
-const bin = "youtube-recap";
+const bin = "commonplace";
 const defaultAppUrl = "http://localhost:5173/preview";
 
 type CommandEnv = Record<string, string | undefined>;
@@ -22,7 +22,7 @@ export type CommandResult = {
 };
 
 function usage(dataJson: string) {
-  return `YouTube recap pipeline.
+  return `Commonplace: turn a YouTube video into a recap preview link.
 
 Run from the per-video output directory. Recap files are read from and written
 to the current directory.

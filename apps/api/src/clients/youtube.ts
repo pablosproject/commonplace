@@ -1,4 +1,4 @@
-import type { Recap } from "video-util";
+import type { Recap } from "@commonplace/video-util";
 
 export type YouTubeVideoMetadata = {
   title: string;

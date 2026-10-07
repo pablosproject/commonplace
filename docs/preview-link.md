@@ -1,6 +1,6 @@
 # Preview link format
 
-A preview link carries a complete video recap inside the URL, so the web app can render it without the recap ever being sent to or stored on the server. This document is the contract between the code that **produces** links (the `@video-recap/youtube-recap-cli` package, which the `youtube-recap` agent skill runs) and the code that **consumes** them (the `/preview` route in `apps/web`).
+A preview link carries a complete video recap inside the URL, so the web app can render it without the recap ever being sent to or stored on the server. This document is the contract between the code that **produces** links (the `commonplace-cli` package, which the `commonplace-youtube-recap` agent skill runs) and the code that **consumes** them (the `/preview` route in `apps/web`).
 
 Status: format version `v=1`, decided 2026-10-01. The `/preview` route is implemented in `apps/web`.
 
@@ -44,7 +44,7 @@ Given a recap object that is valid against the schema:
 Producer reference:
 
 ```js
-import { encodePreview, parseRecap } from "video-util";
+import { encodePreview, parseRecap } from "@commonplace/video-util";
 
 const recap = parseRecap(value);
 const encoded = await encodePreview(recap);
@@ -88,7 +88,7 @@ The shared encoding, decoding and recap validation building blocks live in `pack
 The decoded payload is a recap object, the same shape `POST /api/videos` accepts and `video_recaps.recap_json` stores.
 
 - **Source of truth:** the shape schema and full recap validity module in `packages/video-util/src/recap.ts`.
-- **CLI validation:** `packages/youtube-recap-cli` imports and bundles `video-util`, so it validates with the same full recap validity module before encoding. The CLI package version is the validation boundary; no generated JSON Schema is shipped for runtime validation.
+- **CLI validation:** `packages/commonplace-cli` imports and bundles `@commonplace/video-util`, so it validates with the same full recap validity module before encoding. The CLI package version is the validation boundary; no generated JSON Schema is shipped for runtime validation.
 
 Every object is strict: unknown properties are rejected.
 
@@ -194,11 +194,11 @@ Cases a decoder should reject:
 
 ## Where the code lives
 
-| Side           | Location                                                                                                              |
-| -------------- | --------------------------------------------------------------------------------------------------------------------- |
-| Shared codec   | `packages/video-util`                                                                                                 |
-| Producer       | `packages/youtube-recap-cli` (`youtube-recap encode` / `link`: validates, encodes the hash with `video-util`, assembles the app URL locally) |
-| Dev shortcut   | `npm run preview:link -- <sample-id\|recap.json> [app-url] [--no-open]` (validates and encodes with `video-util`, assembles the app URL locally) |
-| Consumer       | `apps/web/src/pages/preview/PreviewPage.tsx`                                                                          |
-| Contract tests | `packages/video-util/tests/`, `packages/youtube-recap-cli/tests/preview-link.test.ts`                                 |
-| Recap schema   | `packages/video-util/src/recap.ts`                                                                                    |
+| Side           | Location                                                                                                                                                      |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Shared codec   | `packages/video-util`                                                                                                                                         |
+| Producer       | `packages/commonplace-cli` (`commonplace encode` / `link`: validates, encodes the hash with `@commonplace/video-util`, assembles the app URL locally)         |
+| Dev shortcut   | `npm run preview:link -- <sample-id\|recap.json> [app-url] [--no-open]` (validates and encodes with `@commonplace/video-util`, assembles the app URL locally) |
+| Consumer       | `apps/web/src/pages/preview/PreviewPage.tsx`                                                                                                                  |
+| Contract tests | `packages/video-util/tests/`, `packages/commonplace-cli/tests/preview-link.test.ts`                                                                           |
+| Recap schema   | `packages/video-util/src/recap.ts`                                                                                                                            |

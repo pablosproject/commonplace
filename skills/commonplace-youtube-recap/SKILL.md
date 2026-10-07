@@ -1,6 +1,6 @@
 ---
-name: youtube-recap
-description: Summarize a YouTube video into a structured recap (summary, main takeaway, timestamped highlights and chapters, conclusion) and return a link that opens it in the recap web app with an embedded, seekable player. Use this whenever the user shares a YouTube URL or video ID and wants a summary, recap, TL;DR, key moments, chapters, timestamps, or wants to know whether a video is worth watching, even if they don't say "recap".
+name: commonplace-youtube-recap
+description: Summarize a YouTube video into a structured recap (summary, main takeaway, timestamped highlights and chapters, conclusion) and return a link that opens it in the Commonplace web app with an embedded, seekable player. Use this whenever the user shares a YouTube URL or video ID and wants a summary, recap, TL;DR, key moments, chapters, timestamps, or wants to know whether a video is worth watching, even if they don't say "recap".
 license: MIT
 compatibility: Requires Node.js 20+ with npx, Python 3.9+ (for the bundled yt-dlp) and ffmpeg (for subtitle conversion); the CLI is fetched from npm on first use and supplies yt-dlp for transcripts.
 allowed-tools: Bash(npx *)
@@ -15,7 +15,7 @@ Turn a YouTube video into a recap that helps the user:
 - Quickly understand what the video is about.
 - Decide whether it is worth watching.
 - Find the most valuable moments.
-- Jump straight to those moments in the recap web app's embedded player.
+- Jump straight to those moments in the Commonplace web app's embedded player.
 
 The deliverable is a **preview link**. The recap data travels inside the link itself, in the URL fragment, so nothing is uploaded or stored anywhere: the web app decodes and renders it in the browser. The task is finished when the user has that link.
 
@@ -92,7 +92,7 @@ It also saves the link to `preview_url.txt` and opens it in the browser.
 
 Things to know when reporting the link:
 
-- The default app address is the local development server, so the link opens only on a machine running the recap web app.
+- The default app address is the local development server, so the link opens only on a machine running the Commonplace web app.
 - The link is long (typically 3–6 KB). Opening it directly works; some chat apps truncate long links when pasted.
 - Anyone with the link can read the recap: it is compressed, not encrypted.
 

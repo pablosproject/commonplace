@@ -1,4 +1,4 @@
-import { decodePreviewHash, parseRecap } from "video-util";
+import { decodePreviewHash, parseRecap } from "@commonplace/video-util";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import type { LoadState } from "../../shared/lib/load-state";

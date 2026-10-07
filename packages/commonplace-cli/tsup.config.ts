@@ -6,7 +6,7 @@ export default defineConfig({
   outExtension: () => ({ js: ".mjs" }),
   platform: "node",
   target: "node20",
-  noExternal: ["video-util"],
+  noExternal: ["@commonplace/video-util"],
   esbuildOptions: (options) => {
     options.conditions = ["development"];
   },

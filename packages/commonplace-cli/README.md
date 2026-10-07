@@ -1,10 +1,10 @@
-# youtube-recap CLI
+# Commonplace CLI
 
-`@video-recap/youtube-recap-cli` runs the pipeline behind the `youtube-recap` agent skill: it downloads a YouTube transcript, prepares it for the agent, validates the recap JSON the agent writes, and encodes it into a preview link for the video recap web app.
+`commonplace-cli` runs the pipeline behind the `commonplace-youtube-recap` agent skill: it downloads a YouTube transcript, prepares it for the agent, validates the recap JSON the agent writes, and encodes it into a preview link for the Commonplace web app.
 
 The CLI does not write the recap itself. The agent reads the cleaned transcript and writes the summary, takeaway, highlights, sections and conclusion; the CLI handles acquisition, preparation, validation and encoding.
 
-The package name is temporary and the package is not published yet.
+The package is not published yet. It installs a `commonplace` command.
 
 ## Requirements
 
@@ -18,20 +18,20 @@ The package name is temporary and the package is not published yet.
 Run every command from a per-video output directory. Recap files are read from and written to the current directory.
 
 ```bash
-npx --yes @video-recap/youtube-recap-cli@0.1.0 fetch "https://www.youtube.com/watch?v=VIDEO_ID"
-npx --yes @video-recap/youtube-recap-cli@0.1.0 generate-json-stub
+npx --yes commonplace-cli@0.1.0 fetch "https://www.youtube.com/watch?v=VIDEO_ID"
+npx --yes commonplace-cli@0.1.0 generate-json-stub
 # write video-recap-data.json from transcript.txt and video-info.json
-npx --yes @video-recap/youtube-recap-cli@0.1.0 validate
-npx --yes @video-recap/youtube-recap-cli@0.1.0 link
+npx --yes commonplace-cli@0.1.0 validate
+npx --yes commonplace-cli@0.1.0 link
 ```
 
 Until the package is published, build a tarball from the monorepo and install it anywhere:
 
 ```bash
-npm run build -w @video-recap/youtube-recap-cli
-(cd packages/youtube-recap-cli && npm pack)
-npm install /path/to/video-recap-youtube-recap-cli-0.1.0.tgz
-npx youtube-recap --help
+npm run build -w commonplace-cli
+(cd packages/commonplace-cli && npm pack)
+npm install /path/to/commonplace-cli-0.1.0.tgz
+npx commonplace --help
 ```
 
 ## Commands
@@ -58,12 +58,12 @@ npx youtube-recap --help
 ## Development (from the monorepo root)
 
 ```bash
-npm run build -w @video-recap/youtube-recap-cli   # bundle dist/cli.mjs
-npm test -w @video-recap/youtube-recap-cli        # transcript cleaner and link compatibility tests
+npm run build -w commonplace-cli   # bundle dist/cli.mjs
+npm test -w commonplace-cli        # transcript cleaner and link compatibility tests
 ```
 
-- `dist/cli.mjs` bundles the private `video-util` package for shared validation and preview-link encoding; published packages such as `youtube-dl-exec` and `zod` stay runtime dependencies.
-- The CLI validates with the shared Zod recap schema from `video-util`; the package version is the validation boundary.
+- `dist/cli.mjs` bundles the private `@commonplace/video-util` package for shared validation and preview-link encoding; published packages such as `youtube-dl-exec` and `zod` stay runtime dependencies.
+- The CLI validates with the shared Zod recap schema from `@commonplace/video-util`; the package version is the validation boundary.
 - `tests/preview-link.test.ts` encodes every sample in `data/samples` and decodes it with the web app's decoder, so the CLI and the app cannot drift apart.
 
 The link format is specified in [`docs/preview-link.md`](../../docs/preview-link.md).

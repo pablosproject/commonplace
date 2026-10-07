@@ -3,7 +3,7 @@ import { Hono } from "hono";
 import type { YouTubeMetadataClient } from "../clients/youtube.js";
 import type { Database } from "../db/client.js";
 import { getVideoByYoutubeId, listVideos } from "../queries/videos.js";
-import { validRecapSchema } from "video-util";
+import { validRecapSchema } from "@commonplace/video-util";
 import { videoParamsSchema } from "../schemas/videos.js";
 import { ingestRecap } from "../services/ingest-recap.js";
 

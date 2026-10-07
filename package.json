@@ -1,5 +1,5 @@
 {
-  "name": "video-project",
+  "name": "commonplace",
   "private": true,
   "type": "module",
   "workspaces": [
@@ -7,20 +7,20 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "concurrently -n api,web -c blue,green \"npm run dev -w @video-recap/api\" \"npm run dev -w @video-recap/web\"",
+    "dev": "concurrently -n api,web -c blue,green \"npm run dev -w @commonplace/api\" \"npm run dev -w @commonplace/web\"",
     "herdr": "./herdr-dev.sh",
     "dev:herdr": "./herdr-dev.sh",
-    "dev:api": "npm run dev -w @video-recap/api",
-    "dev:web": "npm run dev -w @video-recap/web",
-    "build": "npm run build -w video-util && npm run build -w @video-recap/api && npm run build -w @video-recap/web && npm run build -w @video-recap/youtube-recap-cli",
-    "check": "npm run build -w video-util && npm run check -w video-util && npm run check -w @video-recap/api && npm run check -w @video-recap/web && npm run check -w @video-recap/youtube-recap-cli",
-    "db:generate": "npm run db:generate -w @video-recap/api",
-    "db:migrate": "npm run db:migrate -w @video-recap/api",
-    "db:seed": "npm run db:seed -w @video-recap/api",
+    "dev:api": "npm run dev -w @commonplace/api",
+    "dev:web": "npm run dev -w @commonplace/web",
+    "build": "npm run build -w @commonplace/video-util && npm run build -w @commonplace/api && npm run build -w @commonplace/web && npm run build -w commonplace-cli",
+    "check": "npm run build -w @commonplace/video-util && npm run check -w @commonplace/video-util && npm run check -w @commonplace/api && npm run check -w @commonplace/web && npm run check -w commonplace-cli",
+    "db:generate": "npm run db:generate -w @commonplace/api",
+    "db:migrate": "npm run db:migrate -w @commonplace/api",
+    "db:seed": "npm run db:seed -w @commonplace/api",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "preview:link": "npm run build -w video-util && tsx scripts/preview-link.ts",
-    "test": "npm run test -w video-util && npm run test -w @video-recap/api && npm run test -w @video-recap/youtube-recap-cli"
+    "preview:link": "npm run build -w @commonplace/video-util && tsx scripts/preview-link.ts",
+    "test": "npm run test -w @commonplace/video-util && npm run test -w @commonplace/api && npm run test -w commonplace-cli"
   },
   "devDependencies": {
     "concurrently": "^9.0.1",
