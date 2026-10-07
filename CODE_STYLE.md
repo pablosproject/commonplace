@@ -135,25 +135,36 @@ Testing:
 ## Skills
 
 `skills/<name>/` holds agent skills, one folder per skill, named after the
-skill's `name`. Each is an npm workspace.
+skill's `name`. A skill is a thin `SKILL.md` template plus docs; it holds no
+code and is not an npm workspace.
 
 ```txt
 skills/youtube-recap/
-  SKILL.md        instructions the agent follows
-  scripts/        what the agent runs (bash + TypeScript via tsx)
-  schemas/        generated JSON Schema, never edited by hand
+  SKILL.md        instructions the agent follows, rendered by the installer
+  README.md
+  LICENSE
+```
+
+The code a skill runs lives in a CLI package under `packages/`:
+
+```txt
+packages/youtube-recap-cli/
+  src/cli.ts      command entry point, bundled to dist/cli.mjs by tsup
+  src/recap.ts    recap validation and encoding
+  src/lib/        pure helpers
   tests/          focused vitest suites, run by the root `npm test`
 ```
 
 Skill rules:
 
-- A skill must work when its folder is copied out of the repo: at runtime it
-  may import only Node built-ins, its own files, and published dependencies.
-  Code selected from a local package must be generated into the skill and
-  checked for drift.
+- `SKILL.md` runs its CLI through `npx --yes <package>@<version>`; the skill
+  folder needs no `npm install`.
+- The CLI must work outside the repo: bundle local packages such as
+  `video-util` into `dist/`, and keep only published packages as runtime
+  `dependencies`. Resolve shipped assets relative to `import.meta.url`.
 - Repository-only packages live under `packages/`, use an unscoped package name,
-  and set `private: true`.
-- Shared contracts live in local packages. Generate the skill's JSON Schema
-  from the shared Zod schema with `npm run schema:generate`; never import
-  application source from a skill.
-- Scripts are `.ts` and `.sh`; run TypeScript scripts with the skill's `tsx` dependency so they need no separate build step.
+  and set `private: true`. Publishable CLI packages may use their intended npm
+  scope and must omit `private: true`.
+- Shared contracts live in local packages. The CLI imports and bundles those
+  packages, such as `video-util`; never import application source from a skill
+  or its CLI.

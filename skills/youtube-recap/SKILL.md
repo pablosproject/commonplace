@@ -2,9 +2,11 @@
 name: youtube-recap
 description: Summarize a YouTube video into a structured recap (summary, main takeaway, timestamped highlights and chapters, conclusion) and return a link that opens it in the recap web app with an embedded, seekable player. Use this whenever the user shares a YouTube URL or video ID and wants a summary, recap, TL;DR, key moments, chapters, timestamps, or wants to know whether a video is worth watching, even if they don't say "recap".
 license: MIT
-compatibility: Requires Node.js 20+ and npm-installed dependencies; youtube-dl-exec supplies yt-dlp for transcripts.
-allowed-tools: Bash(node *), Bash(npm *), Bash(open *), Bash(xdg-open *)
+compatibility: Requires Node.js 20+ with npx, Python 3.9+ (for the bundled yt-dlp) and ffmpeg (for subtitle conversion); the CLI is fetched from npm on first use and supplies yt-dlp for transcripts.
+allowed-tools: Bash(npx *)
 ---
+
+<!-- managed-by: {{PACKAGE_NAME}}@{{PACKAGE_VERSION}} -->
 
 ## Purpose
 
@@ -19,17 +21,17 @@ The deliverable is a **preview link**. The recap data travels inside the link it
 
 ## Steps
 
-Work in a per-video folder (for example `./<video-title-slug>/`) and run the pipeline from there, using the skill-local TypeScript pipeline by absolute path:
+Work in a per-video folder (for example `./<video-title-slug>/`) and run every command from there:
 
 ```bash
-PIPELINE=(npm exec --prefix /path/to/youtube-recap -- tsx /path/to/youtube-recap/scripts/recap-pipeline.ts)
-"${PIPELINE[@]}" fetch "VIDEO_URL"   # 1. transcript
-# 2. read the transcript and write video-recap-data.json
-"${PIPELINE[@]}" validate            # 3. check while iterating
-"${PIPELINE[@]}" link                # 4. build, save and open the link
+npx --yes {{PACKAGE_SPEC}} fetch "VIDEO_URL"     # 1. transcript and video info
+npx --yes {{PACKAGE_SPEC}} generate-json-stub    # 2. optional skeleton
+# 3. read transcript.txt and video-info.json, write video-recap-data.json
+npx --yes {{PACKAGE_SPEC}} validate              # 4. check while iterating
+npx --yes {{PACKAGE_SPEC}} link                  # 5. build, save and open the link
 ```
 
-If dependencies are missing, run `npm install` once in the skill directory.
+Use the package spec above for every command; it was chosen when the skill was installed. Nothing needs to be installed in the skill folder.
 
 ## Transcript Acquisition
 
@@ -41,11 +43,11 @@ If dependencies are missing, run `npm install` once in the skill directory.
 
 It prefers subtitles uploaded by the creator, which are punctuated and accurate, and falls back to auto-generated captions. It reports which one it used; mention auto-generated captions as a caveat, since names and terms may be misheard.
 
-If `fetch` fails with an age or login restriction, retry with browser cookies: `RECAP_COOKIES_FROM_BROWSER=chrome "${PIPELINE[@]}" fetch "VIDEO_URL"`. If YouTube answers `429 Too Many Requests`, wait a few minutes before retrying. If no transcript can be obtained at all, stop and tell the user: a recap invented without the transcript would misrepresent the video.
+If `fetch` fails with an age or login restriction, retry with browser cookies: `RECAP_COOKIES_FROM_BROWSER=chrome npx --yes {{PACKAGE_SPEC}} fetch "VIDEO_URL"`. If YouTube answers `429 Too Many Requests`, wait a few minutes before retrying. If no transcript can be obtained at all, stop and tell the user: a recap invented without the transcript would misrepresent the video.
 
 ## Recap Data
 
-Write `video-recap-data.json` conforming to `schemas/video-recap.schema.json`. `generate-json-stub` creates a skeleton if useful. This JSON is the whole recap: the web app renders exactly what is in it.
+Write `video-recap-data.json` conforming to the recap shape below. `generate-json-stub` optionally creates a skeleton if the file does not exist yet. This JSON is the whole recap: the web app renders exactly what is in it.
 
 Required top-level fields: `schemaVersion` (`"1.0"`), `video` (`id`, `url`, `title`, optional `channel` and `duration`), `abstract`, `mainTakeaway`, `highlights`, `sections`, `conclusion`.
 
@@ -76,21 +78,25 @@ Quality guidelines:
 
 ## The Link
 
-`link` validates the JSON, encodes it (minified JSON, deflate-raw, base64url) and prints:
+`link` validates the JSON, encodes it and prints:
 
 ```
 http://localhost:5173/preview#v=1&d=<payload>
 ```
 
-It also saves the link to `preview_url.txt` and opens it in the browser. Set `RECAP_NO_OPEN=1` to skip opening (for example on a headless machine), and `RECAP_APP_URL` to point at a different app instance.
+It also saves the link to `preview_url.txt` and opens it in the browser.
+
+- `RECAP_APP_URL` points the link at a different app instance (default `http://localhost:5173/preview`).
+- `RECAP_NO_OPEN=1` skips opening the browser, for example on a headless machine.
+- `encode` prints the encoded recap as JSON (`version`, `payload`, `hash`) instead of a full URL, for tools that build the link themselves.
 
 Things to know when reporting the link:
 
-- The default app address is the local development server, so the link opens only on a machine running the recap web app. The URL will change when the app is deployed.
+- The default app address is the local development server, so the link opens only on a machine running the recap web app.
 - The link is long (typically 3–6 KB). Opening it directly works; some chat apps truncate long links when pasted.
 - Anyone with the link can read the recap: it is compressed, not encrypted.
 
-The link format is a contract with the web app (specified in the video-project repository's `docs/preview-link.md`). Don't construct links by hand; always use `link`.
+Don't construct links by hand; always use `link` or `encode`.
 
 ## Final Response
 
@@ -105,7 +111,7 @@ Shape:
 
 <caveats, only those that apply: auto-generated captions; the link opens only where the recap app runs (localhost) — matters if they plan to share it; long links can be cut off by chat apps>
 
-Recap data: <path>/video-recap-data.json (regenerate the link any time with the pipeline's `link` command). Link also saved in <path>/preview_url.txt.
+Recap data: <path>/video-recap-data.json (regenerate the link any time with the `link` command). Link also saved in <path>/preview_url.txt.
 
 <the preview link>
 ```

@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 
-import { cleanTranscript } from "../scripts/clean-transcript";
+import { cleanTranscript } from "../src/youtube-transcript.js";
 
 test("keeps each caption line once, stamped with the cue where it first appears", () => {
   const rollingAutoCaptions = `1

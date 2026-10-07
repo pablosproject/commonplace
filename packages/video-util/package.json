@@ -2,6 +2,7 @@
   "name": "video-util",
   "private": true,
   "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
       "development": "./src/index.ts",
