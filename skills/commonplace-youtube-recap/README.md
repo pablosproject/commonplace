@@ -16,12 +16,13 @@ The skill is a thin instruction file. All executable work lives in the npm CLI p
 
 ```bash
 npx --yes commonplace-cli@<version> fetch "VIDEO_URL"
+npx --yes commonplace-cli@<version> generate-json-stub
 npx --yes commonplace-cli@<version> validate
 npx --yes commonplace-cli@<version> link
 ```
 
-- The CLI downloads and cleans the transcript, validates the recap JSON, and encodes the preview link.
-- The agent reads the transcript and writes `video-recap-data.json`, following `SKILL.md`.
+- The CLI downloads and cleans the transcript, writes a recap skeleton with the video's details, validates the recap JSON, and encodes the preview link.
+- The agent reads the transcript and fills in `video-recap-data.json`, following `SKILL.md`.
 - The skill folder holds no scripts and needs no `npm install`.
 
 `SKILL.md` is a template. The installer renders its placeholders:
@@ -38,7 +39,7 @@ The `<!-- managed-by: ... -->` marker records which package version installed th
 
 - An agent harness that supports Agent Skills / `SKILL.md` directories
 - Node.js 20+ with `npx`
-- Python 3.9+ available as `python3` (the `yt-dlp` that `youtube-dl-exec` downloads is a Python zipapp)
+- Python 3.10+ available as `python3` (the `yt-dlp` that `youtube-dl-exec` downloads is a Python zipapp)
 - `ffmpeg` on `PATH` (used to convert subtitles to `.srt`)
 - The Commonplace web app reachable at the link's address (by default `http://localhost:5173`)
 

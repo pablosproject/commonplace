@@ -9,7 +9,7 @@ The package is not published yet. It installs a `commonplace` command.
 ## Requirements
 
 - Node.js 20+
-- Python 3.9+ available as `python3`: `youtube-dl-exec` downloads `yt-dlp` on install, and that binary is a Python zipapp.
+- Python 3.10+ available as `python3`: `youtube-dl-exec` downloads `yt-dlp` on install, and that binary is a Python zipapp.
 - `ffmpeg` on `PATH`: `fetch` uses it to convert subtitles to `.srt`.
 - Network access to YouTube.
 
@@ -20,7 +20,7 @@ Run every command from a per-video output directory. Recap files are read from a
 ```bash
 npx --yes commonplace-cli@0.1.0 fetch "https://www.youtube.com/watch?v=VIDEO_ID"
 npx --yes commonplace-cli@0.1.0 generate-json-stub
-# write video-recap-data.json from transcript.txt and video-info.json
+# fill in video-recap-data.json from transcript.txt
 npx --yes commonplace-cli@0.1.0 validate
 npx --yes commonplace-cli@0.1.0 link
 ```

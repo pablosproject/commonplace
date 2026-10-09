@@ -1,7 +1,13 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { safeParseRecap, type Recap } from "@commonplace/video-util";
 
 export function validateRecap(dataPath: string): Recap {
+  if (!existsSync(dataPath)) {
+    throw new Error(
+      `No recap data at ${dataPath}. Run: commonplace generate-json-stub`,
+    );
+  }
+
   let value: unknown;
   try {
     value = JSON.parse(readFileSync(dataPath, "utf8"));
