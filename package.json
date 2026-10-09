@@ -20,7 +20,10 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "preview:link": "npm run build -w @commonplace/video-util && tsx scripts/preview-link.ts",
-    "test": "npm run test -w @commonplace/video-util && npm run test -w @commonplace/api && npm run test -w commonplace-cli"
+    "test": "npm run test -w @commonplace/video-util && npm run test -w @commonplace/api && npm run test -w commonplace-cli",
+    "release:cli:patch": "npm version patch -w commonplace-cli --tag-version-prefix commonplace-cli@",
+    "release:cli:minor": "npm version minor -w commonplace-cli --tag-version-prefix commonplace-cli@",
+    "release:cli:major": "npm version major -w commonplace-cli --tag-version-prefix commonplace-cli@"
   },
   "devDependencies": {
     "concurrently": "^9.0.1",

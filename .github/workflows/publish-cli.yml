@@ -1,0 +1,61 @@
+name: Publish commonplace-cli
+
+on:
+  push:
+    tags:
+      - "commonplace-cli@*"
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate release tag
+        run: |
+          VERSION=$(node -p "require('./packages/commonplace-cli/package.json').version")
+          TAG="${GITHUB_REF_NAME}"
+          EXPECTED_TAG="commonplace-cli@${VERSION}"
+
+          if [ "$TAG" != "$EXPECTED_TAG" ]; then
+            echo "Tag $TAG does not match package version $VERSION. Expected $EXPECTED_TAG."
+            exit 1
+          fi
+
+      - name: Check shared package
+        run: npm run check -w @commonplace/video-util
+
+      - name: Test shared package
+        run: npm run test -w @commonplace/video-util
+
+      - name: Build shared package
+        run: npm run build -w @commonplace/video-util
+
+      - name: Check CLI
+        run: npm run check -w commonplace-cli
+
+      - name: Test CLI
+        run: npm run test -w commonplace-cli
+
+      - name: Build CLI
+        run: npm run build -w commonplace-cli
+
+      - name: Publish
+        run: npm publish -w commonplace-cli
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
