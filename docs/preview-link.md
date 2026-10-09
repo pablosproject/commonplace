@@ -117,7 +117,6 @@ A **timestamped point**:
 | `seconds`     | integer ≥ 0 | yes      | the same moment in seconds (`247`); the CLI checks it matches `time` |
 | `title`       | string      | yes      |                                                                      |
 | `description` | string      | yes      |                                                                      |
-| `emphasis`    | string[]    | no       | phrases worth highlighting; currently not rendered                   |
 
 ## Versioning
 

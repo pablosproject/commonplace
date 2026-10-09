@@ -16,91 +16,61 @@
       "time": "00:03:08",
       "seconds": 188,
       "title": "The bet is settled almost immediately when OpenAI ships",
-      "description": "The bet is settled almost immediately when OpenAI ships GPT-5/5.6 right after the hosts recorded.",
-      "emphasis": [
-        "The bet is settled almost immediately when OpenAI ships"
-      ]
+      "description": "The bet is settled almost immediately when OpenAI ships GPT-5/5.6 right after the hosts recorded."
     },
     {
       "time": "00:14:24",
       "seconds": 864,
       "title": "Rhys describes how ordinary non-tech people often hear AI",
-      "description": "Rhys describes how ordinary, non-tech people often hear AI as threat or hype rather than concrete benefit.",
-      "emphasis": [
-        "Rhys describes how ordinary non-tech people often hear AI"
-      ]
+      "description": "Rhys describes how ordinary, non-tech people often hear AI as threat or hype rather than concrete benefit."
     },
     {
       "time": "00:15:32",
       "seconds": 932,
       "title": "The hosts challenge OpenAI Anthropic SpaceX and Thinking Machines",
-      "description": "The hosts challenge OpenAI, Anthropic, SpaceX, and Thinking Machines to explain specific best-case outcomes instead of vague futurism.",
-      "emphasis": [
-        "The hosts challenge OpenAI Anthropic SpaceX and Thinking Machines"
-      ]
+      "description": "The hosts challenge OpenAI, Anthropic, SpaceX, and Thinking Machines to explain specific best-case outcomes instead of vague futurism."
     },
     {
       "time": "00:17:39",
       "seconds": 1059,
       "title": "Dillon shares a memorable Codex computer-use story",
-      "description": "it researched an Apple TV remote and accidentally completed the purchase.",
-      "emphasis": [
-        "Dillon shares a memorable Codex computer-use story"
-      ]
+      "description": "it researched an Apple TV remote and accidentally completed the purchase."
     },
     {
       "time": "00:37:50",
       "seconds": 2270,
       "title": "Dillon explains why Pi’s minimal harness feels better than",
-      "description": "Dillon explains why Pi’s minimal harness feels better than more opinionated agent shells.",
-      "emphasis": [
-        "Dillon explains why Pi’s minimal harness feels better than"
-      ]
+      "description": "Dillon explains why Pi’s minimal harness feels better than more opinionated agent shells."
     },
     {
       "time": "00:48:37",
       "seconds": 2917,
       "title": "Pi’s /tree becomes the sticky feature that lets him",
-      "description": "Pi’s /tree becomes the sticky feature that lets him branch, summarize, and return through a session without losing context.",
-      "emphasis": [
-        "Pi’s /tree becomes the sticky feature that lets him"
-      ]
+      "description": "Pi’s /tree becomes the sticky feature that lets him branch, summarize, and return through a session without losing context."
     },
     {
       "time": "00:50:39",
       "seconds": 3039,
       "title": "Plannotator turns long agent responses into something he can",
-      "description": "Plannotator turns long agent responses into something he can annotate, correct, and feed back as structured planning.",
-      "emphasis": [
-        "Plannotator turns long agent responses into something he can"
-      ]
+      "description": "Plannotator turns long agent responses into something he can annotate, correct, and feed back as structured planning."
     },
     {
       "time": "00:59:43",
       "seconds": 3583,
       "title": "I’ve never seen a model go this file is",
-      "description": "“I’ve never seen a model go, this file is getting too big” captures the episode’s core warning about AI code bloat.",
-      "emphasis": [
-        "I’ve never seen a model go this file is"
-      ]
+      "description": "“I’ve never seen a model go, this file is getting too big” captures the episode’s core warning about AI code bloat."
     },
     {
       "time": "01:05:21",
       "seconds": 3921,
       "title": "Local code review and spec-vs-standards checks are what make",
-      "description": "Local code review and spec-vs-standards checks are what make generated code shippable.",
-      "emphasis": [
-        "Local code review and spec-vs-standards checks are what make"
-      ]
+      "description": "Local code review and spec-vs-standards checks are what make generated code shippable."
     },
     {
       "time": "01:10:59",
       "seconds": 4259,
       "title": "Sunil closes by naming burnout directly reframing the whole",
-      "description": "Sunil closes by naming burnout directly, reframing the whole conversation as a sustainability problem too.",
-      "emphasis": [
-        "Sunil closes by naming burnout directly reframing the whole"
-      ]
+      "description": "Sunil closes by naming burnout directly, reframing the whole conversation as a sustainability problem too."
     }
   ],
   "sections": [
@@ -111,37 +81,25 @@
           "time": "00:00:52",
           "seconds": 52,
           "title": "The episode opens by settling a recent bet about",
-          "description": "The episode opens by settling a recent bet about when model access would broaden.",
-          "emphasis": [
-            "The episode opens by settling a recent bet about"
-          ]
+          "description": "The episode opens by settling a recent bet about when model access would broaden."
         },
         {
           "time": "00:03:08",
           "seconds": 188,
           "title": "OpenAI ships GPT-5 and then 5 6 almost immediately",
-          "description": "OpenAI ships GPT-5 and then 5.6 almost immediately after they recorded, making the timing debate look silly.",
-          "emphasis": [
-            "OpenAI ships GPT-5 and then 5 6 almost immediately"
-          ]
+          "description": "OpenAI ships GPT-5 and then 5.6 almost immediately after they recorded, making the timing debate look silly."
         },
         {
           "time": "00:04:27",
           "seconds": 267,
           "title": "Rhys argues the real issue is not just the",
-          "description": "Rhys argues the real issue is not just the rollout itself, but how poorly labs set expectations for developers and buyers.",
-          "emphasis": [
-            "Rhys argues the real issue is not just the"
-          ]
+          "description": "Rhys argues the real issue is not just the rollout itself, but how poorly labs set expectations for developers and buyers."
         },
         {
           "time": "00:12:37",
           "seconds": 757,
           "title": "Anthropic’s limits are reset note is discussed as a",
-          "description": "Anthropic’s “limits are reset” note is discussed as a better example of direct communication, even if it is still imperfect.",
-          "emphasis": [
-            "Anthropic’s limits are reset note is discussed as a"
-          ]
+          "description": "Anthropic’s “limits are reset” note is discussed as a better example of direct communication, even if it is still imperfect."
         }
       ]
     },
@@ -152,28 +110,19 @@
           "time": "00:14:24",
           "seconds": 864,
           "title": "Rhys says non-tech friends and family often hold strongly",
-          "description": "Rhys says non-tech friends and family often hold strongly negative or distorted views of AI.",
-          "emphasis": [
-            "Rhys says non-tech friends and family often hold strongly"
-          ]
+          "description": "Rhys says non-tech friends and family often hold strongly negative or distorted views of AI."
         },
         {
           "time": "00:15:32",
           "seconds": 932,
           "title": "The hosts call out AGI rhetoric for being specific",
-          "description": "The hosts call out AGI rhetoric for being specific about catastrophic downside but vague about everyday upside.",
-          "emphasis": [
-            "The hosts call out AGI rhetoric for being specific"
-          ]
+          "description": "The hosts call out AGI rhetoric for being specific about catastrophic downside but vague about everyday upside."
         },
         {
           "time": "00:16:29",
           "seconds": 989,
           "title": "They invite labs onto the show to make concrete",
-          "description": "They invite labs onto the show to make concrete, falsifiable claims about how AI actually improves work and life.",
-          "emphasis": [
-            "They invite labs onto the show to make concrete"
-          ]
+          "description": "They invite labs onto the show to make concrete, falsifiable claims about how AI actually improves work and life."
         }
       ]
     },
@@ -184,46 +133,31 @@
           "time": "00:17:08",
           "seconds": 1028,
           "title": "Dillon praises Codex computer use as surprisingly capable especially",
-          "description": "Dillon praises Codex computer use as surprisingly capable, especially for browser-driven testing and task execution.",
-          "emphasis": [
-            "Dillon praises Codex computer use as surprisingly capable especially"
-          ]
+          "description": "Dillon praises Codex computer use as surprisingly capable, especially for browser-driven testing and task execution."
         },
         {
           "time": "00:17:39",
           "seconds": 1059,
           "title": "The Apple TV remote anecdote becomes proof that these",
-          "description": "The Apple TV remote anecdote becomes proof that these tools can now complete real-world checkout flows.",
-          "emphasis": [
-            "The Apple TV remote anecdote becomes proof that these"
-          ]
+          "description": "The Apple TV remote anecdote becomes proof that these tools can now complete real-world checkout flows."
         },
         {
           "time": "00:19:39",
           "seconds": 1179,
           "title": "Rhys is bullish on Thinking Machines’ Inkling release as",
-          "description": "Rhys is bullish on Thinking Machines’ Inkling release as a practical open-weight and fine-tuning direction.",
-          "emphasis": [
-            "Rhys is bullish on Thinking Machines’ Inkling release as"
-          ]
+          "description": "Rhys is bullish on Thinking Machines’ Inkling release as a practical open-weight and fine-tuning direction."
         },
         {
           "time": "00:24:24",
           "seconds": 1464,
           "title": "The Future Worth Building Is Human manifesto stands out",
-          "description": "The “Future Worth Building Is Human” manifesto stands out because it is unusually specific about values and product direction.",
-          "emphasis": [
-            "The Future Worth Building Is Human manifesto stands out"
-          ]
+          "description": "The “Future Worth Building Is Human” manifesto stands out because it is unusually specific about values and product direction."
         },
         {
           "time": "00:28:22",
           "seconds": 1702,
           "title": "The conversation shifts to whether different specialized models may",
-          "description": "The conversation shifts to whether different specialized models may matter more than one generic AI teammate.",
-          "emphasis": [
-            "The conversation shifts to whether different specialized models may"
-          ]
+          "description": "The conversation shifts to whether different specialized models may matter more than one generic AI teammate."
         }
       ]
     },
@@ -234,37 +168,25 @@
           "time": "00:29:41",
           "seconds": 1781,
           "title": "Sunil contrasts AI Engineer style hype with Local First",
-          "description": "Sunil contrasts AI Engineer–style hype with Local First Conf’s more grounded, builder-centric energy.",
-          "emphasis": [
-            "Sunil contrasts AI Engineer style hype with Local First"
-          ]
+          "description": "Sunil contrasts AI Engineer–style hype with Local First Conf’s more grounded, builder-centric energy."
         },
         {
           "time": "00:31:10",
           "seconds": 1870,
           "title": "Dan Ingalls showing up reinforces the sense that serious",
-          "description": "Dan Ingalls showing up reinforces the sense that serious computing traditions still matter.",
-          "emphasis": [
-            "Dan Ingalls showing up reinforces the sense that serious"
-          ]
+          "description": "Dan Ingalls showing up reinforces the sense that serious computing traditions still matter."
         },
         {
           "time": "00:32:31",
           "seconds": 1951,
           "title": "The takeaway is that many developers want substance demos",
-          "description": "The takeaway is that many developers want substance, demos, and craft—not just another AI sales pitch.",
-          "emphasis": [
-            "The takeaway is that many developers want substance demos"
-          ]
+          "description": "The takeaway is that many developers want substance, demos, and craft—not just another AI sales pitch."
         },
         {
           "time": "00:33:27",
           "seconds": 2007,
           "title": "The local-first crowd feels like a useful corrective to",
-          "description": "The local-first crowd feels like a useful corrective to overheated AI discourse.",
-          "emphasis": [
-            "The local-first crowd feels like a useful corrective to"
-          ]
+          "description": "The local-first crowd feels like a useful corrective to overheated AI discourse."
         }
       ]
     },
@@ -275,46 +197,31 @@
           "time": "00:34:32",
           "seconds": 2072,
           "title": "Dillon frames the walkthrough as a moving target",
-          "description": "his workflow keeps changing as models and tools change.",
-          "emphasis": [
-            "Dillon frames the walkthrough as a moving target"
-          ]
+          "description": "his workflow keeps changing as models and tools change."
         },
         {
           "time": "00:36:06",
           "seconds": 2166,
           "title": "He describes the existential pressure of agentic engineering as",
-          "description": "He describes the existential pressure of agentic engineering as both productive and exhausting.",
-          "emphasis": [
-            "He describes the existential pressure of agentic engineering as"
-          ]
+          "description": "He describes the existential pressure of agentic engineering as both productive and exhausting."
         },
         {
           "time": "00:37:50",
           "seconds": 2270,
           "title": "Pi is his daily harness because it is intentionally",
-          "description": "Pi is his daily harness because it is intentionally minimal, predictable, and easy to shape around his own workflow.",
-          "emphasis": [
-            "Pi is his daily harness because it is intentionally"
-          ]
+          "description": "Pi is his daily harness because it is intentionally minimal, predictable, and easy to shape around his own workflow."
         },
         {
           "time": "00:40:13",
           "seconds": 2413,
           "title": "He values slow-moving tooling because models are already stochastic",
-          "description": "He values slow-moving tooling because models are already stochastic enough; he does not want the harness changing underneath him too.",
-          "emphasis": [
-            "He values slow-moving tooling because models are already stochastic"
-          ]
+          "description": "He values slow-moving tooling because models are already stochastic enough; he does not want the harness changing underneath him too."
         },
         {
           "time": "00:44:42",
           "seconds": 2682,
           "title": "Herder replaces tmux pain points especially around visibility attention",
-          "description": "Herder replaces tmux pain points, especially around visibility, attention management, and better terminal integration.",
-          "emphasis": [
-            "Herder replaces tmux pain points especially around visibility attention"
-          ]
+          "description": "Herder replaces tmux pain points, especially around visibility, attention management, and better terminal integration."
         }
       ]
     },
@@ -325,46 +232,31 @@
           "time": "00:48:37",
           "seconds": 2917,
           "title": "Pi’s /tree lets him jump between branches of a",
-          "description": "Pi’s /tree lets him jump between branches of a conversation and optionally summarize them.",
-          "emphasis": [
-            "Pi’s /tree lets him jump between branches of a"
-          ]
+          "description": "Pi’s /tree lets him jump between branches of a conversation and optionally summarize them."
         },
         {
           "time": "00:49:46",
           "seconds": 2986,
           "title": "He starts many tasks by asking the agent targeted",
-          "description": "He starts many tasks by asking the agent targeted architecture questions before asking it to build anything.",
-          "emphasis": [
-            "He starts many tasks by asking the agent targeted"
-          ]
+          "description": "He starts many tasks by asking the agent targeted architecture questions before asking it to build anything."
         },
         {
           "time": "00:50:39",
           "seconds": 3039,
           "title": "Plannotator opens the last agent message in a web",
-          "description": "Plannotator opens the last agent message in a web UI so he can annotate, edit, and send precise feedback back into the session.",
-          "emphasis": [
-            "Plannotator opens the last agent message in a web"
-          ]
+          "description": "Plannotator opens the last agent message in a web UI so he can annotate, edit, and send precise feedback back into the session."
         },
         {
           "time": "00:52:04",
           "seconds": 3124,
           "title": "This creates a manual sub-agent loop where the human",
-          "description": "This creates a manual sub-agent loop where the human curates context instead of blindly accepting output.",
-          "emphasis": [
-            "This creates a manual sub-agent loop where the human"
-          ]
+          "description": "This creates a manual sub-agent loop where the human curates context instead of blindly accepting output."
         },
         {
           "time": "00:53:53",
           "seconds": 3233,
           "title": "He frequently saves good branch summaries to markdown and",
-          "description": "He frequently saves good branch summaries to markdown and reuses them as controlled context in later branches.",
-          "emphasis": [
-            "He frequently saves good branch summaries to markdown and"
-          ]
+          "description": "He frequently saves good branch summaries to markdown and reuses them as controlled context in later branches."
         }
       ]
     },
@@ -375,46 +267,31 @@
           "time": "00:54:49",
           "seconds": 3289,
           "title": "Dillon prefers specs that look like pseudo-code plus types",
-          "description": "Dillon prefers specs that look like pseudo-code plus types, interfaces, and an outline of current vs desired call stacks.",
-          "emphasis": [
-            "Dillon prefers specs that look like pseudo-code plus types"
-          ]
+          "description": "Dillon prefers specs that look like pseudo-code plus types, interfaces, and an outline of current vs desired call stacks."
         },
         {
           "time": "00:57:31",
           "seconds": 3451,
           "title": "He says the planning notes about testing and terminal",
-          "description": "He says the planning notes about testing and terminal control were his own additions, not just model output.",
-          "emphasis": [
-            "He says the planning notes about testing and terminal"
-          ]
+          "description": "He says the planning notes about testing and terminal control were his own additions, not just model output."
         },
         {
           "time": "00:59:43",
           "seconds": 3583,
           "title": "Rhys’s line about never hearing a model say this",
-          "description": "Rhys’s line about never hearing a model say “this file is getting too big” crystallizes why human architectural judgment still matters.",
-          "emphasis": [
-            "Rhys’s line about never hearing a model say this"
-          ]
+          "description": "Rhys’s line about never hearing a model say “this file is getting too big” crystallizes why human architectural judgment still matters."
         },
         {
           "time": "01:00:25",
           "seconds": 3625,
           "title": "Dillon deliberately pushes back on unnecessary new abstractions and",
-          "description": "Dillon deliberately pushes back on unnecessary new abstractions and thin one-off adapters.",
-          "emphasis": [
-            "Dillon deliberately pushes back on unnecessary new abstractions and"
-          ]
+          "description": "Dillon deliberately pushes back on unnecessary new abstractions and thin one-off adapters."
         },
         {
           "time": "01:02:10",
           "seconds": 3730,
           "title": "He calls Plannotator the single most important tool for",
-          "description": "He calls Plannotator the single most important tool for getting consistently good outcomes from agents.",
-          "emphasis": [
-            "He calls Plannotator the single most important tool for"
-          ]
+          "description": "He calls Plannotator the single most important tool for getting consistently good outcomes from agents."
         }
       ]
     },
@@ -425,46 +302,31 @@
           "time": "01:05:21",
           "seconds": 3921,
           "title": "Local code review matters because Dillon does not want",
-          "description": "Local code review matters because Dillon does not want half-ready agent output pushed upstream just to inspect diffs.",
-          "emphasis": [
-            "Local code review matters because Dillon does not want"
-          ]
+          "description": "Local code review matters because Dillon does not want half-ready agent output pushed upstream just to inspect diffs."
         },
         {
           "time": "01:06:16",
           "seconds": 3976,
           "title": "His review flow uses two checks",
-          "description": "one against the spec and one against his coding standards.",
-          "emphasis": [
-            "His review flow uses two checks"
-          ]
+          "description": "one against the spec and one against his coding standards."
         },
         {
           "time": "01:08:17",
           "seconds": 4097,
           "title": "Matt Pocock’s Wayfinder helps decompose larger ambiguous projects into",
-          "description": "Matt Pocock’s Wayfinder helps decompose larger ambiguous projects into research, grilling, prototyping, and implementation tracks.",
-          "emphasis": [
-            "Matt Pocock’s Wayfinder helps decompose larger ambiguous projects into"
-          ]
+          "description": "Matt Pocock’s Wayfinder helps decompose larger ambiguous projects into research, grilling, prototyping, and implementation tracks."
         },
         {
           "time": "01:09:47",
           "seconds": 4187,
           "title": "The value is reducing ambiguity over multiple sessions before",
-          "description": "The value is reducing ambiguity over multiple sessions before asking the agent to do serious implementation.",
-          "emphasis": [
-            "The value is reducing ambiguity over multiple sessions before"
-          ]
+          "description": "The value is reducing ambiguity over multiple sessions before asking the agent to do serious implementation."
         },
         {
           "time": "01:10:59",
           "seconds": 4259,
           "title": "Sunil closes by naming burnout openly turning the workflow",
-          "description": "Sunil closes by naming burnout openly, turning the workflow talk into a reminder that better tooling does not eliminate human strain.",
-          "emphasis": [
-            "Sunil closes by naming burnout openly turning the workflow"
-          ]
+          "description": "Sunil closes by naming burnout openly, turning the workflow talk into a reminder that better tooling does not eliminate human strain."
         }
       ]
     }

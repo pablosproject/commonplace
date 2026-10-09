@@ -16,73 +16,49 @@
       "time": "00:10:02",
       "seconds": 602,
       "title": "Matteo says he has not written code completely by",
-      "description": "Matteo says he has not written code completely by hand since November 2025, using his own workflow as proof of how quickly AI-assisted development changed.",
-      "emphasis": [
-        "Matteo says he has not written code completely by"
-      ]
+      "description": "Matteo says he has not written code completely by hand since November 2025, using his own workflow as proof of how quickly AI-assisted development changed."
     },
     {
       "time": "00:19:17",
       "seconds": 1157,
       "title": "He frames the shift as moving from syntax to intent",
-      "description": "developers describe what they want while agents increasingly generate the implementation.",
-      "emphasis": [
-        "He frames the shift as moving from syntax to intent"
-      ]
+      "description": "developers describe what they want while agents increasingly generate the implementation."
     },
     {
       "time": "00:24:41",
       "seconds": 1481,
       "title": "His practical framework for a good spec is",
-      "description": "current state, requirements, constraints, and verification.",
-      "emphasis": [
-        "His practical framework for a good spec is"
-      ]
+      "description": "current state, requirements, constraints, and verification."
     },
     {
       "time": "00:32:18",
       "seconds": 1938,
       "title": "The agentic loop is plan code test iterate but",
-      "description": "The agentic loop is plan → code → test → iterate, but it only works when the surrounding process is designed carefully.",
-      "emphasis": [
-        "The agentic loop is plan code test iterate but"
-      ]
+      "description": "The agentic loop is plan → code → test → iterate, but it only works when the surrounding process is designed carefully."
     },
     {
       "time": "00:37:51",
       "seconds": 2271,
       "title": "He insists that responsibility stays human",
-      "description": "legal, architectural, and maintenance decisions cannot simply be delegated away.",
-      "emphasis": [
-        "He insists that responsibility stays human"
-      ]
+      "description": "legal, architectural, and maintenance decisions cannot simply be delegated away."
     },
     {
       "time": "00:44:00",
       "seconds": 2640,
       "title": "A recorded demo shows how specs orchestrated agents screenshots",
-      "description": "A recorded demo shows how specs, orchestrated agents, screenshots, and diffs can make agent work observable instead of trust-based.",
-      "emphasis": [
-        "A recorded demo shows how specs orchestrated agents screenshots"
-      ]
+      "description": "A recorded demo shows how specs, orchestrated agents, screenshots, and diffs can make agent work observable instead of trust-based."
     },
     {
       "time": "00:53:30",
       "seconds": 3210,
       "title": "Nicola adds the perspective of an AI-native developer arguing",
-      "description": "Nicola adds the perspective of an “AI-native developer,” arguing that AI accelerates learning only if engineering fundamentals remain intact.",
-      "emphasis": [
-        "Nicola adds the perspective of an AI-native developer arguing"
-      ]
+      "description": "Nicola adds the perspective of an “AI-native developer,” arguing that AI accelerates learning only if engineering fundamentals remain intact."
     },
     {
       "time": "01:26:25",
       "seconds": 5185,
       "title": "The Q&A ends with a warning against cognitive surrender",
-      "description": "delegate repetitive work, not your judgment.",
-      "emphasis": [
-        "The Q&A ends with a warning against cognitive surrender"
-      ]
+      "description": "delegate repetitive work, not your judgment."
     }
   ],
   "sections": [
@@ -93,28 +69,19 @@
           "time": "00:05:00",
           "seconds": 300,
           "title": "The talk recalls the old developers developers developers era",
-          "description": "The talk recalls the old “developers, developers, developers” era and asks the new version of that question: if AI writes more code, what exactly is the developer’s role now?",
-          "emphasis": [
-            "The talk recalls the old developers developers developers era"
-          ]
+          "description": "The talk recalls the old “developers, developers, developers” era and asks the new version of that question: if AI writes more code, what exactly is the developer’s role now?"
         },
         {
           "time": "00:07:20",
           "seconds": 440,
           "title": "Matteo explicitly avoids a tool-vendor pitch and focuses instead",
-          "description": "Matteo explicitly avoids a tool-vendor pitch and focuses instead on methodology, organization, and responsibility .",
-          "emphasis": [
-            "Matteo explicitly avoids a tool-vendor pitch and focuses instead"
-          ]
+          "description": "Matteo explicitly avoids a tool-vendor pitch and focuses instead on methodology, organization, and responsibility ."
         },
         {
           "time": "00:09:20",
           "seconds": 560,
           "title": "An audience poll shows that many developers in the",
-          "description": "An audience poll shows that many developers in the room are already delegating meaningful tasks to AI, not just using autocomplete.",
-          "emphasis": [
-            "An audience poll shows that many developers in the"
-          ]
+          "description": "An audience poll shows that many developers in the room are already delegating meaningful tasks to AI, not just using autocomplete."
         }
       ]
     },
@@ -125,37 +92,25 @@
           "time": "00:10:02",
           "seconds": 602,
           "title": "Matteo says he has written more code since late",
-          "description": "Matteo says he has written more code since late 2025 than in the rest of his career, despite writing far less of it line by line.",
-          "emphasis": [
-            "Matteo says he has written more code since late"
-          ]
+          "description": "Matteo says he has written more code since late 2025 than in the rest of his career, despite writing far less of it line by line."
         },
         {
           "time": "00:15:00",
           "seconds": 900,
           "title": "He walks through the progression from autocomplete to block",
-          "description": "He walks through the progression from autocomplete, to block generation, to chat assistants, to full coding agents that can plan and execute tasks.",
-          "emphasis": [
-            "He walks through the progression from autocomplete to block"
-          ]
+          "description": "He walks through the progression from autocomplete, to block generation, to chat assistants, to full coding agents that can plan and execute tasks."
         },
         {
           "time": "00:18:40",
           "seconds": 1120,
           "title": "The real disruption is psychological as much as technical",
-          "description": "developers are delegating the activity many people once treated as their professional identity.",
-          "emphasis": [
-            "The real disruption is psychological as much as technical"
-          ]
+          "description": "developers are delegating the activity many people once treated as their professional identity."
         },
         {
           "time": "00:19:17",
           "seconds": 1157,
           "title": "His shorthand for the change is from syntax to",
-          "description": "His shorthand for the change is “from syntax to intent” .",
-          "emphasis": [
-            "His shorthand for the change is from syntax to"
-          ]
+          "description": "His shorthand for the change is “from syntax to intent” ."
         }
       ]
     },
@@ -166,28 +121,19 @@
           "time": "00:20:20",
           "seconds": 1220,
           "title": "Matteo argues the developer becomes more important because more",
-          "description": "Matteo argues the developer becomes more important because more value shifts to planning, reviewing, verifying, and governing generated work.",
-          "emphasis": [
-            "Matteo argues the developer becomes more important because more"
-          ]
+          "description": "Matteo argues the developer becomes more important because more value shifts to planning, reviewing, verifying, and governing generated work."
         },
         {
           "time": "00:21:35",
           "seconds": 1295,
           "title": "He rejects old productivity metrics like velocity when code",
-          "description": "He rejects old productivity metrics like “velocity” when code volume can be inflated cheaply by machines.",
-          "emphasis": [
-            "He rejects old productivity metrics like velocity when code"
-          ]
+          "description": "He rejects old productivity metrics like “velocity” when code volume can be inflated cheaply by machines."
         },
         {
           "time": "00:23:20",
           "seconds": 1400,
           "title": "Fast output is not enough",
-          "description": "the developer remains accountable for whether the result is safe, maintainable, and correct.",
-          "emphasis": [
-            "Fast output is not enough"
-          ]
+          "description": "the developer remains accountable for whether the result is safe, maintainable, and correct."
         }
       ]
     },
@@ -198,28 +144,19 @@
           "time": "00:24:41",
           "seconds": 1481,
           "title": "A good task spec should capture the current state",
-          "description": "A good task spec should capture the current state, requirements, constraints, and exactly how the outcome will be checked.",
-          "emphasis": [
-            "A good task spec should capture the current state"
-          ]
+          "description": "A good task spec should capture the current state, requirements, constraints, and exactly how the outcome will be checked."
         },
         {
           "time": "00:27:17",
           "seconds": 1637,
           "title": "An ACME website example shows how vague instructions invite",
-          "description": "An ACME website example shows how vague instructions invite agents to make locally plausible but globally wrong edits.",
-          "emphasis": [
-            "An ACME website example shows how vague instructions invite"
-          ]
+          "description": "An ACME website example shows how vague instructions invite agents to make locally plausible but globally wrong edits."
         },
         {
           "time": "00:30:13",
           "seconds": 1813,
           "title": "Requests like make it fast are dangerous because the",
-          "description": "Requests like “make it fast” are dangerous because the system may technically obey while damaging the real product goal.",
-          "emphasis": [
-            "Requests like make it fast are dangerous because the"
-          ]
+          "description": "Requests like “make it fast” are dangerous because the system may technically obey while damaging the real product goal."
         }
       ]
     },
@@ -230,46 +167,31 @@
           "time": "00:32:18",
           "seconds": 1938,
           "title": "The central loop is simple",
-          "description": "specification, planning, coding, testing, iteration — but only if the developer has set the environment up properly.",
-          "emphasis": [
-            "The central loop is simple"
-          ]
+          "description": "specification, planning, coding, testing, iteration — but only if the developer has set the environment up properly."
         },
         {
           "time": "00:34:46",
           "seconds": 2086,
           "title": "The developer’s real leverage is in model choice prompt",
-          "description": "The developer’s real leverage is in model choice, prompt structure, tool access, error handling, and the constraints around the loop.",
-          "emphasis": [
-            "The developer’s real leverage is in model choice prompt"
-          ]
+          "description": "The developer’s real leverage is in model choice, prompt structure, tool access, error handling, and the constraints around the loop."
         },
         {
           "time": "00:37:51",
           "seconds": 2271,
           "title": "Human decision-making remains mandatory because legal responsibility and long-term",
-          "description": "Human decision-making remains mandatory because legal responsibility and long-term maintainability still sit with the team.",
-          "emphasis": [
-            "Human decision-making remains mandatory because legal responsibility and long-term"
-          ]
+          "description": "Human decision-making remains mandatory because legal responsibility and long-term maintainability still sit with the team."
         },
         {
           "time": "00:41:24",
           "seconds": 2484,
           "title": "Matteo calls this the outer loop",
-          "description": "reviewing evidence, tightening specs, and steering the system when it drifts.",
-          "emphasis": [
-            "Matteo calls this the outer loop"
-          ]
+          "description": "reviewing evidence, tightening specs, and steering the system when it drifts."
         },
         {
           "time": "00:42:15",
           "seconds": 2535,
           "title": "He warns that a real multi-agent design is not",
-          "description": "He warns that a real multi-agent design is not the same as a chaotic swarm that burns tokens without predictable output.",
-          "emphasis": [
-            "He warns that a real multi-agent design is not"
-          ]
+          "description": "He warns that a real multi-agent design is not the same as a chaotic swarm that burns tokens without predictable output."
         }
       ]
     },
@@ -280,46 +202,31 @@
           "time": "00:44:00",
           "seconds": 2640,
           "title": "Matteo starts a recorded demo to avoid venue internet",
-          "description": "Matteo starts a recorded demo to avoid venue internet problems and shows the workflow in a controlled way.",
-          "emphasis": [
-            "Matteo starts a recorded demo to avoid venue internet"
-          ]
+          "description": "Matteo starts a recorded demo to avoid venue internet problems and shows the workflow in a controlled way."
         },
         {
           "time": "00:45:00",
           "seconds": 2700,
           "title": "A spec file drives Antigravity where an orchestrator splits",
-          "description": "A spec file drives Antigravity, where an orchestrator splits the work across frontend and backend agents.",
-          "emphasis": [
-            "A spec file drives Antigravity where an orchestrator splits"
-          ]
+          "description": "A spec file drives Antigravity, where an orchestrator splits the work across frontend and backend agents."
         },
         {
           "time": "00:46:20",
           "seconds": 2780,
           "title": "He insists on reading the plan and visualizing the",
-          "description": "He insists on reading the plan and visualizing the agent structure before approving execution.",
-          "emphasis": [
-            "He insists on reading the plan and visualizing the"
-          ]
+          "description": "He insists on reading the plan and visualizing the agent structure before approving execution."
         },
         {
           "time": "00:47:54",
           "seconds": 2874,
           "title": "A design file encodes brand constraints so the generated",
-          "description": "A design file encodes brand constraints so the generated UI stays consistent with the intended look and content.",
-          "emphasis": [
-            "A design file encodes brand constraints so the generated"
-          ]
+          "description": "A design file encodes brand constraints so the generated UI stays consistent with the intended look and content."
         },
         {
           "time": "00:48:32",
           "seconds": 2912,
           "title": "Screenshots diffs and test outputs provide evidence reducing the",
-          "description": "Screenshots, diffs, and test outputs provide evidence, reducing the need to simply trust an agent saying “done.”",
-          "emphasis": [
-            "Screenshots diffs and test outputs provide evidence reducing the"
-          ]
+          "description": "Screenshots, diffs, and test outputs provide evidence, reducing the need to simply trust an agent saying “done.”"
         }
       ]
     },
@@ -330,46 +237,31 @@
           "time": "00:50:16",
           "seconds": 3016,
           "title": "Matteo notes that many agent products are happy to",
-          "description": "Matteo notes that many agent products are happy to consume tokens, so cost awareness and process discipline matter.",
-          "emphasis": [
-            "Matteo notes that many agent products are happy to"
-          ]
+          "description": "Matteo notes that many agent products are happy to consume tokens, so cost awareness and process discipline matter."
         },
         {
           "time": "00:51:25",
           "seconds": 3085,
           "title": "He compares bad agent management to bad people management",
-          "description": "redundant loops, pointless internal meetings, and wasted effort.",
-          "emphasis": [
-            "He compares bad agent management to bad people management"
-          ]
+          "description": "redundant loops, pointless internal meetings, and wasted effort."
         },
         {
           "time": "00:53:30",
           "seconds": 3210,
           "title": "Nicola is introduced as an AI-native developer whose whole",
-          "description": "Nicola is introduced as an “AI-native developer” whose whole professional growth happened with these tools already present.",
-          "emphasis": [
-            "Nicola is introduced as an AI-native developer whose whole"
-          ]
+          "description": "Nicola is introduced as an “AI-native developer” whose whole professional growth happened with these tools already present."
         },
         {
           "time": "00:55:23",
           "seconds": 3323,
           "title": "Nicola says the fundamentals still matter most",
-          "description": "patterns, architecture, security, and reasoning about tradeoffs.",
-          "emphasis": [
-            "Nicola says the fundamentals still matter most"
-          ]
+          "description": "patterns, architecture, security, and reasoning about tradeoffs."
         },
         {
           "time": "00:58:20",
           "seconds": 3500,
           "title": "AI helped him keep an overall system view and",
-          "description": "AI helped him keep an overall system view and learn across languages, but not skip understanding why systems are built a certain way.",
-          "emphasis": [
-            "AI helped him keep an overall system view and"
-          ]
+          "description": "AI helped him keep an overall system view and learn across languages, but not skip understanding why systems are built a certain way."
         }
       ]
     },
@@ -380,55 +272,37 @@
           "time": "01:00:22",
           "seconds": 3622,
           "title": "The Q A opens with questions about legal accountability",
-          "description": "The Q&A opens with questions about legal accountability, documentation, and whether agent artifacts can support responsibility.",
-          "emphasis": [
-            "The Q A opens with questions about legal accountability"
-          ]
+          "description": "The Q&A opens with questions about legal accountability, documentation, and whether agent artifacts can support responsibility."
         },
         {
           "time": "01:03:40",
           "seconds": 3820,
           "title": "The speakers discuss making agents expose uncertainty and critique",
-          "description": "The speakers discuss making agents expose uncertainty and critique architectures instead of treating the workflow as a one-shot linear process.",
-          "emphasis": [
-            "The speakers discuss making agents expose uncertainty and critique"
-          ]
+          "description": "The speakers discuss making agents expose uncertainty and critique architectures instead of treating the workflow as a one-shot linear process."
         },
         {
           "time": "01:10:00",
           "seconds": 4200,
           "title": "Matteo describes constant experimentation with models token budgets tests",
-          "description": "Matteo describes constant experimentation with models, token budgets, tests, and browser-based verification.",
-          "emphasis": [
-            "Matteo describes constant experimentation with models token budgets tests"
-          ]
+          "description": "Matteo describes constant experimentation with models, token budgets, tests, and browser-based verification."
         },
         {
           "time": "01:16:06",
           "seconds": 4566,
           "title": "One thread focuses on pairing larger models for orchestration",
-          "description": "One thread focuses on pairing larger models for orchestration with smaller, cheaper ones for narrow tool-driven tasks.",
-          "emphasis": [
-            "One thread focuses on pairing larger models for orchestration"
-          ]
+          "description": "One thread focuses on pairing larger models for orchestration with smaller, cheaper ones for narrow tool-driven tasks."
         },
         {
           "time": "01:20:00",
           "seconds": 4800,
           "title": "An audience member describes a structured team workflow where",
-          "description": "An audience member describes a structured team workflow where ADRs and strategy docs constrain what AI is allowed to change.",
-          "emphasis": [
-            "An audience member describes a structured team workflow where"
-          ]
+          "description": "An audience member describes a structured team workflow where ADRs and strategy docs constrain what AI is allowed to change."
         },
         {
           "time": "01:26:25",
           "seconds": 5185,
           "title": "The closing message is to avoid cognitive surrender",
-          "description": "use AI for leverage, but do not switch off the engineering brain.",
-          "emphasis": [
-            "The closing message is to avoid cognitive surrender"
-          ]
+          "description": "use AI for leverage, but do not switch off the engineering brain."
         }
       ]
     }

@@ -16,73 +16,49 @@
       "time": "00:00:24",
       "seconds": 24,
       "title": "Why the port happened",
-      "description": "he moved Market Monkey from Go to Odin mainly for performance and a better app/rendering setup.",
-      "emphasis": [
-        "Why the port happened"
-      ]
+      "description": "he moved Market Monkey from Go to Odin mainly for performance and a better app/rendering setup."
     },
     {
       "time": "00:02:34",
       "seconds": 154,
       "title": "Odin feels familiar to Go developers",
-      "description": "structs plus procedures , without much conceptual overhead.",
-      "emphasis": [
-        "Odin feels familiar to Go developers"
-      ]
+      "description": "structs plus procedures , without much conceptual overhead."
     },
     {
       "time": "00:04:25",
       "seconds": 265,
       "title": "Why not Rust or Zig",
-      "description": "Why not Rust or Zig? He prefers a language that stays out of the way while he solves product problems.",
-      "emphasis": [
-        "Why not Rust or Zig"
-      ]
+      "description": "Why not Rust or Zig? He prefers a language that stays out of the way while he solves product problems."
     },
     {
       "time": "00:06:57",
       "seconds": 417,
       "title": "The biggest practical shift is memory",
-      "description": "there is no garbage collector , so cleanup becomes explicit.",
-      "emphasis": [
-        "The biggest practical shift is memory"
-      ]
+      "description": "there is no garbage collector , so cleanup becomes explicit."
     },
     {
       "time": "00:08:43",
       "seconds": 523,
       "title": "A temporary allocator lets him batch per-frame allocations and free them all at once",
-      "description": "a strong fit for render loops.",
-      "emphasis": [
-        "A temporary allocator lets him batch per-frame allocations and free them all at once"
-      ]
+      "description": "a strong fit for render loops."
     },
     {
       "time": "00:12:13",
       "seconds": 733,
       "title": "The feature he misses most from Go is interfaces",
-      "description": "The feature he misses most from Go is interfaces .",
-      "emphasis": [
-        "The feature he misses most from Go is interfaces"
-      ]
+      "description": "The feature he misses most from Go is interfaces ."
     },
     {
       "time": "00:13:16",
       "seconds": 796,
       "title": "His Odin workaround uses proc callbacks plus raw pointers",
-      "description": "powerful, but less type-safe.",
-      "emphasis": [
-        "His Odin workaround uses proc callbacks plus raw pointers"
-      ]
+      "description": "powerful, but less type-safe."
     },
     {
       "time": "00:16:38",
       "seconds": 998,
       "title": "Final verdict",
-      "description": "he is happy with the port, likes the rendering results, and plans to test WebAssembly next.",
-      "emphasis": [
-        "Final verdict"
-      ]
+      "description": "he is happy with the port, likes the rendering results, and plans to test WebAssembly next."
     }
   ],
   "sections": [
@@ -93,28 +69,19 @@
           "time": "00:00:24",
           "seconds": 24,
           "title": "Market Monkey a prop-trading terminal was moved from Go",
-          "description": "Market Monkey, a prop-trading terminal, was moved from Go to Odin mainly for performance reasons .",
-          "emphasis": [
-            "Market Monkey a prop-trading terminal was moved from Go"
-          ]
+          "description": "Market Monkey, a prop-trading terminal, was moved from Go to Odin mainly for performance reasons ."
         },
         {
           "time": "00:01:42",
           "seconds": 102,
           "title": "The earlier Go Ebitengine/EbitUI version felt rougher and less",
-          "description": "The earlier Go + Ebitengine/EbitUI version felt rougher and less pleasant for the panel-heavy interface.",
-          "emphasis": [
-            "The earlier Go Ebitengine/EbitUI version felt rougher and less"
-          ]
+          "description": "The earlier Go + Ebitengine/EbitUI version felt rougher and less pleasant for the panel-heavy interface."
         },
         {
           "time": "00:01:58",
           "seconds": 118,
           "title": "A major reason for switching was better bindings and",
-          "description": "A major reason for switching was better bindings and rendering ergonomics for the application.",
-          "emphasis": [
-            "A major reason for switching was better bindings and"
-          ]
+          "description": "A major reason for switching was better bindings and rendering ergonomics for the application."
         }
       ]
     },
@@ -125,28 +92,19 @@
           "time": "00:02:34",
           "seconds": 154,
           "title": "Odin shares Go’s basic mental model",
-          "description": "data-first structs with procedures operating on them.",
-          "emphasis": [
-            "Odin shares Go’s basic mental model"
-          ]
+          "description": "data-first structs with procedures operating on them."
         },
         {
           "time": "00:03:33",
           "seconds": 213,
           "title": "He argues Go methods are mostly syntactic sugar anyway",
-          "description": "He argues Go “methods” are mostly syntactic sugar anyway, so Odin’s explicit style is not a huge conceptual jump.",
-          "emphasis": [
-            "He argues Go methods are mostly syntactic sugar anyway"
-          ]
+          "description": "He argues Go “methods” are mostly syntactic sugar anyway, so Odin’s explicit style is not a huge conceptual jump."
         },
         {
           "time": "00:04:45",
           "seconds": 285,
           "title": "He picked Odin over Rust or Zig because he",
-          "description": "He picked Odin over Rust or Zig because he wants to think about the problem, not the language.",
-          "emphasis": [
-            "He picked Odin over Rust or Zig because he"
-          ]
+          "description": "He picked Odin over Rust or Zig because he wants to think about the problem, not the language."
         }
       ]
     },
@@ -157,28 +115,19 @@
           "time": "00:05:09",
           "seconds": 309,
           "title": "Even small syntax changes like Odin’s pointer notation break",
-          "description": "Even small syntax changes, like Odin’s pointer notation, break Go muscle memory at first.",
-          "emphasis": [
-            "Even small syntax changes like Odin’s pointer notation break"
-          ]
+          "description": "Even small syntax changes, like Odin’s pointer notation, break Go muscle memory at first."
         },
         {
           "time": "00:06:57",
           "seconds": 417,
           "title": "Without Go’s garbage collector maps and other allocations must",
-          "description": "Without Go’s garbage collector, maps and other allocations must be cleaned up deliberately or they leak.",
-          "emphasis": [
-            "Without Go’s garbage collector maps and other allocations must"
-          ]
+          "description": "Without Go’s garbage collector, maps and other allocations must be cleaned up deliberately or they leak."
         },
         {
           "time": "00:08:43",
           "seconds": 523,
           "title": "Odin’s temporary allocator model is powerful for frame-based work",
-          "description": "allocate during a frame, then free everything together.",
-          "emphasis": [
-            "Odin’s temporary allocator model is powerful for frame-based work"
-          ]
+          "description": "allocate during a frame, then free everything together."
         }
       ]
     },
@@ -189,28 +138,19 @@
           "time": "00:10:42",
           "seconds": 642,
           "title": "Odin has some control-flow conveniences he likes though he",
-          "description": "Odin has some control-flow conveniences he likes, though he still prioritizes readability over clever one-liners.",
-          "emphasis": [
-            "Odin has some control-flow conveniences he likes though he"
-          ]
+          "description": "Odin has some control-flow conveniences he likes, though he still prioritizes readability over clever one-liners."
         },
         {
           "time": "00:12:13",
           "seconds": 733,
           "title": "The thing he misses most from Go is interfaces",
-          "description": "The thing he misses most from Go is interfaces , especially for widget-style abstractions.",
-          "emphasis": [
-            "The thing he misses most from Go is interfaces"
-          ]
+          "description": "The thing he misses most from Go is interfaces , especially for widget-style abstractions."
         },
         {
           "time": "00:13:16",
           "seconds": 796,
           "title": "His workaround uses proc types and raw pointers",
-          "description": "flexible, but much easier to misuse.",
-          "emphasis": [
-            "His workaround uses proc types and raw pointers"
-          ]
+          "description": "flexible, but much easier to misuse."
         }
       ]
     },
@@ -221,28 +161,19 @@
           "time": "00:16:04",
           "seconds": 964,
           "title": "Manual pointer handling can create dangling pointer risks",
-          "description": "exactly the area where Rust shines.",
-          "emphasis": [
-            "Manual pointer handling can create dangling pointer risks"
-          ]
+          "description": "exactly the area where Rust shines."
         },
         {
           "time": "00:16:45",
           "seconds": 1005,
           "title": "Even so he says the Odin port already renders",
-          "description": "Even so, he says the Odin port already renders nicely and performs well.",
-          "emphasis": [
-            "Even so he says the Odin port already renders"
-          ]
+          "description": "Even so, he says the Odin port already renders nicely and performs well."
         },
         {
           "time": "00:16:49",
           "seconds": 1009,
           "title": "Next step",
-          "description": "a WebAssembly build, which he expects to work, though likely below desktop performance.",
-          "emphasis": [
-            "Next step"
-          ]
+          "description": "a WebAssembly build, which he expects to work, though likely below desktop performance."
         }
       ]
     }

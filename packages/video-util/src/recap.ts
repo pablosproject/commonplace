@@ -5,7 +5,6 @@ const timestampedPointSchema = z.strictObject({
   seconds: z.number().int().min(0),
   title: z.string().min(1),
   description: z.string().min(1),
-  emphasis: z.array(z.string()).optional(),
 });
 
 export const recapSchema = z.strictObject({

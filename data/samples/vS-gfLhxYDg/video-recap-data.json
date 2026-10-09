@@ -16,73 +16,49 @@
       "time": "00:00:54",
       "seconds": 54,
       "title": "Token Mania demo",
-      "description": "a Factorio-like AI-lab game shows how much Fable can generate from a simple prompt.",
-      "emphasis": [
-        "Token Mania demo"
-      ]
+      "description": "a Factorio-like AI-lab game shows how much Fable can generate from a simple prompt."
     },
     {
       "time": "00:02:03",
       "seconds": 123,
       "title": "Geodrift atmosphere",
-      "description": "the floating relic game is where Bitar says the model started to feel unusually beautiful.",
-      "emphasis": [
-        "Geodrift atmosphere"
-      ]
+      "description": "the floating relic game is where Bitar says the model started to feel unusually beautiful."
     },
     {
       "time": "00:04:00",
       "seconds": 240,
       "title": "“Inside Fable's mind”",
-      "description": "he describes the visuals and music as emotionally convincing enough to create a sense of longing.",
-      "emphasis": [
-        "“Inside Fable's mind”"
-      ]
+      "description": "he describes the visuals and music as emotionally convincing enough to create a sense of longing."
     },
     {
       "time": "00:09:04",
       "seconds": 544,
       "title": "Shipping problem appears",
-      "description": "a weird water-rendering bug becomes the example of why flashy demos are easier than finished products.",
-      "emphasis": [
-        "Shipping problem appears"
-      ]
+      "description": "a weird water-rendering bug becomes the example of why flashy demos are easier than finished products."
     },
     {
       "time": "00:10:04",
       "seconds": 604,
       "title": "The 80/20 rule",
-      "description": "models can get you most of the way, but the last 20% is brutal if you are not an expert.",
-      "emphasis": [
-        "The 80/20 rule"
-      ]
+      "description": "models can get you most of the way, but the last 20% is brutal if you are not an expert."
     },
     {
       "time": "00:14:14",
       "seconds": 854,
       "title": "Benchmarks miss the point",
-      "description": "the linked article captures why some users felt Fable was special in ways numbers do not measure.",
-      "emphasis": [
-        "Benchmarks miss the point"
-      ]
+      "description": "the linked article captures why some users felt Fable was special in ways numbers do not measure."
     },
     {
       "time": "00:17:25",
       "seconds": 1045,
       "title": "Economics reality check",
-      "description": "he estimates the demos could have cost thousands of dollars through the API.",
-      "emphasis": [
-        "Economics reality check"
-      ]
+      "description": "he estimates the demos could have cost thousands of dollars through the API."
     },
     {
       "time": "00:21:20",
       "seconds": 1280,
       "title": "Final framing",
-      "description": "François Chollet's “force multiplier” line becomes Bitar's closing thesis about humans staying essential.",
-      "emphasis": [
-        "Final framing"
-      ]
+      "description": "François Chollet's “force multiplier” line becomes Bitar's closing thesis about humans staying essential."
     }
   ],
   "sections": [
@@ -93,37 +69,25 @@
           "time": "00:00:00",
           "seconds": 0,
           "title": "Bitar opens with an article describing a feeling of",
-          "description": "Bitar opens with an article describing a feeling of longing for Fable and says he felt it too.",
-          "emphasis": [
-            "Bitar opens with an article describing a feeling of"
-          ]
+          "description": "Bitar opens with an article describing a feeling of longing for Fable and says he felt it too."
         },
         {
           "time": "00:00:35",
           "seconds": 35,
           "title": "He sets up the experiment",
-          "description": "show what Fable built for him, mostly games.",
-          "emphasis": [
-            "He sets up the experiment"
-          ]
+          "description": "show what Fable built for him, mostly games."
         },
         {
           "time": "00:00:54",
           "seconds": 54,
           "title": "Token Mania starts as a Factorio-style game about building",
-          "description": "Token Mania starts as a Factorio-style game about building an AI lab.",
-          "emphasis": [
-            "Token Mania starts as a Factorio-style game about building"
-          ]
+          "description": "Token Mania starts as a Factorio-style game about building an AI lab."
         },
         {
           "time": "00:01:43",
           "seconds": 103,
           "title": "The demo quickly reaches data centers wires water GPUs",
-          "description": "The demo quickly reaches data centers, wires, water, GPUs, and model training with very little manual design.",
-          "emphasis": [
-            "The demo quickly reaches data centers wires water GPUs"
-          ]
+          "description": "The demo quickly reaches data centers, wires, water, GPUs, and model training with very little manual design."
         }
       ]
     },
@@ -134,37 +98,25 @@
           "time": "00:02:03",
           "seconds": 123,
           "title": "A second project becomes an ethereal floating game focused",
-          "description": "A second project becomes an ethereal floating game focused on mood, relic collection, and music.",
-          "emphasis": [
-            "A second project becomes an ethereal floating game focused"
-          ]
+          "description": "A second project becomes an ethereal floating game focused on mood, relic collection, and music."
         },
         {
           "time": "00:04:00",
           "seconds": 240,
           "title": "He says this is why the model felt beautiful",
-          "description": "he barely specified the aesthetics, yet the result felt coherent.",
-          "emphasis": [
-            "He says this is why the model felt beautiful"
-          ]
+          "description": "he barely specified the aesthetics, yet the result felt coherent."
         },
         {
           "time": "00:05:08",
           "seconds": 308,
           "title": "He warns that the code is probably a black",
-          "description": "He warns that the code is probably a black box and easy to overestimate if you never inspect it.",
-          "emphasis": [
-            "He warns that the code is probably a black"
-          ]
+          "description": "He warns that the code is probably a black box and easy to overestimate if you never inspect it."
         },
         {
           "time": "00:06:04",
           "seconds": 364,
           "title": "He notes that LLMs impress non-experts most so he",
-          "description": "He notes that LLMs impress non-experts most, so he is careful not to overclaim from game demos.",
-          "emphasis": [
-            "He notes that LLMs impress non-experts most so he"
-          ]
+          "description": "He notes that LLMs impress non-experts most, so he is careful not to overclaim from game demos."
         }
       ]
     },
@@ -175,46 +127,31 @@
           "time": "00:06:22",
           "seconds": 382,
           "title": "He shows an open-world three js crafting game with",
-          "description": "He shows an open-world three.js crafting game with logic-gate mechanics.",
-          "emphasis": [
-            "He shows an open-world three js crafting game with"
-          ]
+          "description": "He shows an open-world three.js crafting game with logic-gate mechanics."
         },
         {
           "time": "00:07:30",
           "seconds": 450,
           "title": "He pivots to an even more impressive community-made browser",
-          "description": "He pivots to an even more impressive community-made browser game built with Fable.",
-          "emphasis": [
-            "He pivots to an even more impressive community-made browser"
-          ]
+          "description": "He pivots to an even more impressive community-made browser game built with Fable."
         },
         {
           "time": "00:08:40",
           "seconds": 520,
           "title": "He stresses that great demos have been possible for",
-          "description": "He stresses that great demos have been possible for a while and do not mean programming is solved.",
-          "emphasis": [
-            "He stresses that great demos have been possible for"
-          ]
+          "description": "He stresses that great demos have been possible for a while and do not mean programming is solved."
         },
         {
           "time": "00:09:04",
           "seconds": 544,
           "title": "A water-rendering issue becomes the concrete example of how",
-          "description": "A water-rendering issue becomes the concrete example of how hard natural-language debugging still is.",
-          "emphasis": [
-            "A water-rendering issue becomes the concrete example of how"
-          ]
+          "description": "A water-rendering issue becomes the concrete example of how hard natural-language debugging still is."
         },
         {
           "time": "00:10:04",
           "seconds": 604,
           "title": "His core rule",
-          "description": "LLMs get you 80% there, but the last 20% is where non-experts get stuck.",
-          "emphasis": [
-            "His core rule"
-          ]
+          "description": "LLMs get you 80% there, but the last 20% is where non-experts get stuck."
         }
       ]
     },
@@ -225,37 +162,25 @@
           "time": "00:10:18",
           "seconds": 618,
           "title": "He moves to a piano-practice app and generated compositions",
-          "description": "He moves to a piano-practice app and generated compositions, saying this part is less unique.",
-          "emphasis": [
-            "He moves to a piano-practice app and generated compositions"
-          ]
+          "description": "He moves to a piano-practice app and generated compositions, saying this part is less unique."
         },
         {
           "time": "00:12:10",
           "seconds": 730,
           "title": "A MIDI/microphone practice tool works but still misfires again",
-          "description": "A MIDI/microphone practice tool works but still misfires, again showing the stubborn last-mile problem.",
-          "emphasis": [
-            "A MIDI/microphone practice tool works but still misfires again"
-          ]
+          "description": "A MIDI/microphone practice tool works but still misfires, again showing the stubborn last-mile problem."
         },
         {
           "time": "00:12:24",
           "seconds": 744,
           "title": "An improv-learning wizard is genuinely useful because the model",
-          "description": "An improv-learning wizard is genuinely useful because the model can explain how it generated the music.",
-          "emphasis": [
-            "An improv-learning wizard is genuinely useful because the model"
-          ]
+          "description": "An improv-learning wizard is genuinely useful because the model can explain how it generated the music."
         },
         {
           "time": "00:13:03",
           "seconds": 783,
           "title": "He argues that part of Fable's emotional effect comes",
-          "description": "He argues that part of Fable's emotional effect comes from attributing beauty in the output back to the model itself.",
-          "emphasis": [
-            "He argues that part of Fable's emotional effect comes"
-          ]
+          "description": "He argues that part of Fable's emotional effect comes from attributing beauty in the output back to the model itself."
         }
       ]
     },
@@ -266,37 +191,25 @@
           "time": "00:14:14",
           "seconds": 854,
           "title": "He turns to the article claiming Fable felt special",
-          "description": "He turns to the article claiming Fable felt special beyond benchmarks and says it matches his own experience.",
-          "emphasis": [
-            "He turns to the article claiming Fable felt special"
-          ]
+          "description": "He turns to the article claiming Fable felt special beyond benchmarks and says it matches his own experience."
         },
         {
           "time": "00:15:10",
           "seconds": 910,
           "title": "He narrows the claim",
-          "description": "he mostly felt this difference in programming, not in generic conversation or writing.",
-          "emphasis": [
-            "He narrows the claim"
-          ]
+          "description": "he mostly felt this difference in programming, not in generic conversation or writing."
         },
         {
           "time": "00:16:01",
           "seconds": 961,
           "title": "He connects Fable to a broader sense that Anthropic",
-          "description": "He connects Fable to a broader sense that Anthropic may be leading the frontier .",
-          "emphasis": [
-            "He connects Fable to a broader sense that Anthropic"
-          ]
+          "description": "He connects Fable to a broader sense that Anthropic may be leading the frontier ."
         },
         {
           "time": "00:16:53",
           "seconds": 1013,
           "title": "He echoes the article's idea that the window to",
-          "description": "He echoes the article's idea that the window to catch the frontier may already be closing.",
-          "emphasis": [
-            "He echoes the article's idea that the window to"
-          ]
+          "description": "He echoes the article's idea that the window to catch the frontier may already be closing."
         }
       ]
     },
@@ -307,64 +220,43 @@
           "time": "00:17:25",
           "seconds": 1045,
           "title": "He says Mythos may be economically inviable despite how",
-          "description": "He says Mythos may be economically inviable despite how impressive it feels.",
-          "emphasis": [
-            "He says Mythos may be economically inviable despite how"
-          ]
+          "description": "He says Mythos may be economically inviable despite how impressive it feels."
         },
         {
           "time": "00:17:46",
           "seconds": 1066,
           "title": "He estimates his demos might have cost roughly 2",
-          "description": "He estimates his demos might have cost roughly $2,000–$3,000 in API usage.",
-          "emphasis": [
-            "He estimates his demos might have cost roughly 2"
-          ]
+          "description": "He estimates his demos might have cost roughly $2,000–$3,000 in API usage."
         },
         {
           "time": "00:18:26",
           "seconds": 1106,
           "title": "He expands the argument into compute geopolitics and chip",
-          "description": "He expands the argument into compute geopolitics and chip controls.",
-          "emphasis": [
-            "He expands the argument into compute geopolitics and chip"
-          ]
+          "description": "He expands the argument into compute geopolitics and chip controls."
         },
         {
           "time": "00:19:32",
           "seconds": 1172,
           "title": "Even after all this he still rejects the idea",
-          "description": "Even after all this, he still rejects the idea that AI replaces humans because he was directing every step.",
-          "emphasis": [
-            "Even after all this he still rejects the idea"
-          ]
+          "description": "Even after all this, he still rejects the idea that AI replaces humans because he was directing every step."
         },
         {
           "time": "00:20:05",
           "seconds": 1205,
           "title": "He dismisses exaggerated claims like 100 hours with Opus",
-          "description": "He dismisses exaggerated claims like “100 hours with Opus becomes 1 hour with Fable” as hype, even if the difference felt tangible.",
-          "emphasis": [
-            "He dismisses exaggerated claims like 100 hours with Opus"
-          ]
+          "description": "He dismisses exaggerated claims like “100 hours with Opus becomes 1 hour with Fable” as hype, even if the difference felt tangible."
         },
         {
           "time": "00:20:48",
           "seconds": 1248,
           "title": "He says most progress now shows up in verifiable",
-          "description": "He says most progress now shows up in verifiable domains like coding and math, not softer tasks like writing.",
-          "emphasis": [
-            "He says most progress now shows up in verifiable"
-          ]
+          "description": "He says most progress now shows up in verifiable domains like coding and math, not softer tasks like writing."
         },
         {
           "time": "00:21:20",
           "seconds": 1280,
           "title": "He closes with François Chollet's view that AI is",
-          "description": "He closes with François Chollet's view that AI is leverage, not autonomy, and still needs a human in the loop.",
-          "emphasis": [
-            "He closes with François Chollet's view that AI is"
-          ]
+          "description": "He closes with François Chollet's view that AI is leverage, not autonomy, and still needs a human in the loop."
         }
       ]
     }

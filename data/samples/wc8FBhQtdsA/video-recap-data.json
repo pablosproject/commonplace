@@ -17,78 +17,67 @@
       "time": "00:04:55",
       "seconds": 295,
       "title": "Coding agents crossed a quality threshold",
-      "description": "Simon says agents now usually build what you ask for, creating a shock wave through software engineering.",
-      "emphasis": ["Coding agents crossed a quality threshold"]
+      "description": "Simon says agents now usually build what you ask for, creating a shock wave through software engineering."
     },
     {
       "time": "00:10:24",
       "seconds": 624,
       "title": "Vibe coding vs. agentic engineering",
-      "description": "Prototypes are great, but production work needs review, responsibility, and professional standards.",
-      "emphasis": ["Vibe coding vs. agentic engineering"]
+      "description": "Prototypes are great, but production work needs review, responsibility, and professional standards."
     },
     {
       "time": "00:16:09",
       "seconds": 969,
       "title": "Swarms of simulated QA users",
-      "description": "strongDM used agents to stress-test security software with simulated Slack requests and workflows.",
-      "emphasis": ["Swarms of simulated QA users"]
+      "description": "strongDM used agents to stress-test security software with simulated Slack requests and workflows."
     },
     {
       "time": "00:27:57",
       "seconds": 1677,
       "title": "Senior engineers get amplified",
-      "description": "AI makes Simon use all 25 years of experience, while mid-career engineers may face the hardest transition.",
-      "emphasis": ["Senior engineers get amplified"]
+      "description": "AI makes Simon use all 25 years of experience, while mid-career engineers may face the hardest transition."
     },
     {
       "time": "00:36:20",
       "seconds": 2180,
       "title": "Productivity can be exhausting",
-      "description": "Running multiple agents creates more parallel decisions, not effortless leisure.",
-      "emphasis": ["Productivity can be exhausting"]
+      "description": "Running multiple agents creates more parallel decisions, not effortless leisure."
     },
     {
       "time": "00:44:07",
       "seconds": 2647,
       "title": "95% AI-written code may arrive quickly",
-      "description": "The challenge is not whether models can write code, but whether teams learn to direct and verify it.",
-      "emphasis": ["95% AI-written code may arrive quickly"]
+      "description": "The challenge is not whether models can write code, but whether teams learn to direct and verify it."
     },
     {
       "time": "00:49:48",
       "seconds": 2988,
       "title": "Phone-based coding and agent workflows",
-      "description": "Simon runs multiple remote coding agents and reviews their pull requests like collaborators.",
-      "emphasis": ["Phone-based coding and agent workflows"]
+      "description": "Simon runs multiple remote coding agents and reviews their pull requests like collaborators."
     },
     {
       "time": "01:07:46",
       "seconds": 4066,
       "title": "Hoard what you know",
-      "description": "Durable personal notes, snippets, and repositories become powerful context for both humans and agents.",
-      "emphasis": ["Hoard what you know"]
+      "description": "Durable personal notes, snippets, and repositories become powerful context for both humans and agents."
     },
     {
       "time": "01:10:58",
       "seconds": 4258,
       "title": "Tests are more important with agents",
-      "description": "Good tests let agents move fast safely; dropping tests for speed is a mistake.",
-      "emphasis": ["Tests are more important with agents"]
+      "description": "Good tests let agents move fast safely; dropping tests for speed is a mistake."
     },
     {
       "time": "01:20:37",
       "seconds": 4837,
       "title": "The lethal trifecta",
-      "description": "Private data plus malicious instructions plus exfiltration makes prompt injection genuinely dangerous.",
-      "emphasis": ["The lethal trifecta"]
+      "description": "Private data plus malicious instructions plus exfiltration makes prompt injection genuinely dangerous."
     },
     {
       "time": "01:37:50",
       "seconds": 5870,
       "title": "Building AI tools for journalism",
-      "description": "Simon wants AI to help journalists structure messy source material while treating AI as an unreliable source.",
-      "emphasis": ["Building AI tools for journalism"]
+      "description": "Simon wants AI to help journalists structure messy source material while treating AI as an unreliable source."
     }
   ],
   "sections": [
