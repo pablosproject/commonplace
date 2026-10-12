@@ -3,7 +3,7 @@ name: commonplace-youtube-recap
 description: Summarize a YouTube video into a structured recap (summary, main takeaway, timestamped highlights and chapters, conclusion) and return a link that opens it in the Commonplace web app with an embedded, seekable player. Use this whenever the user shares a YouTube URL or video ID and wants a summary, recap, TL;DR, key moments, chapters, timestamps, or wants to know whether a video is worth watching, even if they don't say "recap".
 license: MIT
 compatibility: Requires Node.js 20+ with npx, Python 3.10+ (for the bundled yt-dlp) and ffmpeg (for subtitle conversion); the CLI is fetched from npm on first use and supplies yt-dlp for transcripts.
-allowed-tools: Bash(node --version) Bash(npx --yes {{PACKAGE_SPEC}} *)
+allowed-tools: Bash(node --version) Bash(npx --yes commonplace-cli@latest *)
 ---
 
 ## Purpose
@@ -30,11 +30,11 @@ The first command downloads the CLI and `yt-dlp`, so it can take a while; later 
 Work in a per-video folder (for example `./<video-title-slug>/`) and run every command from there:
 
 ```bash
-npx --yes {{PACKAGE_SPEC}} fetch "VIDEO_URL"   # 1. transcript and video info
-npx --yes {{PACKAGE_SPEC}} generate-json-stub  # 2. video-recap-data.json skeleton
+npx --yes commonplace-cli@latest fetch "VIDEO_URL"   # 1. transcript and video info
+npx --yes commonplace-cli@latest generate-json-stub  # 2. video-recap-data.json skeleton
 # 3. read transcript.txt and replace every TODO in video-recap-data.json
-npx --yes {{PACKAGE_SPEC}} validate            # 4. check while iterating
-npx --yes {{PACKAGE_SPEC}} link                # 5. build, save and open the link
+npx --yes commonplace-cli@latest validate            # 4. check while iterating
+npx --yes commonplace-cli@latest link                # 5. build, save and open the link
 ```
 
 Run the commands yourself; never ask the user to paste them. Use the package spec above for every command: it was chosen when the skill was installed, and nothing needs to be installed in the skill folder.
@@ -49,7 +49,7 @@ Run the commands yourself; never ask the user to paste them. Use the package spe
 
 It prefers subtitles uploaded by the creator, which are punctuated and accurate, and falls back to auto-generated captions. It reports which one it used; mention auto-generated captions as a caveat, since names and terms may be misheard.
 
-If `fetch` fails with an age or login restriction, retry with browser cookies: `RECAP_COOKIES_FROM_BROWSER=chrome npx --yes {{PACKAGE_SPEC}} fetch "VIDEO_URL"`. If YouTube answers `429 Too Many Requests`, wait a few minutes before retrying. If no transcript can be obtained at all, stop and tell the user: a recap invented without the transcript would misrepresent the video.
+If `fetch` fails with an age or login restriction, retry with browser cookies: `RECAP_COOKIES_FROM_BROWSER=chrome npx --yes commonplace-cli@latest fetch "VIDEO_URL"`. If YouTube answers `429 Too Many Requests`, wait a few minutes before retrying. If no transcript can be obtained at all, stop and tell the user: a recap invented without the transcript would misrepresent the video.
 
 ## Recap Data
 

@@ -15,25 +15,17 @@ Each recap includes a concise summary, the main takeaway, timestamped highlights
 The skill is a thin instruction file. All executable work lives in the npm CLI package [`commonplace-cli`](../../packages/commonplace-cli/README.md), which `SKILL.md` invokes with `npx`:
 
 ```bash
-npx --yes commonplace-cli@<version> fetch "VIDEO_URL"
-npx --yes commonplace-cli@<version> generate-json-stub
-npx --yes commonplace-cli@<version> validate
-npx --yes commonplace-cli@<version> link
+npx --yes commonplace-cli@latest fetch "VIDEO_URL"
+npx --yes commonplace-cli@latest generate-json-stub
+npx --yes commonplace-cli@latest validate
+npx --yes commonplace-cli@latest link
 ```
 
 - The CLI downloads and cleans the transcript, writes a recap skeleton with the video's details, validates the recap JSON, and encodes the preview link.
 - The agent reads the transcript and fills in `video-recap-data.json`, following `SKILL.md`.
 - The skill folder holds no scripts and needs no `npm install`.
 
-`SKILL.md` is a template. The installer renders its placeholders:
-
-| Placeholder           | Rendered as                                                               |
-| --------------------- | ------------------------------------------------------------------------- |
-| `{{PACKAGE_NAME}}`    | CLI package name                                                          |
-| `{{PACKAGE_VERSION}}` | CLI package version                                                       |
-| `{{PACKAGE_SPEC}}`    | `name@version` (pinned by default), the spec every command uses via `npx` |
-
-The `<!-- managed-by: ... -->` marker records which package version installed the skill.
+`SKILL.md` uses `commonplace-cli@latest` so each run fetches the latest published CLI package through `npx`.
 
 ## Requirements
 
@@ -48,10 +40,10 @@ The `<!-- managed-by: ... -->` marker records which package version installed th
 The CLI will install the rendered skill with:
 
 ```bash
-npx --yes commonplace-cli@<version> install --agent pi
+npx --yes commonplace-cli@latest install --agent pi
 ```
 
-The `install` command is not implemented yet, and the package is not published yet.
+The `install` command is not implemented yet.
 
 ### Known install destinations
 
