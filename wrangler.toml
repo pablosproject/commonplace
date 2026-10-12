@@ -1,3 +1,6 @@
 name = "commonplace"
 pages_build_output_dir = "apps/web/dist"
 compatibility_date = "2024-11-01"
+
+[vars]
+YOUTUBE_DL_SKIP_DOWNLOAD = "true"
