@@ -37,27 +37,32 @@ npx --yes commonplace-cli@latest link
 
 ## Installation
 
-The CLI will install the rendered skill with:
+### Agent Skills CLI
+
+Install the skill with the [Agent Skills CLI](https://skills.sh/docs/cli):
 
 ```bash
-npx --yes commonplace-cli@latest install --agent pi
+npx skills add pablosproject/commonplace --skill commonplace-youtube-recap
 ```
 
-The `install` command is not implemented yet.
+The installer detects supported agents and lets you choose where to install the skill. To target Pi directly:
 
-### Known install destinations
+```bash
+npx skills add pablosproject/commonplace --skill commonplace-youtube-recap --agent pi
+```
 
-| Destination                         | Path                 |
-| ----------------------------------- | -------------------- |
-| Pi user skills                      | `~/.pi/agent/skills` |
-| Agent Skills-compatible user skills | `~/.agents/skills`   |
-| Claude Code user skills             | `~/.claude/skills`   |
-| Project-local skills                | `.agents/skills`     |
-| Custom destination                  | `--dest <path>`      |
+### Manual installation
 
-### Other harnesses
+Clone the repository, then copy the entire `skills/commonplace-youtube-recap` folder into your agent's skills directory. The installed path must contain the folder name, for example `~/.agents/skills/commonplace-youtube-recap/SKILL.md`.
 
-To be written.
+Common destinations:
+
+| Destination                         | Skills directory           |
+| ----------------------------------- | -------------------------- |
+| Pi user skills                      | `~/.pi/agent/skills`       |
+| Agent Skills-compatible user skills | `~/.agents/skills`         |
+| Claude Code user skills             | `~/.claude/skills`         |
+| Project-local skills                | `<project>/.agents/skills` |
 
 ## Usage
 

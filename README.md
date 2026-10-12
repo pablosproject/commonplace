@@ -11,6 +11,16 @@ For centuries readers kept commonplace books: notebooks where they copied the be
 
 Each recap has a short summary, the main takeaway, timestamped highlights, the video's sections with their key points, and a conclusion. It opens next to an embedded player, and every timestamp jumps the video to that moment.
 
+## Install the skill
+
+Install the Commonplace YouTube recap skill with the [Agent Skills CLI](https://skills.sh/docs/cli):
+
+```sh
+npx skills add pablosproject/commonplace --skill commonplace-youtube-recap
+```
+
+Or install it manually by copying [`skills/commonplace-youtube-recap`](skills/commonplace-youtube-recap) into your agent's skills directory. See the [skill README](skills/commonplace-youtube-recap/README.md#manual-installation) for common destinations, requirements and usage.
+
 ## How it works
 
 1. **Generate a recap with your agent.** The [`commonplace-youtube-recap`](skills/commonplace-youtube-recap/README.md) agent skill runs the `commonplace` command from the [`commonplace-cli`](packages/commonplace-cli/README.md) package. The command downloads the transcript, the agent writes the recap, and the command validates it and turns it into a link.
