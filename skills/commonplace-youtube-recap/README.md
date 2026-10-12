@@ -33,7 +33,7 @@ npx --yes commonplace-cli@latest link
 - Node.js 20+ with `npx`
 - Python 3.10+ available as `python3` (the `yt-dlp` that `youtube-dl-exec` downloads is a Python zipapp)
 - `ffmpeg` on `PATH` (used to convert subtitles to `.srt`)
-- The Commonplace web app reachable at the link's address (by default `http://localhost:5173`)
+- The Commonplace web app reachable at the link's address (by default `https://commonplace.video`)
 
 ## Installation
 

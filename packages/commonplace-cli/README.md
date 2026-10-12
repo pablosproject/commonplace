@@ -47,13 +47,13 @@ npx commonplace --help
 
 ## Environment
 
-| Variable                     | Default                         | Purpose                                              |
-| ---------------------------- | ------------------------------- | ---------------------------------------------------- |
-| `RECAP_APP_URL`              | `http://localhost:5173/preview` | Preview page the link points to.                     |
-| `RECAP_NO_OPEN`              | unset                           | Any value prints the link without opening a browser. |
-| `RECAP_COOKIES_FROM_BROWSER` | unset                           | Browser whose cookies `yt-dlp` uses, e.g. `chrome`.  |
-| `DATA_JSON`                  | `video-recap-data.json`         | Recap data file.                                     |
-| `LINK_OUT`                   | `preview_url.txt`               | File `link` writes the URL to.                       |
+| Variable                     | Default                             | Purpose                                              |
+| ---------------------------- | ----------------------------------- | ---------------------------------------------------- |
+| `RECAP_APP_URL`              | `https://commonplace.video/preview` | Preview page the link points to.                     |
+| `RECAP_NO_OPEN`              | unset                               | Any value prints the link without opening a browser. |
+| `RECAP_COOKIES_FROM_BROWSER` | unset                               | Browser whose cookies `yt-dlp` uses, e.g. `chrome`.  |
+| `DATA_JSON`                  | `video-recap-data.json`             | Recap data file.                                     |
+| `LINK_OUT`                   | `preview_url.txt`                   | File `link` writes the URL to.                       |
 
 ## Development (from the monorepo root)
 

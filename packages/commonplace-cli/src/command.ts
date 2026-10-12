@@ -10,7 +10,7 @@ import {
 import { fetchTranscript } from "./youtube-transcript.js";
 
 const bin = "commonplace";
-const defaultAppUrl = "http://localhost:5173/preview";
+const defaultAppUrl = "https://commonplace.video/preview";
 
 type CommandEnv = Record<string, string | undefined>;
 

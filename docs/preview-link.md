@@ -7,8 +7,8 @@ Status: format version `v=1`, decided 2026-10-01. The `/preview` route is implem
 ## At a glance
 
 ```
-http://localhost:5173/preview#v=1&d=bZJBaxsxEIX_yjAXX5b1xsFxEZRSEnpoe6r...
-└──────────── app URL ────────┘ └┬┘ └─────────────── payload ─────────────┘
+https://commonplace.video/preview#v=1&d=bZJBaxsxEIX_yjAXX5b1xsFxEZRSEnpoe6r...
+└───────────── app URL ─────────────┘ └┬┘ └─────────────── payload ─────────────┘
                                  encoding version
 ```
 
@@ -173,7 +173,7 @@ Recap (formatted here; it is minified before encoding, 683 bytes minified):
 Link (398 bytes compressed, 531 characters of payload):
 
 ```
-http://localhost:5173/preview#v=1&d=bZJBaxsxEIX_yjAXX5b1xsFxEZRSEnpoe6rTQhpy0EpjS1irMZrZXYzxfy_rJE2Lc9OA3nufnuaI4gJ19hcViZzR4FXdYIVD9MRojhg9Gvz55UP_4-b3zbfvDivsS0KDQXUvZj4fx7E-cK99S7Xjbj5adeHT8PF_jUZNhAbXSgPBV25lBoumWcJabd5w8XDLXUfZUUdZ4bP3hUTwVKFtRYt1igbvQyECUS6RBDaFuxenFDcEtuVewXHO5DTmLWgg8KxSQeKBwGYPiUWq88mT1VBjhZ2N-d7uyI72gAYfuC-gsSOIAil2UclXIAye80xhtKIEUSHFYcoQ7ogzASWhmZxBJtMQtyHFbVBB83jEyQ8NNo1plqZZYYVCjrMXNNfN6q2d20t4rNCTuBL3-vw_D9yDsxk4p8Pra__ehsS8m-StdbvRFi81np7OcZP8leY57W6qACvcc8wXoFcLc734F3S1XLyBvtfSBendubEUB3q_ptPThOY4u9S_LN9a7QFCn7flUMN52DCnKKHG0x8
+https://commonplace.video/preview#v=1&d=bZJBaxsxEIX_yjAXX5b1xsFxEZRSEnpoe6rTQhpy0EpjS1irMZrZXYzxfy_rJE2Lc9OA3nufnuaI4gJ19hcViZzR4FXdYIVD9MRojhg9Gvz55UP_4-b3zbfvDivsS0KDQXUvZj4fx7E-cK99S7Xjbj5adeHT8PF_jUZNhAbXSgPBV25lBoumWcJabd5w8XDLXUfZUUdZ4bP3hUTwVKFtRYt1igbvQyECUS6RBDaFuxenFDcEtuVewXHO5DTmLWgg8KxSQeKBwGYPiUWq88mT1VBjhZ2N-d7uyI72gAYfuC-gsSOIAil2UclXIAye80xhtKIEUSHFYcoQ7ogzASWhmZxBJtMQtyHFbVBB83jEyQ8NNo1plqZZYYVCjrMXNNfN6q2d20t4rNCTuBL3-vw_D9yDsxk4p8Pra__ehsS8m-StdbvRFi81np7OcZP8leY57W6qACvcc8wXoFcLc734F3S1XLyBvtfSBendubEUB3q_ptPThOY4u9S_LN9a7QFCn7flUMN52DCnKKHG0x8
 ```
 
 Cases a decoder should reject:
@@ -188,7 +188,7 @@ Cases a decoder should reject:
 ## Known limitations
 
 - **Chat apps truncate long links.** Some messaging apps cut URLs past roughly 2 KB, and every real recap link is longer. Not handled yet. One option, used by Plannotator, is an opt-in short link that stores only an encrypted payload and keeps the key in the fragment.
-- **The app URL is localhost** until the app is deployed, so links open only where the app runs. The CLI embeds the URL; `RECAP_APP_URL` overrides it.
+- **The app URL is embedded in every link.** The CLI defaults to `https://commonplace.video/preview`; `RECAP_APP_URL` can point links at another deployment or a local development server.
 - **Nothing is saved.** A recap opened from a preview link is not searchable on the site. Storing recaps is planned for logged-in users.
 
 ## Where the code lives

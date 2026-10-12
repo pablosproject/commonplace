@@ -40,11 +40,13 @@ npm run dev
 
 Or run either side on its own with `npm run dev:web` or `npm run dev:api`. The web app runs on `http://localhost:5173` and proxies `/api` to the API on `http://localhost:3000`.
 
-Open a sample recap in the web app without the API:
+Open a sample recap in the local web app without the API:
 
 ```sh
-npm run preview:link -- vS-gfLhxYDg
+RECAP_APP_URL=http://localhost:5173/preview npm run preview:link -- vS-gfLhxYDg
 ```
+
+Without the override, preview links point to `https://commonplace.video/preview`.
 
 Check and test everything:
 

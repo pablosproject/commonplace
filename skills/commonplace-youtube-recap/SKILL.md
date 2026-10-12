@@ -119,10 +119,10 @@ The first could describe any video; the second gives a reason to watch that mome
 `link` validates the JSON, encodes it, saves the link to `preview_url.txt`, opens it in the browser and prints it:
 
 ```
-http://localhost:5173/preview#v=1&d=<payload>
+https://commonplace.video/preview#v=1&d=<payload>
 ```
 
-- `RECAP_APP_URL` points the link at a different app instance (default `http://localhost:5173/preview`).
+- `RECAP_APP_URL` points the link at a different app instance (default `https://commonplace.video/preview`).
 - `RECAP_NO_OPEN=1` skips opening the browser, for example on a headless machine.
 
 Don't construct links by hand; always use `link`.

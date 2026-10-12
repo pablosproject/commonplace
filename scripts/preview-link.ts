@@ -5,7 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { encodePreview, parseRecap } from "@commonplace/video-util";
 
-const DEFAULT_APP_URL = "http://localhost:5173/preview";
+const DEFAULT_APP_URL = "https://commonplace.video/preview";
 const REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "..",
@@ -27,7 +27,7 @@ if (!input) {
     "  npm run preview:link -- path/to/video-recap-data.json --no-open",
   );
   console.error(
-    "  npm run preview:link -- vS-gfLhxYDg https://video-recap.pages.dev/preview",
+    "  npm run preview:link -- vS-gfLhxYDg http://localhost:5173/preview",
   );
   console.error("\nAvailable sample ids:");
   for (const id of sampleIds()) {
