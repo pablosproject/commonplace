@@ -4,6 +4,13 @@ All notable changes to the Commonplace YouTube Recap skill are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.1.1] - 2026-10-12
+
+### Changed
+
+- Documented rerunning `fetch` with a PATH that resolves `python3` to Python 3.10+ if the bundled `yt-dlp` hits the system Python.
+- Updated failed fetch guidance to retry immediately once without assuming Chrome is installed.
+
 ## [0.1.0] - 2026-10-12
 
 ### Added
@@ -25,5 +32,4 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
-- Clarified that failed age/login-restricted YouTube fetches can be retried with `RECAP_COOKIES_FROM_BROWSER=chrome`.
 - Clarified that a recap should stop rather than invent content when no transcript can be obtained.

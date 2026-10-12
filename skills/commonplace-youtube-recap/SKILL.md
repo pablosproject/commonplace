@@ -23,6 +23,8 @@ Every command runs through `npx`, so nothing has to be installed in advance exce
 
 If Node is missing or older than 20, stop and tell the user: the skill needs Node.js 20+ to run its `commonplace` command. Suggest the install that fits their system (the installer from nodejs.org, `brew install node` on macOS, or a version manager such as nvm), and do not install it yourself unless they ask you to.
 
+The bundled `yt-dlp` also needs `python3` to resolve to Python 3.10+. If `fetch` crashes with an unsupported Python version, rerun the same command with a PATH that puts the newer Python first, for example on Homebrew macOS: `PATH="/opt/homebrew/bin:$PATH" npx --yes commonplace-cli@latest fetch "VIDEO_URL"`.
+
 The first command downloads the CLI and `yt-dlp`, so it can take a while; later runs reuse the npm cache.
 
 ## Steps
@@ -49,7 +51,7 @@ Run the commands yourself; never ask the user to paste them. Use the package spe
 
 It prefers subtitles uploaded by the creator, which are punctuated and accurate, and falls back to auto-generated captions. It reports which one it used; mention auto-generated captions as a caveat, since names and terms may be misheard.
 
-If `fetch` fails with an age or login restriction, retry with browser cookies: `RECAP_COOKIES_FROM_BROWSER=chrome npx --yes commonplace-cli@latest fetch "VIDEO_URL"`. If YouTube answers `429 Too Many Requests`, wait a few minutes before retrying. If no transcript can be obtained at all, stop and tell the user: a recap invented without the transcript would misrepresent the video.
+If `fetch` fails, immediately retry once; do not wait several minutes first. If the retry also fails, stop promptly rather than waiting in a long loop. If no transcript can be obtained at all, tell the user: a recap invented without the transcript would misrepresent the video.
 
 ## Recap Data
 
