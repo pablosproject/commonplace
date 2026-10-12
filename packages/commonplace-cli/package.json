@@ -1,6 +1,6 @@
 {
   "name": "commonplace-cli",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Commonplace CLI: turns YouTube videos into recap preview links for the commonplace-youtube-recap agent skill",
   "license": "MIT",
   "type": "module",

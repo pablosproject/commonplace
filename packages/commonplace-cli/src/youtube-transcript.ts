@@ -113,6 +113,15 @@ export async function fetchTranscript(url: string, workDir = process.cwd()) {
     source = "auto-generated captions";
     await fetchSubtitles(
       url,
+      { writeAutoSubs: true, subLangs: "en-orig" },
+      { allowFailure: true, workDir },
+    );
+    srt = await findDownloadedSrt(workDir);
+  }
+
+  if (!srt) {
+    await fetchSubtitles(
+      url,
       { writeAutoSubs: true, subLangs: "en" },
       { workDir },
     );

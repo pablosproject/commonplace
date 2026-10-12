@@ -112,3 +112,7 @@ The logo is black and white only. Logo, mark, wordmark and app-icon files are in
 ### Skill
 
 - Detect the user's browser when retrying with browser cookies to avoid hardcoding Chrome and help with rate limiting.
+
+### CLI
+
+- Add support for multi-language subtitle selection.

@@ -4,6 +4,12 @@ All notable changes to `commonplace-cli` are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.2.0] - 2026-10-12
+
+### Fixed
+
+- Fetch original English auto-captions through YouTube's `en-orig` track before falling back to the translated `en` track, which can return HTTP 429.
+
 ## [0.1.1] - 2026-10-12
 
 ### Changed
