@@ -49,23 +49,33 @@ export const WatchLink = styled.a`
 `;
 
 export const RecapShell = styled.div`
+  --notes-width: max(500px, 25%);
   position: relative;
   flex-grow: 1;
   min-height: 0;
   display: grid;
 
   &[data-layout="reader"] {
-    grid-template-columns: minmax(0, var(--notes-width)) minmax(360px, 1fr);
+    --notes-width: min(50%, calc(100% - 600px));
+    grid-template-columns: minmax(0, var(--notes-width)) minmax(600px, 1fr);
     grid-template-areas: "notes video";
+  }
+
+  &[data-layout="watch"] {
+    grid-template-columns: minmax(0, 1fr) minmax(500px, var(--notes-width));
+    grid-template-areas: "video notes";
+  }
+
+  &[data-layout="reader"][data-resized="true"] {
+    grid-template-columns: minmax(100px, var(--notes-width)) minmax(100px, 1fr);
+  }
+
+  &[data-layout="watch"][data-resized="true"] {
+    grid-template-columns: minmax(100px, 1fr) minmax(100px, var(--notes-width));
   }
 
   &[data-layout="reader"][data-floating="true"] {
     grid-template-columns: minmax(0, 1fr) 0;
-  }
-
-  &[data-layout="watch"] {
-    grid-template-columns: minmax(0, 1fr) minmax(360px, var(--notes-width));
-    grid-template-areas: "video notes";
   }
 
   @media (max-width: 980px) {
@@ -81,6 +91,7 @@ export const VideoColumn = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   min-width: 0;
   min-height: 0;
   overflow-y: auto;
@@ -105,6 +116,7 @@ export const VideoColumn = styled.div`
 
   @media (max-width: 980px) {
     ${RecapShell}[data-layout] & {
+      justify-content: flex-start;
       overflow: visible;
       padding: 16px;
       border-left: 0;
@@ -289,7 +301,7 @@ export const SideResizer = styled.div`
 
   ${RecapShell}[data-layout="reader"] & {
     right: auto;
-    left: calc(min(var(--notes-width), 100% - 360px) - 7px);
+    left: calc(var(--notes-width) - 7px);
   }
 
   &::before {

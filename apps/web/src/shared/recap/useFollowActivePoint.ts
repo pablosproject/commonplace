@@ -5,9 +5,14 @@ export function useFollowActivePoint(
   activeTime: number,
   enabled: boolean,
 ) {
-  const followedTimeRef = useRef(activeTime);
+  const followedTimeRef = useRef<number | null>(null);
 
   useEffect(() => {
+    if (followedTimeRef.current === null) {
+      followedTimeRef.current = activeTime;
+      return;
+    }
+
     if (followedTimeRef.current === activeTime) {
       return;
     }

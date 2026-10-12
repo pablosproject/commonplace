@@ -133,7 +133,14 @@ export function RecapView({ nav, recap }: RecapViewProps) {
       <RecapShell
         data-layout={layout}
         data-floating={isPlayerFloating}
-        style={{ "--notes-width": `${currentNotesWidth}px` } as CSSProperties}
+        data-resized={currentNotesWidth !== null}
+        style={
+          {
+            "--notes-width": currentNotesWidth
+              ? `${currentNotesWidth}px`
+              : undefined,
+          } as CSSProperties
+        }
       >
         <VideoColumn aria-label="Video">
           <RecapPlayer
@@ -154,11 +161,11 @@ export function RecapView({ nav, recap }: RecapViewProps) {
               timepoints={timepoints}
             />
           </RecapPlayer>
-          {layout === "watch" ? intro : null}
         </VideoColumn>
 
         <NotesColumn>
           <NotesScroll ref={notesScrollRef}>
+            {layout === "watch" ? intro : null}
             {layout === "reader" ? intro : null}
 
             <NotesSection aria-labelledby="key-moments">
