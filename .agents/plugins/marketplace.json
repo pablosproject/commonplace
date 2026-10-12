@@ -1,0 +1,20 @@
+{
+  "name": "commonplace",
+  "interface": {
+    "displayName": "Commonplace"
+  },
+  "plugins": [
+    {
+      "name": "commonplace-skills",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/pablosproject/commonplace.git"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

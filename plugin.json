@@ -1,0 +1,27 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "commonplace-skills",
+  "version": "0.1.0",
+  "description": "A commonplace book for video: generate YouTube recap links for commonplace.video.",
+  "author": { "name": "Commonplace", "url": "https://commonplace.video" },
+  "homepage": "https://commonplace.video",
+  "repository": "https://github.com/pablosproject/commonplace",
+  "license": "MIT",
+  "keywords": ["youtube", "recap", "video", "skills"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Commonplace",
+        "shortDescription": "A commonplace book for video.",
+        "longDescription": "Generate YouTube recap links for commonplace.video.",
+        "developerName": "Commonplace",
+        "category": "Productivity",
+        "capabilities": ["Read", "Write"],
+        "websiteURL": "https://commonplace.video",
+        "brandColor": "#000000",
+        "composerIcon": "./docs/branding/commonplace-app-icon.svg",
+        "logo": "./docs/branding/commonplace-logo.svg"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "commonplace",
+  "owner": {
+    "name": "Commonplace",
+    "url": "https://commonplace.video"
+  },
+  "description": "Skills that generate video recaps for commonplace.video.",
+  "plugins": [
+    {
+      "name": "commonplace-skills",
+      "source": "./",
+      "description": "A commonplace book for video: generate YouTube recap links for commonplace.video.",
+      "category": "productivity",
+      "keywords": ["youtube", "recap", "video"]
+    }
+  ]
+}

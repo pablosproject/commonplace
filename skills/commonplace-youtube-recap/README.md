@@ -6,6 +6,8 @@ The recap travels inside the link, so nothing is uploaded or stored: the app dec
 
 It lives in the Commonplace monorepo next to the app it feeds. It was previously the standalone `pablosproject/youtube-recap-skilll` repository, now archived.
 
+Skill changes are tracked in [`CHANGELOG.md`](CHANGELOG.md). The private skill version and source metadata are stored in [`skill.json`](skill.json), and the skill version drives the repository plugin manifest versions.
+
 ## What it creates
 
 Each recap includes a concise summary, the main takeaway, timestamped highlights, timestamped sections following the video's flow, and a conclusion. The web app shows it next to an embedded YouTube player, with timestamps that seek the player.

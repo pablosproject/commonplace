@@ -37,6 +37,16 @@ jobs:
             exit 1
           fi
 
+      - name: Validate CLI changelog
+        run: |
+          VERSION=$(node -p "require('./packages/commonplace-cli/package.json').version")
+
+          if ! grep -Eq "^## \\[$VERSION\\] - [0-9]{4}-[0-9]{2}-[0-9]{2}$" packages/commonplace-cli/CHANGELOG.md; then
+            echo "packages/commonplace-cli/CHANGELOG.md must contain a release heading for $VERSION."
+            echo "Expected: ## [$VERSION] - YYYY-MM-DD"
+            exit 1
+          fi
+
       - name: Check shared package
         run: npm run check -w @commonplace/video-util
 

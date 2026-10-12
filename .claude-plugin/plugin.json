@@ -1,0 +1,11 @@
+{
+  "name": "commonplace-skills",
+  "version": "0.1.0",
+  "description": "A commonplace book for video: generate YouTube recap links for commonplace.video.",
+  "author": { "name": "Commonplace" },
+  "homepage": "https://commonplace.video",
+  "repository": "https://github.com/pablosproject/commonplace",
+  "license": "MIT",
+  "keywords": ["youtube", "recap", "video", "skills"],
+  "skills": ["./skills/commonplace-youtube-recap"]
+}
