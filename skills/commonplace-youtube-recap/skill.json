@@ -1,6 +1,6 @@
 {
   "name": "commonplace-youtube-recap",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "source": {
     "repository": "https://github.com/pablosproject/commonplace",
     "path": "skills/commonplace-youtube-recap"

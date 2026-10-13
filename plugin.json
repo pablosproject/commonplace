@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "commonplace-skills",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A commonplace book for video: generate YouTube recap links for commonplace.video.",
   "author": { "name": "Commonplace", "url": "https://commonplace.video" },
   "homepage": "https://commonplace.video",

@@ -4,6 +4,14 @@ All notable changes to the Commonplace YouTube Recap skill are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.1.2] - 2026-10-13
+
+### Changed
+
+- Condensed the workflow while retaining the original purpose, recap quality guidelines and JSON examples.
+- Added Node, Python and ffmpeg preflight checks and preferred per-video output outside the repository.
+- Directed agents to deliver the long preview URL through the `link` tool result instead of regenerating it in the final reply.
+
 ## [0.1.1] - 2026-10-12
 
 ### Changed

@@ -25,6 +25,7 @@ npx --yes commonplace-cli@latest link
 
 - The CLI downloads and cleans the transcript, writes a recap skeleton with the video's details, validates the recap JSON, and encodes the preview link.
 - The agent reads the transcript and fills in `video-recap-data.json`, following `SKILL.md`.
+- `link` opens the preview and prints the full URL in its tool result; the agent's final reply can stay short.
 - The skill folder holds no scripts and needs no `npm install`.
 
 `SKILL.md` uses `commonplace-cli@latest` so each run fetches the latest published CLI package through `npx`.

@@ -1,9 +1,9 @@
 ---
 name: commonplace-youtube-recap
-description: Summarize a YouTube video into a structured recap (summary, main takeaway, timestamped highlights and chapters, conclusion) and return a link that opens it in the Commonplace web app with an embedded, seekable player. Use this whenever the user shares a YouTube URL or video ID and wants a summary, recap, TL;DR, key moments, chapters, timestamps, or wants to know whether a video is worth watching, even if they don't say "recap".
+description: Summarize a YouTube video or ID into a skimmable recap with seekable timestamps and a Commonplace preview link. Use for video summaries, key moments, chapters, or deciding whether a video is worth watching.
 license: MIT
-compatibility: Requires Node.js 20+ with npx, Python 3.10+ (for the bundled yt-dlp) and ffmpeg (for subtitle conversion); the CLI is fetched from npm on first use and supplies yt-dlp for transcripts.
-allowed-tools: Bash(node --version) Bash(npx --yes commonplace-cli@latest *)
+compatibility: Requires Node.js 20+ with npx, Python 3.10+ for the bundled yt-dlp, and ffmpeg for subtitle conversion.
+allowed-tools: Bash(node --version) Bash(python3 --version) Bash(ffmpeg -version) Bash(npx --yes commonplace-cli@latest *)
 ---
 
 ## Purpose
@@ -17,55 +17,32 @@ Turn a YouTube video into a recap that helps the user:
 
 The deliverable is a **preview link**. The recap data travels inside the link itself, in the URL fragment, so nothing is uploaded or stored anywhere: the web app decodes and renders it in the browser. The task is finished when the user has that link.
 
-## Before You Start
+## Run
 
-Every command runs through `npx`, so nothing has to be installed in advance except Node.js 20+. Check it once with `node --version`.
+Check `node --version` (20+), `python3 --version` (3.10+), and `ffmpeg -version` before fetching. If the default Python is older, put an installed newer Python first on `PATH`; on Homebrew macOS, `PATH="/opt/homebrew/bin:$PATH"` may work. Explain missing prerequisites rather than installing them without the user's request.
 
-If Node is missing or older than 20, stop and tell the user: the skill needs Node.js 20+ to run its `commonplace` command. Suggest the install that fits their system (the installer from nodejs.org, `brew install node` on macOS, or a version manager such as nvm), and do not install it yourself unless they ask you to.
-
-The bundled `yt-dlp` also needs `python3` to resolve to Python 3.10+. If `fetch` crashes with an unsupported Python version, rerun the same command with a PATH that puts the newer Python first, for example on Homebrew macOS: `PATH="/opt/homebrew/bin:$PATH" npx --yes commonplace-cli@latest fetch "VIDEO_URL"`.
-
-The first command downloads the CLI and `yt-dlp`, so it can take a while; later runs reuse the npm cache.
-
-## Steps
-
-Work in a per-video folder (for example `./<video-title-slug>/`) and run every command from there:
+Use a per-video folder outside the Git checkout unless the user chose an output location. Run these commands from that folder, using the same package spec each time:
 
 ```bash
-npx --yes commonplace-cli@latest fetch "VIDEO_URL"   # 1. transcript and video info
-npx --yes commonplace-cli@latest generate-json-stub  # 2. video-recap-data.json skeleton
-# 3. read transcript.txt and replace every TODO in video-recap-data.json
-npx --yes commonplace-cli@latest validate            # 4. check while iterating
-npx --yes commonplace-cli@latest link                # 5. build, save and open the link
+npx --yes commonplace-cli@latest fetch "VIDEO_URL"
+npx --yes commonplace-cli@latest generate-json-stub
+# Fill video-recap-data.json from transcript.txt before continuing.
+npx --yes commonplace-cli@latest link
 ```
 
-Run the commands yourself; never ask the user to paste them. Use the package spec above for every command: it was chosen when the skill was installed, and nothing needs to be installed in the skill folder.
+The first `npx` run may take longer while it fetches the CLI and yt-dlp. `link` validates the recap; run `npx --yes commonplace-cli@latest validate` while iterating when separate diagnostics help.
 
-## Transcript Acquisition
+`fetch` writes `transcript.txt` with `[HH:MM:SS]` cues and `video-info.json` with the video's details. It prefers creator subtitles and reports when it uses auto-generated captions; in that case, mention that names and terms may be misheard. Retry a transient fetch failure once promptly. If no transcript is available, explain that a faithful recap cannot be made.
 
-`fetch` writes three files:
+Replace every `TODO` in `video-recap-data.json` using the transcript, and preserve the stub's `video` fields. Add as many highlights, sections, and points as the video warrants. Take timestamps from transcript cues: each `time` is `HH:MM:SS`, and `seconds` is the same moment in total seconds (`00:04:07` is `247`). A section begins at its first point. Choose highlights from section points and repeat the same `seconds` so the app marks them as key moments.
 
-- `transcript.txt`: the transcript to read, one `[HH:MM:SS] text` line per caption, with the repetition of YouTube's rolling auto-captions removed. Take timestamps from here.
-- `video-info.json`: the video's `id`, `title`, `channel`, `duration` and canonical URL, which `generate-json-stub` copies into the recap's `video` fields.
-- `transcript.<lang>.srt`: the raw subtitles, kept for reference.
+## Recap quality
 
-It prefers subtitles uploaded by the creator, which are punctuated and accurate, and falls back to auto-generated captions. It reports which one it used; mention auto-generated captions as a caveat, since names and terms may be misheard.
-
-If `fetch` fails, immediately retry once; do not wait several minutes first. If the retry also fails, stop promptly rather than waiting in a long loop. If no transcript can be obtained at all, tell the user: a recap invented without the transcript would misrepresent the video.
-
-## Recap Data
-
-`generate-json-stub` writes `video-recap-data.json` with the `video` fields already filled in and a `TODO` for everything you write. Keep the `video` fields as they are, replace each `TODO`, and add as many highlights, sections and points as the video needs; the stub has one of each only to show the shape.
-
-Every timepoint has `time` as `HH:MM:SS` and `seconds` as the same moment in total seconds (`00:04:07` is `247`). `validate` checks the schema and that the two agree. A mismatch would make the player jump to the wrong moment, so fix the data rather than the check.
-
-## Analysis Goals
-
-1. **Abstract**: 1–2 sentences on what the video is about and why it matters.
-2. **Main takeaway**: the single strongest idea, argument, or conclusion.
-3. **Highlights**: the moments most worth jumping to, shown as "Key moments" above the chapters. How many depends on the video: a dense talk has more than a slow interview. Pick each one from your section points and repeat it with the same `seconds`; the app marks the matching section point as "Key".
-4. **Sections**: the video's logical parts in order, each with timestamped key points. A chapter starts at its first point, so begin each section with the moment that part of the video starts.
-5. **Conclusion**: a short synthesis of the main message, implication, or call to action.
+1. **Abstract:** One or two sentences on what the video is about and why it matters.
+2. **Main takeaway:** The single strongest idea, argument, or conclusion.
+3. **Highlights:** The moments most worth jumping to; choose the number to fit the video's density.
+4. **Sections:** The logical parts in order, each with timestamped points that carry the argument.
+5. **Conclusion:** A short synthesis of the message, implication, or call to action.
 
 Quality guidelines:
 
@@ -116,17 +93,8 @@ The first could describe any video; the second gives a reason to watch that mome
 }
 ```
 
-## The Link
+## Deliver the link
 
-`link` validates the JSON, encodes it, saves the link to `preview_url.txt`, opens it in the browser and prints it:
+`link` encodes the recap, saves `preview_url.txt`, prints the full URL in its tool result, and attempts to open it in the browser. Run it as a tool call without redirecting or filtering its output. Let that result deliver the long URL; do not construct or regenerate it by hand.
 
-```
-https://commonplace.video/preview#v=1&d=<payload>
-```
-
-- `RECAP_APP_URL` points the link at a different app instance (default `https://commonplace.video/preview`).
-- `RECAP_NO_OPEN=1` skips opening the browser, for example on a headless machine.
-
-Don't construct links by hand; always use `link`.
-
-Once `link` succeeds, reply with the link. If the transcript came from auto-generated captions, add one line above it saying so.
+In the final reply, give a brief takeaway and point to the opened preview or tool result. If neither is accessible to the user, include the full URL once from `preview_url.txt`. `RECAP_APP_URL` targets another app instance; `RECAP_NO_OPEN=1` skips browser opening when unavailable.
