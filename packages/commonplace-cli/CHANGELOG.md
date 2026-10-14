@@ -4,6 +4,16 @@ All notable changes to `commonplace-cli` are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+
+- Added `fetch --language CODE` with language discovery and selected-track reporting.
+
+### Changed
+
+- Made `fetch` prefer the video's original transcript when no language is requested.
+
 ## [0.2.0] - 2026-10-12
 
 ### Fixed

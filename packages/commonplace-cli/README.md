@@ -4,7 +4,7 @@
 
 The CLI does not write the recap itself. The agent reads the cleaned transcript and writes the summary, takeaway, highlights, sections and conclusion; the CLI handles acquisition, preparation, validation and encoding.
 
-The package is not published yet. It installs a `commonplace` command.
+The package is published on npm and installs a `commonplace` command.
 
 ## Requirements
 
@@ -18,32 +18,35 @@ The package is not published yet. It installs a `commonplace` command.
 Run every command from a per-video output directory. Recap files are read from and written to the current directory.
 
 ```bash
-npx --yes commonplace-cli@0.1.0 fetch "https://www.youtube.com/watch?v=VIDEO_ID"
-npx --yes commonplace-cli@0.1.0 generate-json-stub
+npx --yes commonplace-cli@latest fetch "https://www.youtube.com/watch?v=VIDEO_ID"
+npx --yes commonplace-cli@latest fetch "https://www.youtube.com/watch?v=VIDEO_ID" --language it
+npx --yes commonplace-cli@latest generate-json-stub
 # fill in video-recap-data.json from transcript.txt
-npx --yes commonplace-cli@0.1.0 validate
-npx --yes commonplace-cli@0.1.0 link
+npx --yes commonplace-cli@latest validate
+npx --yes commonplace-cli@latest link
 ```
 
-Until the package is published, build a tarball from the monorepo and install it anywhere:
+`--language` accepts a [BCP 47 language tag](https://www.rfc-editor.org/rfc/rfc5646), using an ISO 639 language code with optional script or region subtags. Examples: `it` for Italian, `en` for English, `pt-BR` for Brazilian Portuguese and `zh-Hans` for Simplified Chinese.
+
+For local package testing, build and install a tarball from the monorepo:
 
 ```bash
 npm run build -w commonplace-cli
-(cd packages/commonplace-cli && npm pack)
-npm install /path/to/commonplace-cli-0.1.0.tgz
+npm pack -w commonplace-cli
+npm install /path/to/commonplace-cli-VERSION.tgz
 npx commonplace --help
 ```
 
 ## Commands
 
-| Command              | What it does                                                                                                                                                                     |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `fetch URL`          | Downloads English subtitles (creator-uploaded first, auto-generated as fallback) and video info. Writes `transcript.txt`, `video-info.json` and the raw `transcript.<lang>.srt`. |
-| `generate-json-stub` | Creates a `video-recap-data.json` skeleton if missing.                                                                                                                           |
-| `validate`           | Checks `video-recap-data.json` against the shared Zod recap schema and that every `seconds` matches its `time`. Exits 1 on failure.                                              |
-| `encode`             | Validates, then prints `{ "version": "1", "payload": "...", "hash": "#v=1&d=..." }` as JSON.                                                                                     |
-| `link`               | Validates, then prints the full preview URL, saves it to `preview_url.txt` and opens it in the browser.                                                                          |
-| `help`, `--help`     | Prints usage.                                                                                                                                                                    |
+| Command                       | What it does                                                                                                                                                                                                                                 |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fetch URL [--language CODE]` | Downloads subtitles and video info. A requested language falls back to English, then the original language; without one, the original language is preferred. Writes `transcript.txt`, `video-info.json` and the raw `transcript.<lang>.srt`. |
+| `generate-json-stub`          | Creates a `video-recap-data.json` skeleton if missing.                                                                                                                                                                                       |
+| `validate`                    | Checks `video-recap-data.json` against the shared Zod recap schema and that every `seconds` matches its `time`. Exits 1 on failure.                                                                                                          |
+| `encode`                      | Validates, then prints `{ "version": "1", "payload": "...", "hash": "#v=1&d=..." }` as JSON.                                                                                                                                                 |
+| `link`                        | Validates, then prints the full preview URL, saves it to `preview_url.txt` and opens it in the browser.                                                                                                                                      |
+| `help`, `--help`              | Prints usage.                                                                                                                                                                                                                                |
 
 ## Environment
 

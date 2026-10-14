@@ -6,7 +6,7 @@ import {
   rmSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { basename, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { afterEach, beforeEach, describe, expect, test } from "vitest";
 import {
@@ -16,7 +16,7 @@ import {
   parseRecap,
 } from "@commonplace/video-util";
 import { runYoutubeRecapCommand } from "../src/command.js";
-import { validateRecap } from "../src/recap.js";
+import { getRecap } from "../src/recap.js";
 
 const samplesDir = fileURLToPath(
   new URL("../../../data/samples", import.meta.url),
@@ -27,7 +27,10 @@ const samplePaths = readdirSync(samplesDir).map(
 
 describe("encode output decodes in the web app", () => {
   test.each(samplePaths)("%s", async (samplePath) => {
-    const recap = validateRecap(samplePath);
+    const recap = getRecap({
+      workDir: dirname(samplePath),
+      dataJson: basename(samplePath),
+    });
     const encoded = await encodePreview(recap);
 
     expect(encoded.version).toBe("1");
