@@ -18,7 +18,9 @@ export async function encodePreviewPayload(value: unknown): Promise<string> {
   return toBase64Url(compressed);
 }
 
-export async function encodePreview(value: unknown): Promise<EncodedPreviewPayload> {
+export async function encodePreview(
+  value: unknown,
+): Promise<EncodedPreviewPayload> {
   const payload = await encodePreviewPayload(value);
 
   return {
