@@ -76,7 +76,7 @@ The `/preview` route should:
 2. Reject the link if `v` is not a version it supports (today only `1`) or if `d` is missing.
 3. Reverse the encoding: base64url → bytes → inflate with `DecompressionStream('deflate-raw')` → UTF-8 decode → `JSON.parse`.
 4. **Stop inflating past a size limit.** A few hundred bytes of crafted payload can inflate into hundreds of megabytes (a "decompression bomb"). Real recaps inflate to 7–16 KB; 1 MB is a generous cap.
-5. **Validate the result** with the API's recap Zod schema before rendering, and reject an unknown `schemaVersion`. The link can be written by anyone, so the decoded value is untrusted input.
+5. **Validate the result** with the shared recap Zod schema before rendering, and reject an unknown `schemaVersion`. The link can be written by anyone, so the decoded value is untrusted input.
 6. Render every field as text (no `dangerouslySetInnerHTML`). Build the player embed and thumbnail from `video.id`, not from `video.url`.
 
 Each failure should end on a readable error state ("This preview link is invalid or incomplete"), not a blank page. A link cut off by a chat app usually fails at step 3.
@@ -85,7 +85,7 @@ The shared encoding, decoding and recap validation building blocks live in `pack
 
 ## The payload: recap schema
 
-The decoded payload is a recap object, the same shape `POST /api/videos` accepts and `video_recaps.recap_json` stores.
+The decoded payload is a recap object shared by the CLI and web app.
 
 - **Source of truth:** the shape schema and full recap validity module in `packages/video-util/src/recap.ts`.
 - **CLI validation:** `packages/commonplace-cli` imports and bundles `@commonplace/video-util`, so it validates with the same full recap validity module before encoding. The CLI package version is the validation boundary; no generated JSON Schema is shipped for runtime validation.

@@ -7,57 +7,10 @@ Shared rules:
 
 - Use TypeScript everywhere.
 - Prefer named exports. No default exports.
-- Infer types from Drizzle, Zod, Hono, and React code instead of duplicating
-  them by hand.
+- Infer types from Zod and React code instead of duplicating them by hand.
 - Keep modules deep: small interface, useful behavior inside.
 - Create folders when the first real file needs them, not upfront.
 - Do not add comments that explain obvious code. Make the code clearer instead.
-
-## Backend
-
-`apps/api` is a Hono + Drizzle API. Routes stay thin and typed; business work
-lives in plain functions.
-
-```txt
-apps/api/src/
-  app.ts          Hono app wiring, exports AppType
-  server.ts       process entry point
-  routes/         HTTP in, HTTP out
-  schemas/        Zod validation and response shapes
-  services/       multi-step use cases
-  queries/        Drizzle reads and writes
-  clients/        external systems
-  middleware/     per-request concerns
-  lib/            pure helpers, no I/O
-  db/             schema, client, seed
-```
-
-Backend rules:
-
-- No controller layer. Hono handlers stay inline with routes so type inference
-  works.
-- A route validates input, calls one function below it, shapes the response, and
-  maps failures to status codes.
-- Routes receive dependencies as arguments. Do not import the real database
-  directly inside route files.
-- Queries are plain Drizzle functions. Every query takes `db` as its first
-  parameter so callers can pass either the database or a transaction.
-- Add a service only when a route would otherwise coordinate multiple ordered
-  steps. A route calling one query does not need a service.
-- Put external integrations in `clients/`.
-- Put pure helpers in `lib/`, not `utils/`.
-- Slow or retryable work should leave the request path and move to a worker or
-  queue when needed.
-- ESM imports use `.js` extensions for relative files.
-
-Testing:
-
-- Use Vitest.
-- Test routes through `app.request()`.
-- Use PGlite for integration tests against real Postgres behavior.
-- Prefer one test database per test file and truncate between tests.
-- Keep factories in `test/factories.ts` so tests only specify the fields they
-  care about.
 
 ## Frontend
 
@@ -94,8 +47,6 @@ Frontend rules:
   `*.styles.ts` files next to it.
 - Do not introduce `features/` by default.
 - Move code to `shared/` only after at least two pages need it.
-- Consume the API through the Hono RPC client typed from `AppType`. Do not
-  duplicate response types in the frontend.
 - Add React Router when there is more than one real screen.
 - Add TanStack Query when server state needs caching, invalidation, retries,
   polling, optimistic updates, or shared loading state.

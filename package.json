@@ -7,16 +7,12 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "concurrently -n api,web -c blue,green \"npm run dev -w @commonplace/api\" \"npm run dev -w @commonplace/web\"",
+    "dev": "npm run dev:web",
     "herdr": "./herdr-dev.sh",
     "dev:herdr": "./herdr-dev.sh",
-    "dev:api": "npm run dev -w @commonplace/api",
     "dev:web": "npm run dev -w @commonplace/web",
-    "build": "npm run build -w @commonplace/video-util && npm run build -w @commonplace/api && npm run build -w @commonplace/web && npm run build -w commonplace-cli",
-    "check": "npm run build -w @commonplace/video-util && npm run check -w @commonplace/video-util && npm run check -w @commonplace/api && npm run check -w @commonplace/web && npm run check -w commonplace-cli",
-    "db:generate": "npm run db:generate -w @commonplace/api",
-    "db:migrate": "npm run db:migrate -w @commonplace/api",
-    "db:seed": "npm run db:seed -w @commonplace/api",
+    "build": "npm run build -w @commonplace/video-util && npm run build -w @commonplace/web && npm run build -w commonplace-cli",
+    "check": "npm run build -w @commonplace/video-util && npm run check -w @commonplace/video-util && npm run check -w @commonplace/web && npm run check -w commonplace-cli",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "preview:link": "npm run build -w @commonplace/video-util && tsx scripts/preview-link.ts",
@@ -25,14 +21,12 @@
     "release:skill:patch": "tsx scripts/bump-skill-version.ts patch && npm run plugins:sync-version",
     "release:skill:minor": "tsx scripts/bump-skill-version.ts minor && npm run plugins:sync-version",
     "release:skill:major": "tsx scripts/bump-skill-version.ts major && npm run plugins:sync-version",
-    "test": "npm run test -w @commonplace/video-util && npm run test -w @commonplace/api && npm run test -w commonplace-cli",
+    "test": "npm run test -w @commonplace/video-util && npm run test -w commonplace-cli",
     "release:cli:patch": "npm version patch -w commonplace-cli --tag-version-prefix commonplace-cli@",
     "release:cli:minor": "npm version minor -w commonplace-cli --tag-version-prefix commonplace-cli@",
     "release:cli:major": "npm version major -w commonplace-cli --tag-version-prefix commonplace-cli@"
   },
   "devDependencies": {
-    "concurrently": "^9.0.1",
-    "drizzle-orm": "^0.45.3",
     "prettier": "^3.3.3",
     "tsx": "^4.19.2",
     "typescript": "^5.6.3"

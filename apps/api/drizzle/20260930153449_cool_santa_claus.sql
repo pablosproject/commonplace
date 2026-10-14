@@ -1,1 +1,0 @@
-ALTER TABLE "video_recaps" ADD CONSTRAINT "video_recaps_video_id_unique" UNIQUE("video_id");

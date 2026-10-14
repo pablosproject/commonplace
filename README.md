@@ -79,16 +79,16 @@ Or copy the skill files manually. See the [skill README](skills/commonplace-yout
 
 ## Development
 
-Install dependencies, then run the web app and the API together:
+Install dependencies, then run the web app:
 
 ```sh
 npm install
 npm run dev
 ```
 
-Or run either side on its own with `npm run dev:web` or `npm run dev:api`. The web app runs on `http://localhost:5173` and proxies `/api` to the API on `http://localhost:3000`.
+The web app runs on `http://localhost:5173`.
 
-Open a sample recap in the local web app without the API:
+Open a sample recap in the local web app:
 
 ```sh
 RECAP_APP_URL=http://localhost:5173/preview npm run preview:link -- vS-gfLhxYDg
