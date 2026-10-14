@@ -17,14 +17,20 @@ Turn a YouTube video into a recap that helps the user:
 
 The deliverable is a **preview link**. The recap data travels inside the link itself, in the URL fragment, so nothing is uploaded or stored anywhere: the web app decodes and renders it in the browser. The task is finished when the user has that link.
 
+## Language
+
+Use an explicitly requested language for the recap. Accept language names or codes from the user's request and convert names to a BCP 47 language tag: an ISO 639 language code with an optional script or region subtag. For example, convert `Italian` to `it`, `Brazilian Portuguese` to `pt-BR` and `Simplified Chinese` to `zh-Hans`. Without an explicit language, write the recap in English.
+
+Pass `--language CODE` to `fetch` only when the user explicitly chose a language.
+
 ## Run
 
 Check `node --version` (20+), `python3 --version` (3.10+), and `ffmpeg -version` before fetching. If the default Python is older, put an installed newer Python first on `PATH`; on Homebrew macOS, `PATH="/opt/homebrew/bin:$PATH"` may work. Explain missing prerequisites rather than installing them without the user's request.
 
-Use a per-video folder outside the Git checkout unless the user chose an output location. Run these commands from that folder, using the same package spec each time:
+Use a per-video folder outside the Git checkout unless the user chose an output location. Run these commands from that folder:
 
 ```bash
-npx --yes commonplace-cli@latest fetch "VIDEO_URL"
+npx --yes commonplace-cli@latest fetch "VIDEO_URL" [--language BCP_47_TAG]
 npx --yes commonplace-cli@latest generate-json-stub
 # Fill video-recap-data.json from transcript.txt before continuing.
 npx --yes commonplace-cli@latest link
@@ -32,7 +38,7 @@ npx --yes commonplace-cli@latest link
 
 The first `npx` run may take longer while it fetches the CLI and yt-dlp. `link` validates the recap; run `npx --yes commonplace-cli@latest validate` while iterating when separate diagnostics help.
 
-`fetch` writes `transcript.txt` with `[HH:MM:SS]` cues and `video-info.json` with the video's details. It prefers creator subtitles and reports when it uses auto-generated captions; in that case, mention that names and terms may be misheard. Retry a transient fetch failure once promptly. If no transcript is available, explain that a faithful recap cannot be made.
+`fetch` writes `transcript.txt` with `[HH:MM:SS]` cues and `video-info.json` with the video's details. If it reports that it used auto-generated captions, mention that names and terms may be misheard. Retry a transient fetch failure once promptly. If no transcript is available, explain that a faithful recap cannot be made.
 
 Replace every `TODO` in `video-recap-data.json` using the transcript, and preserve the stub's `video` fields. Add as many highlights, sections, and points as the video warrants. Take timestamps from transcript cues: each `time` is `HH:MM:SS`, and `seconds` is the same moment in total seconds (`00:04:07` is `247`). A section begins at its first point. Choose highlights from section points and repeat the same `seconds` so the app marks them as key moments.
 

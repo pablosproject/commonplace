@@ -17,7 +17,7 @@ Each recap includes a concise summary, the main takeaway, timestamped highlights
 The skill is a thin instruction file. All executable work lives in the npm CLI package [`commonplace-cli`](../../packages/commonplace-cli/README.md), which `SKILL.md` invokes with `npx`:
 
 ```bash
-npx --yes commonplace-cli@latest fetch "VIDEO_URL"
+npx --yes commonplace-cli@latest fetch "VIDEO_URL" [--language BCP_47_TAG]
 npx --yes commonplace-cli@latest generate-json-stub
 npx --yes commonplace-cli@latest validate
 npx --yes commonplace-cli@latest link
@@ -71,6 +71,12 @@ Common destinations:
 
 ```text
 Use the commonplace-youtube-recap skill to summarize https://www.youtube.com/watch?v=VIDEO_ID
+```
+
+Without a specified language, the skill writes the recap in English. To choose another language, include it in the skill invocation:
+
+```text
+/commonplace-youtube-recap https://www.youtube.com/watch?v=VIDEO_ID Italian
 ```
 
 Environment variables for the CLI (`RECAP_APP_URL`, `RECAP_NO_OPEN`, `RECAP_COOKIES_FROM_BROWSER`, and others) are documented in the [CLI README](../../packages/commonplace-cli/README.md#environment).
