@@ -1,6 +1,7 @@
 ## Product
 
 - [ ] URL shortener built-in?
+- [x] "Make your own recap" call to action on `/preview`: every shared link should explain Commonplace and how to install it
 
 ## Skill
 

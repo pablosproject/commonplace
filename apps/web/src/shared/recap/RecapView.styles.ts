@@ -125,6 +125,27 @@ export const VideoColumn = styled.div`
   }
 `;
 
+export const CallToAction = styled.div`
+  display: flex;
+  flex-shrink: 0;
+  justify-content: flex-end;
+
+  @media (min-width: 981px) {
+    position: absolute;
+    z-index: 1;
+
+    ${RecapShell}[data-layout="reader"] & {
+      right: 24px;
+      bottom: 24px;
+    }
+
+    ${RecapShell}[data-layout="watch"] & {
+      bottom: 24px;
+      left: 32px;
+    }
+  }
+`;
+
 export const NotesColumn = styled.main`
   grid-area: notes;
   position: relative;

@@ -14,6 +14,7 @@ import { useFloatingPlayer } from "./useFloatingPlayer";
 import { useYouTubePlayer } from "./useYouTubePlayer";
 
 type RecapPlayerProps = {
+  allowFloating: boolean;
   children: ReactNode;
   isFloating: boolean;
   onFloatingChange: (isFloating: boolean) => void;
@@ -24,6 +25,7 @@ type RecapPlayerProps = {
 };
 
 export function RecapPlayer({
+  allowFloating,
   children,
   isFloating,
   onFloatingChange,
@@ -58,45 +60,47 @@ export function RecapPlayer({
           title={isFloating ? "Drag to move the player" : undefined}
         >
           <PlayerLabel>Now playing</PlayerLabel>
-          <PlayerActions aria-label="Video player controls">
-            {isFloating ? (
-              <>
+          {isFloating || allowFloating ? (
+            <PlayerActions aria-label="Video player controls">
+              {isFloating ? (
+                <>
+                  <PlayerButton
+                    type="button"
+                    onClick={floatingPlayer.shrink}
+                    aria-label="Make video smaller"
+                  >
+                    −
+                  </PlayerButton>
+                  <PlayerButton
+                    type="button"
+                    onClick={floatingPlayer.grow}
+                    aria-label="Make video larger"
+                  >
+                    +
+                  </PlayerButton>
+                  <PlayerButton
+                    type="button"
+                    onClick={floatingPlayer.dock}
+                    aria-label="Dock video in panel"
+                  >
+                    Dock
+                  </PlayerButton>
+                </>
+              ) : (
                 <PlayerButton
                   type="button"
-                  onClick={floatingPlayer.shrink}
-                  aria-label="Make video smaller"
+                  onClick={floatingPlayer.float}
+                  aria-label="Float video player"
                 >
-                  −
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="4" width="18" height="16" rx="2" />
+                    <rect x="12" y="12" width="7" height="6" rx="1" />
+                  </svg>
+                  Float
                 </PlayerButton>
-                <PlayerButton
-                  type="button"
-                  onClick={floatingPlayer.grow}
-                  aria-label="Make video larger"
-                >
-                  +
-                </PlayerButton>
-                <PlayerButton
-                  type="button"
-                  onClick={floatingPlayer.dock}
-                  aria-label="Dock video in panel"
-                >
-                  Dock
-                </PlayerButton>
-              </>
-            ) : (
-              <PlayerButton
-                type="button"
-                onClick={floatingPlayer.float}
-                aria-label="Float video player"
-              >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <rect x="3" y="4" width="18" height="16" rx="2" />
-                  <rect x="12" y="12" width="7" height="6" rx="1" />
-                </svg>
-                Float
-              </PlayerButton>
-            )}
-          </PlayerActions>
+              )}
+            </PlayerActions>
+          ) : null}
         </PlayerDragbar>
 
         <PlayerFrame>

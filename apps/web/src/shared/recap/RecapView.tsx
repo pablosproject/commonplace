@@ -1,4 +1,5 @@
 import {
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -16,6 +17,7 @@ import { RecapPlayer } from "./RecapPlayer";
 import { TimepointList } from "./TimepointList";
 import {
   Breadcrumb,
+  CallToAction,
   Footer,
   HeadingAside,
   Label,
@@ -43,11 +45,12 @@ import { useNotesResize } from "./useNotesResize";
 const NARROW_QUERY = "(max-width: 980px)";
 
 type RecapViewProps = {
+  callToAction?: ReactNode;
   nav?: ReactNode;
   recap: Recap;
 };
 
-export function RecapView({ nav, recap }: RecapViewProps) {
+export function RecapView({ callToAction, nav, recap }: RecapViewProps) {
   const [playbackSeconds, setPlaybackSeconds] = useState(0);
   const [savedLayout, setLayout] = useLayout();
   const isNarrow = useMediaQuery(NARROW_QUERY);
@@ -59,6 +62,12 @@ export function RecapView({ nav, recap }: RecapViewProps) {
     seconds: 0,
     nonce: 0,
   });
+
+  useEffect(() => {
+    if (layout === "watch") {
+      setIsPlayerFloating(false);
+    }
+  }, [layout]);
 
   const timepoints = useMemo(
     () => collectTimepoints(recap.highlights, recap.sections),
@@ -144,6 +153,7 @@ export function RecapView({ nav, recap }: RecapViewProps) {
       >
         <VideoColumn aria-label="Video">
           <RecapPlayer
+            allowFloating={layout === "reader"}
             isFloating={isPlayerFloating}
             seekRequest={seekRequest}
             title={title}
@@ -161,6 +171,7 @@ export function RecapView({ nav, recap }: RecapViewProps) {
               timepoints={timepoints}
             />
           </RecapPlayer>
+          {callToAction ? <CallToAction>{callToAction}</CallToAction> : null}
         </VideoColumn>
 
         <NotesColumn>
