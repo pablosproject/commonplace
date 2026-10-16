@@ -3,7 +3,6 @@ import { useEffect, useRef, type RefObject } from "react";
 export function useFollowActivePoint(
   containerRef: RefObject<HTMLElement>,
   activeTime: number,
-  enabled: boolean,
 ) {
   const followedTimeRef = useRef<number | null>(null);
 
@@ -18,9 +17,6 @@ export function useFollowActivePoint(
     }
 
     followedTimeRef.current = activeTime;
-    if (!enabled) {
-      return;
-    }
 
     containerRef.current
       ?.querySelector('[data-chapter] [aria-current="time"]')

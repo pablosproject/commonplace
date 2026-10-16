@@ -44,6 +44,10 @@ export const TimepointRow = styled.a`
     color: var(--accent);
     font-weight: 600;
   }
+
+  @media (max-width: 980px) and (orientation: portrait) {
+    scroll-margin-top: calc((100vw - 32px) * 9 / 16 + 120px);
+  }
 `;
 
 export const PointBody = styled.span`

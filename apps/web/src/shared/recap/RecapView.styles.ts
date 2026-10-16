@@ -22,6 +22,10 @@ export const Breadcrumb = styled.span`
   color: var(--muted);
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  @media (max-width: 620px) {
+    display: none;
+  }
 `;
 
 export const WatchLink = styled.a`
@@ -84,6 +88,16 @@ export const RecapShell = styled.div`
       grid-template-areas: "video" "notes";
     }
   }
+
+  @media (max-width: 980px) and (orientation: landscape) {
+    &[data-layout] {
+      grid-template-columns:
+        min(55%, calc((100dvh - 136px) * 16 / 9))
+        minmax(0, 1fr);
+      grid-template-areas: "video notes";
+      align-items: start;
+    }
+  }
 `;
 
 export const VideoColumn = styled.div`
@@ -116,11 +130,21 @@ export const VideoColumn = styled.div`
 
   @media (max-width: 980px) {
     ${RecapShell}[data-layout] & {
+      position: sticky;
+      top: 0;
+      z-index: 2;
       justify-content: flex-start;
       overflow: visible;
-      padding: 16px;
+      padding: 12px 16px 4px;
       border-left: 0;
       border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+  }
+
+  @media (max-width: 980px) and (orientation: landscape) {
+    ${RecapShell}[data-layout] & {
+      border-bottom: 0;
     }
   }
 `;
@@ -281,6 +305,12 @@ export const SectionHeading = styled.div`
 
   ${RecapShell}[data-layout="watch"] & h2 {
     font-size: 16px;
+  }
+
+  @media (max-width: 980px) {
+    ${RecapShell}[data-layout] & {
+      position: static;
+    }
   }
 `;
 

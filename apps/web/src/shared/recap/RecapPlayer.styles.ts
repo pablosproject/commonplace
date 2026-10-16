@@ -27,12 +27,7 @@ export const PlayerCard = styled.div`
   }
 
   @media (max-width: 980px) {
-    &[data-floating="true"] {
-      left: 16px;
-      top: auto;
-      bottom: 16px;
-      width: min(420px, calc(100vw - 32px));
-    }
+    gap: 8px;
   }
 `;
 
@@ -50,6 +45,10 @@ export const PlayerDragbar = styled.div`
 
   &[data-floating="true"]:active {
     cursor: grabbing;
+  }
+
+  @media (max-width: 980px) {
+    display: none;
   }
 `;
 

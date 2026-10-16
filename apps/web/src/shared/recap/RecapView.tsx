@@ -87,11 +87,7 @@ export function RecapView({ callToAction, nav, recap }: RecapViewProps) {
   const channel = recap.video.channel;
   const activeTime = findActiveTime(timepoints, playbackSeconds);
   const notesScrollRef = useRef<HTMLDivElement>(null);
-  const skipFollowTo = useFollowActivePoint(
-    notesScrollRef,
-    activeTime,
-    !isNarrow,
-  );
+  const skipFollowTo = useFollowActivePoint(notesScrollRef, activeTime);
   const meta = [channel, durationSeconds ? formatTime(durationSeconds) : null]
     .filter(Boolean)
     .join(" · ");
@@ -123,6 +119,10 @@ export function RecapView({ callToAction, nav, recap }: RecapViewProps) {
       title={title}
     />
   );
+
+  const callToActionBlock = callToAction ? (
+    <CallToAction>{callToAction}</CallToAction>
+  ) : null;
 
   return (
     <RecapPage>
@@ -171,7 +171,7 @@ export function RecapView({ callToAction, nav, recap }: RecapViewProps) {
               timepoints={timepoints}
             />
           </RecapPlayer>
-          {callToAction ? <CallToAction>{callToAction}</CallToAction> : null}
+          {isNarrow ? null : callToActionBlock}
         </VideoColumn>
 
         <NotesColumn>
@@ -209,6 +209,7 @@ export function RecapView({ callToAction, nav, recap }: RecapViewProps) {
               <p>{recap.conclusion}</p>
             </PullQuote>
 
+            {isNarrow ? callToActionBlock : null}
             {recap.footerText ? <Footer>{recap.footerText}</Footer> : null}
           </NotesScroll>
         </NotesColumn>
