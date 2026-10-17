@@ -51,7 +51,25 @@ export function getRecap({
     throw new Error(["Schema validation failed:", ...details].join("\n"));
   }
 
+  const placeholders = findPlaceholders(parsed.data);
+  if (placeholders.length) {
+    throw new Error(
+      [
+        `${dataJson} still has TODO placeholders:`,
+        ...placeholders.map((path) => `- ${path}`),
+      ].join("\n"),
+    );
+  }
+
   return parsed.data;
+}
+
+function findPlaceholders(value: unknown, path = ""): string[] {
+  if (value === "TODO") return [path || "/"];
+  if (typeof value !== "object" || value === null) return [];
+  return Object.entries(value).flatMap(([key, child]) =>
+    findPlaceholders(child, `${path}/${key}`),
+  );
 }
 
 export function generateJsonStub({
