@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Made `validate` and `link` reject a recap that still has `TODO` placeholders from `generate-json-stub`, listing each unfilled field.
+
 ## [0.3.0] - 2026-10-14
 
 ### Added
