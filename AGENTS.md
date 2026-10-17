@@ -6,6 +6,16 @@
 - Choose simplicity over complexity.
 - Do not add unnecessary comments.
 - If code seems to need a comment, first clarify whether the code can be made clearer instead.
+- For every implemented feature or fix in the skill or the CLI, add an entry under `## [Unreleased]` in its changelog: `skills/commonplace-youtube-recap/CHANGELOG.md` or `packages/commonplace-cli/CHANGELOG.md`.
+
+## Releases
+
+The skill and the CLI are versioned separately. To release one:
+
+1. Run `npm run release:skill:<patch|minor|major>` or `npm run release:cli:<patch|minor|major>`. These update the version in the matching JSON files (`skill.json` and the plugin manifests, or the CLI's `package.json` and `package-lock.json`).
+2. In the changelog, rename `## [Unreleased]` to `## [X.Y.Z] - YYYY-MM-DD` and add a new empty `## [Unreleased]` above it.
+3. Commit as `chore(skill): release X.Y.Z` or `chore(cli): release X.Y.Z`.
+4. Tag that commit `commonplace-skill@X.Y.Z` or `commonplace-cli@X.Y.Z`, and push the tag with the commit.
 
 ## Product
 
