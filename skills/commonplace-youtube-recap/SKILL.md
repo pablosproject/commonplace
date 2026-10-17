@@ -23,6 +23,19 @@ Use an explicitly requested language for the recap. Accept language names or cod
 
 Pass `--language CODE` to `fetch` only when the user explicitly chose a language.
 
+## Progress
+
+Keep the user informed while the recap is made, because fetching and writing can take a minute. Before each step, send one short line saying what is happening. After each step, report its result in one line, like a checklist:
+
+```text
+✓ fetch     transcript · 15:04 · en
+✓ write     summary, takeaway, 9 highlights, 4 sections
+✓ validate  recap schema 1.0
+✓ link      saved to preview_url.txt
+```
+
+Take the duration from `duration_string` in `video-info.json` and the language from `fetch`'s output. Note auto-generated captions on the fetch line. Count the highlights and sections you wrote. Mark a failed step with `✗` and its reason before retrying or stopping. Repeat the checklist in the final reply, above the takeaway.
+
 ## Run
 
 Check `node --version` (20+), `python3 --version` (3.10+), and `ffmpeg -version` before fetching. If the default Python is older, put an installed newer Python first on `PATH`; on Homebrew macOS, `PATH="/opt/homebrew/bin:$PATH"` may work. Explain missing prerequisites rather than installing them without the user's request.
