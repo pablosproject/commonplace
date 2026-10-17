@@ -1,6 +1,6 @@
 {
   "name": "commonplace-skills",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A commonplace book for video: generate YouTube recap links for commonplace.video.",
   "author": { "name": "Commonplace" },
   "homepage": "https://commonplace.video",
