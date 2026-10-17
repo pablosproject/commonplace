@@ -25,16 +25,17 @@ Pass `--language CODE` to `fetch` only when the user explicitly chose a language
 
 ## Progress
 
-Keep the user informed while the recap is made, because fetching and writing can take a minute. Before each step, send one short line saying what is happening. After each step, report its result in one line, like a checklist:
+Fetching and writing take a few minutes, and the user sees nothing while commands run. Send one short checklist line as its own message as soon as each step finishes, before running the next command, so the user can follow along:
 
 ```text
-✓ fetch     transcript · 15:04 · en
+✓ fetch     transcript · en · uploaded subtitles
 ✓ write     summary, takeaway, 9 highlights, 4 sections
-✓ validate  recap schema 1.0
-✓ link      saved to preview_url.txt
+✓ link      opened in the browser
 ```
 
-Take the duration from `duration_string` in `video-info.json` and the language from `fetch`'s output. Note auto-generated captions on the fetch line. Count the highlights and sections you wrote. Mark a failed step with `✗` and its reason before retrying or stopping. Repeat the checklist in the final reply, above the takeaway.
+Write the lines in the user's language. Include only facts that help the user, such as the transcript's language (the primary subtag of `fetch`'s language, like `en`), whether captions were auto-generated, and how many highlights and sections you wrote. Mention prerequisites and validation only when they fail. Mark a failed step with `✗` and its reason before retrying or stopping.
+
+The user has already seen the checklist, so don't repeat it in the final reply.
 
 ## Run
 

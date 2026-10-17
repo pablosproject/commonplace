@@ -4,11 +4,11 @@ All notable changes to the Commonplace YouTube Recap skill are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [0.3.0] - 2026-10-17
+## [Unreleased]
 
 ### Added
 
-- Added progress updates: a short line before each step and a checklist of step results, repeated in the final reply.
+- Added progress updates: the agent sends a short checklist line in the user's language as each step finishes, marks failures with `✗` and its reason, and doesn't repeat the checklist in the final reply.
 
 ## [0.2.0] - 2026-10-14
 
