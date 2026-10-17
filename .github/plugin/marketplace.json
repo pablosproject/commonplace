@@ -3,13 +3,13 @@
   "owner": { "name": "Commonplace", "url": "https://commonplace.video" },
   "metadata": {
     "description": "Skills that generate video recaps for commonplace.video.",
-    "version": "0.3.0"
+    "version": "0.2.0"
   },
   "plugins": [
     {
       "name": "commonplace-skills",
       "description": "A commonplace book for video: generate YouTube recap links for commonplace.video.",
-      "version": "0.3.0",
+      "version": "0.2.0",
       "source": "./"
     }
   ]
