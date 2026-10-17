@@ -15,7 +15,7 @@ The skill and the CLI are versioned separately. To release one:
 1. Run `npm run release:skill:<patch|minor|major>` or `npm run release:cli:<patch|minor|major>`. These update the version in the matching JSON files (`skill.json` and the plugin manifests, or the CLI's `package.json` and `package-lock.json`).
 2. In the changelog, rename `## [Unreleased]` to `## [X.Y.Z] - YYYY-MM-DD` and add a new empty `## [Unreleased]` above it.
 3. Commit as `chore(skill): release X.Y.Z` or `chore(cli): release X.Y.Z`.
-4. Tag that commit `commonplace-skill@X.Y.Z` or `commonplace-cli@X.Y.Z`, and push the tag with the commit.
+4. Tag that commit `commonplace-skill@X.Y.Z` or `commonplace-cli@X.Y.Z`, and push the tag with the commit. Pushing a `commonplace-cli@*` tag publishes the CLI to npm automatically (`.github/workflows/publish-cli.yml`), so push it only from a commit that is ready to ship.
 
 ## Product
 
