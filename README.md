@@ -75,7 +75,7 @@ Or copy the skill files manually. See the [skill README](skills/commonplace-yout
 ## How it works
 
 1. **Generate a recap with your agent.** The [`commonplace-youtube-recap`](skills/commonplace-youtube-recap/README.md) agent skill runs the `commonplace` command from the [`commonplace-cli`](packages/commonplace-cli/README.md) package. The command downloads the transcript, the agent writes the recap, and the command validates it and turns it into a link.
-2. **Open the returned link.** Nothing is stored; the recap is self-contained in the URL.
+2. **Open the returned link.** The recap is self-contained in the URL and decoded in the browser, without server-side recap storage. Anyone with the full link can read it. See [sharing and privacy](docs/sharing.md) for the boundaries of local generation and link sharing.
 
 ## Development
 
@@ -107,12 +107,10 @@ npm test
 
 The logo is black and white only. Logo, mark, wordmark and app-icon files are in [`docs/branding`](docs/branding/README.md).
 
-## TODO
+## Project documentation
 
-### Skill
-
-- Detect the user's browser when retrying with browser cookies to avoid hardcoding Chrome and help with rate limiting.
-
-### CLI
-
-- Add support for multi-language subtitle selection.
+- [Architecture](docs/architecture.md): component responsibilities and shared contracts.
+- [Sharing and privacy](docs/sharing.md): current behavior, decisions, and limitations.
+- [Preview-link format](docs/preview-link.md): encoding, recap schema, and compatibility.
+- [Coding conventions](CODE_STYLE.md): implementation and testing guidelines.
+- [Glossary](GLOSSARY.md): project terminology.

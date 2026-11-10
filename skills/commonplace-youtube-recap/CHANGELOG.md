@@ -6,6 +6,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Clarified preview-link privacy and documented local generation's network and model-provider boundaries.
+
+### Fixed
+
+- Removed the private-notes submodule so marketplace installation no longer requires access to a private repository.
+
 ## [0.3.0] - 2026-10-17
 
 ### Added

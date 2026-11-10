@@ -1,5 +1,11 @@
 # Commonplace brand files
 
+**Commonplace** takes its name from commonplace books: collections of passages worth keeping and sharing. The tagline, **“A commonplace book for video,”** applies that idea to YouTube.
+
+The mark combines collected passages with video: five stacked lines form a play button.
+
+## Assets
+
 The Commonplace logo: five stacked lines that form a play button. Use it in black or white only. Text is outlined, so the files need no fonts.
 
 | File                                                       | Use                                           |
