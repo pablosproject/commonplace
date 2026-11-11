@@ -11,6 +11,11 @@ Shared rules:
 - Keep modules deep: small interface, useful behavior inside.
 - Create folders when the first real file needs them, not upfront.
 - Do not add comments that explain obvious code. Make the code clearer instead.
+- Prefer the simplest design that works. Add a function, file or layer only
+  when the code needs it now.
+- Do not wrap a one-line expression in its own function. Write it inline.
+- Do not build variants of one value with functions that call each other. Write
+  one function, with an optional parameter for the variant.
 
 ## Frontend
 
