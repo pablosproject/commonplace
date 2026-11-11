@@ -1,12 +1,11 @@
 import { z } from "zod";
 import {
   base64UrlByteLength,
-  deflateJson,
   fromBase64Url,
-  inflateJson,
   isBase64Url,
   toBase64Url,
-} from "./bytes.js";
+} from "./base64url.js";
+import { deflateJson, inflateJson } from "./compression.js";
 
 export const SHORT_LINK_VERSION = 1;
 export const SHORT_LINK_MAX_BODY_BYTES = 64 * 1024; // 64 KB
@@ -14,7 +13,7 @@ export const SHORT_LINK_MIN_TTL_SECONDS = 60; // 1 minute
 export const SHORT_LINK_MAX_TTL_SECONDS = 2 * 365 * 24 * 60 * 60; // 2 years
 export const SHORT_LINK_DEFAULT_TTL_SECONDS = 15 * 24 * 60 * 60; // 15 days
 
-const IV_BYTES = 12;
+const INITIALIZATION_VECTOR_BYTES = 12;
 const TAG_BYTES = 16;
 const KEY_BYTES = 32;
 
@@ -23,19 +22,30 @@ export type EncryptedRecap = {
   key: string;
 };
 
+// encryptRecap: recap JSON → deflate → AES-256-GCM encrypt → base64url
+// decryptRecap: base64url → AES-256-GCM decrypt → inflate → recap JSON
+// The key travels only in the link fragment (#k=); the server stores `data`.
+// Format details: docs/short-link.md.
 export async function encryptRecap(recap: unknown): Promise<EncryptedRecap> {
   const keyBytes = crypto.getRandomValues(new Uint8Array(KEY_BYTES));
-  const iv = crypto.getRandomValues(new Uint8Array(IV_BYTES));
+  const initializationVector = crypto.getRandomValues(
+    new Uint8Array(INITIALIZATION_VECTOR_BYTES),
+  );
   const cryptoKey = await importKey(keyBytes, "encrypt");
   const ciphertext = await crypto.subtle.encrypt(
-    { name: "AES-GCM", iv },
+    { name: "AES-GCM", iv: initializationVector },
     cryptoKey,
     await deflateJson(recap),
   );
-  const data = new Uint8Array(IV_BYTES + ciphertext.byteLength);
+  const data = new Uint8Array(
+    INITIALIZATION_VECTOR_BYTES + ciphertext.byteLength,
+  );
 
-  data.set(iv);
-  data.set(new Uint8Array(ciphertext), IV_BYTES);
+  // data = [ initialization vector (12) | encrypted recap (N) | tag (16) ]
+  // AES-GCM appends the 16-byte tag to the ciphertext, so the shortest valid
+  // data is 12 + 16 = 28 bytes.
+  data.set(initializationVector);
+  data.set(new Uint8Array(ciphertext), INITIALIZATION_VECTOR_BYTES);
 
   return { data: toBase64Url(data), key: toBase64Url(keyBytes) };
 }
@@ -51,14 +61,14 @@ export async function decryptRecap(
     throw new Error("Invalid key");
   }
 
-  if (dataBytes.byteLength < IV_BYTES + TAG_BYTES) {
+  if (dataBytes.byteLength < INITIALIZATION_VECTOR_BYTES + TAG_BYTES) {
     throw new Error("Encrypted data is too short");
   }
 
   const plaintext = await crypto.subtle.decrypt(
-    { name: "AES-GCM", iv: dataBytes.subarray(0, IV_BYTES) },
+    { name: "AES-GCM", iv: dataBytes.subarray(0, INITIALIZATION_VECTOR_BYTES) },
     await importKey(keyBytes, "decrypt"),
-    dataBytes.subarray(IV_BYTES),
+    dataBytes.subarray(INITIALIZATION_VECTOR_BYTES),
   );
 
   return inflateJson(new Uint8Array(plaintext));
@@ -111,7 +121,8 @@ const encryptedDataSchema = z
   .string()
   .refine(
     (value) =>
-      isBase64Url(value) && base64UrlByteLength(value) >= IV_BYTES + TAG_BYTES,
+      isBase64Url(value) &&
+      base64UrlByteLength(value) >= INITIALIZATION_VECTOR_BYTES + TAG_BYTES,
     "Expected base64url data of at least 28 bytes",
   );
 

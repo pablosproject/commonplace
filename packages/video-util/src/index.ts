@@ -1,9 +1,10 @@
-export { decodePreviewHash, decodePreviewPayload } from "./decode.js";
 export {
+  decodePreviewHash,
+  decodePreviewPayload,
   encodePreview,
   encodePreviewPayload,
   type EncodedPreviewPayload,
-} from "./encode.js";
+} from "./preview-link.js";
 export {
   parseRecap,
   recapSchema,
