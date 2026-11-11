@@ -1,31 +1,6 @@
 import { describe, expect, test } from "vitest";
-import {
-  decodePreviewHash,
-  encodePreview,
-  parseRecap,
-  type Recap,
-} from "../src/index";
-
-const point = {
-  time: "00:00:01",
-  seconds: 1,
-  title: "Example point",
-  description: "Example description",
-};
-
-const recap: Recap = {
-  schemaVersion: "1.0",
-  video: {
-    id: "abcdefghijk",
-    url: "https://www.youtube.com/watch?v=abcdefghijk",
-    title: "Example",
-  },
-  abstract: "Short summary",
-  mainTakeaway: "Main point",
-  highlights: [point],
-  sections: [{ title: "Example section", points: [point] }],
-  conclusion: "Done",
-};
+import { decodePreviewHash, encodePreview, parseRecap } from "../src/index";
+import { point, recap } from "./fixtures";
 
 describe("preview links", () => {
   test("round-trips an encoded value", async () => {

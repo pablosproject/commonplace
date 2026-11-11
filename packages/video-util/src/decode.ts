@@ -1,6 +1,5 @@
+import { fromBase64Url, inflateJson } from "./bytes.js";
 import { LINK_VERSION } from "./version.js";
-
-const MAX_DECOMPRESSED_BYTES = 1_000_000;
 
 function parsePreviewHash(hash: string): string {
   const params = new URLSearchParams(hash.replace(/^#/, ""));
@@ -14,54 +13,10 @@ function parsePreviewHash(hash: string): string {
   return payload;
 }
 
-export async function decodePreviewPayload(
-  payload: string,
-  maxDecompressedBytes = MAX_DECOMPRESSED_BYTES,
-): Promise<unknown> {
-  return JSON.parse(await inflateBase64Url(payload, maxDecompressedBytes));
+export async function decodePreviewPayload(payload: string): Promise<unknown> {
+  return inflateJson(fromBase64Url(payload));
 }
 
 export async function decodePreviewHash(hash: string): Promise<unknown> {
   return decodePreviewPayload(parsePreviewHash(hash));
-}
-
-async function inflateBase64Url(
-  payload: string,
-  maxDecompressedBytes: number,
-): Promise<string> {
-  const binary = atob(toBase64(payload));
-  const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
-  const stream = new Blob([bytes])
-    .stream()
-    .pipeThrough(new DecompressionStream("deflate-raw"));
-  const reader = stream.getReader();
-  const chunks: Uint8Array[] = [];
-  let total = 0;
-
-  for (let read = await reader.read(); !read.done; read = await reader.read()) {
-    total += read.value.byteLength;
-
-    if (total > maxDecompressedBytes) {
-      await reader.cancel();
-      throw new Error("Preview link payload is too large");
-    }
-
-    chunks.push(read.value);
-  }
-
-  const inflated = new Uint8Array(total);
-  let offset = 0;
-
-  for (const chunk of chunks) {
-    inflated.set(chunk, offset);
-    offset += chunk.byteLength;
-  }
-
-  return new TextDecoder().decode(inflated);
-}
-
-function toBase64(payload: string): string {
-  const base64 = payload.replace(/-/g, "+").replace(/_/g, "/");
-  const padding = (4 - (base64.length % 4)) % 4;
-  return base64.padEnd(base64.length + padding, "=");
 }
