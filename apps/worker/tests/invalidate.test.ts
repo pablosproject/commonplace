@@ -1,66 +1,24 @@
-import { createTestHarness } from "wrangler";
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
+import {
+  data,
+  env,
+  newId,
+  ownerSecret,
+  postJson,
+  randomIp,
+  server,
+  storeLink,
+} from "./harness";
 
-const server = createTestHarness({
-  workers: [{ configPath: "../../wrangler.toml" }],
-});
-let env: Env;
-
-const data = "A".repeat(40);
-const ownerSecret = "S".repeat(43);
 const wrongSecret = "W".repeat(43);
 
-function newId() {
-  return crypto.randomUUID().replaceAll("-", "").slice(0, 22);
+function invalidate(id: string, body: unknown, ip?: string) {
+  return postJson(`/api/r/${id}/invalidate`, body, ip);
 }
-
-function randomIp() {
-  return `10.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}`;
-}
-
-async function sha256Hex(text: string) {
-  const digest = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(text),
-  );
-  return [...new Uint8Array(digest)]
-    .map((byte) => byte.toString(16).padStart(2, "0"))
-    .join("");
-}
-
-async function storeLink({ expiresInSeconds = 60 * 60 } = {}) {
-  const id = newId();
-  await env.SHORT_LINKS.put(id, data, {
-    expirationTtl: 60 * 60,
-    metadata: {
-      v: 1,
-      expiresAt: new Date(Date.now() + expiresInSeconds * 1000).toISOString(),
-      ownerHash: await sha256Hex(ownerSecret),
-    },
-  });
-  return id;
-}
-
-function invalidate(id: string, body: unknown, ip = randomIp()) {
-  return server.fetch(`/api/r/${id}/invalidate`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "CF-Connecting-IP": ip },
-    body: typeof body === "string" ? body : JSON.stringify(body),
-  });
-}
-
-beforeAll(async () => {
-  await server.listen();
-  env = await server.getWorker<Env>().getEnv();
-});
-
-afterAll(async () => {
-  await server.close();
-});
 
 describe("POST /api/r/:id/invalidate", () => {
   it("deletes the link with the right owner secret", async () => {
-    const id = await storeLink();
+    const { id } = await storeLink();
 
     const response = await invalidate(id, { ownerSecret });
 
@@ -72,7 +30,7 @@ describe("POST /api/r/:id/invalidate", () => {
   });
 
   it("returns 403 and keeps the link with a wrong secret", async () => {
-    const id = await storeLink();
+    const { id } = await storeLink();
 
     const response = await invalidate(id, { ownerSecret: wrongSecret });
 
@@ -83,7 +41,10 @@ describe("POST /api/r/:id/invalidate", () => {
 
   it.each([
     ["a missing link", () => Promise.resolve(newId())],
-    ["an expired link", () => storeLink({ expiresInSeconds: -1 })],
+    [
+      "an expired link",
+      async () => (await storeLink({ expiresInSeconds: -1 })).id,
+    ],
     ["a malformed id", () => Promise.resolve("too-short")],
   ])("returns 404 for %s", async (_, makeId) => {
     const response = await invalidate(await makeId(), { ownerSecret });
@@ -98,7 +59,7 @@ describe("POST /api/r/:id/invalidate", () => {
     ["a malformed secret", { ownerSecret: "short" }],
     ["unknown fields", { ownerSecret, extra: true }],
   ])("returns 403 and keeps the link for %s", async (_, body) => {
-    const id = await storeLink();
+    const { id } = await storeLink();
 
     const response = await invalidate(id, body);
 
@@ -109,7 +70,7 @@ describe("POST /api/r/:id/invalidate", () => {
 
   it("never logs or echoes the owner secret", async () => {
     server.clearLogs();
-    const id = await storeLink();
+    const { id } = await storeLink();
 
     const wrong = await invalidate(id, { ownerSecret: wrongSecret });
     const right = await invalidate(id, { ownerSecret });
@@ -147,7 +108,11 @@ describe("READ_LIMITER", () => {
       });
     }
 
-    const response = await invalidate(await storeLink(), { ownerSecret }, ip);
+    const response = await invalidate(
+      (await storeLink()).id,
+      { ownerSecret },
+      ip,
+    );
 
     expect(response.status).toBe(429);
   });

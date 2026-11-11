@@ -3,46 +3,12 @@ import {
   SHORT_LINK_MAX_BODY_BYTES,
   SHORT_LINK_MAX_TTL_SECONDS,
 } from "@commonplace/video-util";
-import { createTestHarness } from "wrangler";
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
+import { data, env, postJson, randomIp, server, sha256Hex } from "./harness";
 
-const server = createTestHarness({
-  workers: [{ configPath: "../../wrangler.toml" }],
-});
-let env: Env;
-
-const data = "A".repeat(40);
-
-function randomIp() {
-  return `10.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}`;
+function create(body: unknown, ip?: string) {
+  return postJson("/api/r", body, ip);
 }
-
-function create(body: unknown, ip = randomIp()) {
-  return server.fetch("/api/r", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "CF-Connecting-IP": ip },
-    body: typeof body === "string" ? body : JSON.stringify(body),
-  });
-}
-
-async function sha256Hex(text: string) {
-  const digest = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(text),
-  );
-  return [...new Uint8Array(digest)]
-    .map((byte) => byte.toString(16).padStart(2, "0"))
-    .join("");
-}
-
-beforeAll(async () => {
-  await server.listen();
-  env = await server.getWorker<Env>().getEnv();
-});
-
-afterAll(async () => {
-  await server.close();
-});
 
 describe("POST /api/r", () => {
   it("stores the data and returns the id, owner secret and expiry", async () => {
@@ -71,7 +37,7 @@ describe("POST /api/r", () => {
     expect(stored.metadata).toEqual({
       v: 1,
       expiresAt,
-      ownerHash: await sha256Hex(ownerSecret),
+      ownerHash: sha256Hex(ownerSecret),
     });
   });
 

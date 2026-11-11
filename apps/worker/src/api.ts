@@ -32,12 +32,9 @@ const notFound = { error: "Not found" };
 const invalidRequest = { error: "Invalid request" };
 const forbidden = { error: "Forbidden" };
 
-const limitCreates = rateLimit((env) => env.CREATE_LIMITER);
-const limitReads = rateLimit((env) => env.READ_LIMITER);
-
 api.post(
   "/r",
-  limitCreates,
+  rateLimit("CREATE_LIMITER"),
   bodyLimit({
     maxSize: SHORT_LINK_MAX_BODY_BYTES,
     onError: (c) => c.json({ error: "Request body too large" }, 413),
@@ -56,21 +53,21 @@ api.post(
   },
 );
 
-api.get("/r/:id", limitReads, async (c) => {
+api.get("/r/:id", rateLimit("READ_LIMITER"), async (c) => {
   const id = shortLinkIdSchema.safeParse(c.req.param("id"));
   if (!id.success) {
     return c.json(notFound, 404);
   }
 
-  const record = await readShortLink(c.env.SHORT_LINKS, id.data);
-  if (!record) {
+  const link = await readShortLink(c.env.SHORT_LINKS, id.data);
+  if (!link) {
     return c.json(notFound, 404);
   }
 
-  return c.json(record);
+  return c.json({ v: link.v, data: link.data, expiresAt: link.expiresAt });
 });
 
-api.post("/r/:id/invalidate", limitReads, async (c) => {
+api.post("/r/:id/invalidate", rateLimit("READ_LIMITER"), async (c) => {
   const id = shortLinkIdSchema.safeParse(c.req.param("id"));
   if (!id.success) {
     return c.json(notFound, 404);
