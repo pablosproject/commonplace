@@ -1,10 +1,5 @@
-export {
-  decodePreviewHash,
-  decodePreviewPayload,
-  encodePreview,
-  encodePreviewPayload,
-  type EncodedPreviewPayload,
-} from "./preview-link.js";
+export { decodePreviewHash, encodePreview } from "./preview-link.js";
+export { toBase64Url } from "./link-encoding.js";
 export {
   parseRecap,
   recapSchema,
@@ -13,10 +8,7 @@ export {
   type Recap,
 } from "./recap.js";
 export {
-  apiErrorSchema,
-  buildManageUrl,
-  buildShareFragment,
-  buildShareUrl,
+  buildShortLinkUrl,
   createShortLinkRequestSchema,
   createShortLinkResponseSchema,
   decryptRecap,
@@ -29,13 +21,6 @@ export {
   SHORT_LINK_DEFAULT_TTL_SECONDS,
   SHORT_LINK_MAX_BODY_BYTES,
   SHORT_LINK_MAX_TTL_SECONDS,
-  SHORT_LINK_MIN_TTL_SECONDS,
   SHORT_LINK_VERSION,
-  type ApiError,
-  type CreateShortLinkRequest,
-  type CreateShortLinkResponse,
-  type EncryptedRecap,
-  type InvalidateShortLinkRequest,
-  type ShortLinkFragment,
   type ShortLinkRecord,
 } from "./short-link.js";

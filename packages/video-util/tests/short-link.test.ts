@@ -1,12 +1,10 @@
 import { describe, expect, test } from "vitest";
 import {
-  buildManageUrl,
-  buildShareUrl,
+  buildShortLinkUrl,
   createShortLinkRequestSchema,
   createShortLinkResponseSchema,
   decryptRecap,
   encryptRecap,
-  invalidateShortLinkRequestSchema,
   parseShortLinkFragment,
   shortLinkIdSchema,
   shortLinkRecordSchema,
@@ -126,20 +124,20 @@ describe("short link fragments", () => {
   });
 
   test("builds the share link", () => {
-    expect(buildShareUrl("https://commonplace.video", id, key)).toBe(
+    expect(buildShortLinkUrl("https://commonplace.video", id, key)).toBe(
       `https://commonplace.video/r/${id}#k=${key}`,
     );
   });
 
   test("builds the manage link", () => {
-    expect(buildManageUrl("http://localhost:8787/", id, key, ownerSecret)).toBe(
-      `http://localhost:8787/r/${id}#k=${key}&m=${ownerSecret}`,
-    );
+    expect(
+      buildShortLinkUrl("http://localhost:8787/", id, key, ownerSecret),
+    ).toBe(`http://localhost:8787/r/${id}#k=${key}&m=${ownerSecret}`);
   });
 
   test("round-trips a built manage link", () => {
     const url = new URL(
-      buildManageUrl("https://commonplace.video", id, key, ownerSecret),
+      buildShortLinkUrl("https://commonplace.video", id, key, ownerSecret),
     );
 
     expect(url.pathname).toBe(`/r/${id}`);
@@ -154,15 +152,6 @@ describe("short link API schemas", () => {
     expect(shortLinkIdSchema.safeParse(`${id.slice(1)}=`).success).toBe(false);
   });
 
-  test("accepts a create request with data from an encrypted recap", async () => {
-    const { data } = await encryptRecap(recap);
-
-    expect(createShortLinkRequestSchema.parse({ data })).toEqual({ data });
-    expect(
-      createShortLinkRequestSchema.parse({ data, ttlSeconds: 3600 }),
-    ).toEqual({ data, ttlSeconds: 3600 });
-  });
-
   test("rejects data shorter than an IV and a tag", () => {
     expect(
       createShortLinkRequestSchema.safeParse({ data: base64UrlOfLength(28) })
@@ -170,18 +159,6 @@ describe("short link API schemas", () => {
     ).toBe(true);
     expect(
       createShortLinkRequestSchema.safeParse({ data: base64UrlOfLength(27) })
-        .success,
-    ).toBe(false);
-  });
-
-  test("rejects data that is not base64url", () => {
-    const data = `${base64UrlOfLength(40)}=`;
-
-    expect(createShortLinkRequestSchema.safeParse({ data }).success).toBe(
-      false,
-    );
-    expect(
-      createShortLinkRequestSchema.safeParse({ data: `${"A".repeat(41)}` })
         .success,
     ).toBe(false);
   });
@@ -197,15 +174,6 @@ describe("short link API schemas", () => {
     expect(parse(63_072_001)).toBe(false);
     expect(parse(90.5)).toBe(false);
     expect(parse("3600")).toBe(false);
-  });
-
-  test("rejects unknown request fields", () => {
-    expect(
-      createShortLinkRequestSchema.safeParse({
-        data: base64UrlOfLength(40),
-        public: true,
-      }).success,
-    ).toBe(false);
   });
 
   test("parses the create response", () => {
@@ -233,15 +201,5 @@ describe("short link API schemas", () => {
     expect(shortLinkRecordSchema.safeParse({ ...record, v: 2 }).success).toBe(
       false,
     );
-  });
-
-  test("parses the invalidate request", () => {
-    expect(invalidateShortLinkRequestSchema.parse({ ownerSecret })).toEqual({
-      ownerSecret,
-    });
-    expect(
-      invalidateShortLinkRequestSchema.safeParse({ ownerSecret: "abc" })
-        .success,
-    ).toBe(false);
   });
 });

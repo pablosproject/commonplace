@@ -1,24 +1,14 @@
-import { fromBase64Url, toBase64Url } from "./base64url.js";
-import { deflateJson, inflateJson } from "./compression.js";
+import {
+  deflateJson,
+  fromBase64Url,
+  inflateJson,
+  toBase64Url,
+} from "./link-encoding.js";
 
 const LINK_VERSION = "1";
 
-type LinkVersion = typeof LINK_VERSION;
-
-export type EncodedPreviewPayload = {
-  version: LinkVersion;
-  payload: string;
-  hash: string;
-};
-
-export async function encodePreviewPayload(value: unknown): Promise<string> {
-  return toBase64Url(await deflateJson(value));
-}
-
-export async function encodePreview(
-  value: unknown,
-): Promise<EncodedPreviewPayload> {
-  const payload = await encodePreviewPayload(value);
+export async function encodePreview(value: unknown) {
+  const payload = toBase64Url(await deflateJson(value));
 
   return {
     version: LINK_VERSION,
@@ -27,15 +17,7 @@ export async function encodePreview(
   };
 }
 
-export async function decodePreviewPayload(payload: string): Promise<unknown> {
-  return inflateJson(fromBase64Url(payload));
-}
-
 export async function decodePreviewHash(hash: string): Promise<unknown> {
-  return decodePreviewPayload(parsePreviewHash(hash));
-}
-
-function parsePreviewHash(hash: string): string {
   const params = new URLSearchParams(hash.replace(/^#/, ""));
   const version = params.get("v");
   const payload = params.get("d");
@@ -44,5 +26,5 @@ function parsePreviewHash(hash: string): string {
     throw new Error("Unsupported or incomplete preview link");
   }
 
-  return payload;
+  return inflateJson(fromBase64Url(payload));
 }

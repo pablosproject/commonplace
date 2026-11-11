@@ -11,7 +11,6 @@ import { fileURLToPath } from "node:url";
 import { afterEach, beforeEach, describe, expect, test } from "vitest";
 import {
   decodePreviewHash,
-  decodePreviewPayload,
   encodePreview,
   parseRecap,
 } from "@commonplace/video-util";
@@ -36,9 +35,6 @@ describe("encode output decodes in the web app", () => {
     expect(encoded.version).toBe("1");
     expect(parseRecap(await decodePreviewHash(encoded.hash))).toEqual(
       JSON.parse(readFileSync(samplePath, "utf8")),
-    );
-    expect(parseRecap(await decodePreviewPayload(encoded.payload))).toEqual(
-      recap,
     );
   });
 });
