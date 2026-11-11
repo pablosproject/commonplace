@@ -2,11 +2,11 @@
 
 Turn long YouTube videos into structured recaps your agent hands you as a single link to the Commonplace web app.
 
-The recap travels inside the link, so nothing is uploaded or stored: the app decodes and renders it in the browser.
+The recap travels inside the link: the app decodes and renders it in the browser without server-side recap storage. Anyone with the full link can read it. Local generation may use a remote model provider; see [sharing and privacy](../../docs/sharing.md).
 
 It lives in the Commonplace monorepo next to the app it feeds. It was previously the standalone `pablosproject/youtube-recap-skilll` repository, now archived.
 
-Skill changes are tracked in [`CHANGELOG.md`](CHANGELOG.md). The private skill version and source metadata are stored in [`skill.json`](skill.json), and the skill version drives the repository plugin manifest versions.
+Skill changes are tracked in [`CHANGELOG.md`](CHANGELOG.md). The skill version and source metadata are stored in [`skill.json`](skill.json), and the skill version drives the repository plugin manifest versions.
 
 ## What it creates
 

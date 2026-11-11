@@ -1,0 +1,21 @@
+{
+  "name": "@commonplace/worker",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --config ../../wrangler.toml",
+    "types": "wrangler types --config ../../wrangler.toml src/worker-configuration.d.ts",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build -w @commonplace/web && vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^5.1.0",
+    "wrangler": "^4.160.0"
+  },
+  "dependencies": {
+    "@commonplace/video-util": "*",
+    "hono": "^4.13.17",
+    "zod": "^4.6.5"
+  }
+}

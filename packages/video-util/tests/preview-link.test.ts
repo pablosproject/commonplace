@@ -1,44 +1,13 @@
 import { describe, expect, test } from "vitest";
-import {
-  decodePreviewHash,
-  encodePreview,
-  parseRecap,
-  type Recap,
-} from "../src/index";
-
-const point = {
-  time: "00:00:01",
-  seconds: 1,
-  title: "Example point",
-  description: "Example description",
-};
-
-const recap: Recap = {
-  schemaVersion: "1.0",
-  video: {
-    id: "abcdefghijk",
-    url: "https://www.youtube.com/watch?v=abcdefghijk",
-    title: "Example",
-  },
-  abstract: "Short summary",
-  mainTakeaway: "Main point",
-  highlights: [point],
-  sections: [{ title: "Example section", points: [point] }],
-  conclusion: "Done",
-};
+import { decodePreviewHash, encodePreview, parseRecap } from "../src/index";
+import { point, recap } from "./fixtures";
 
 describe("preview links", () => {
   test("round-trips an encoded value", async () => {
     const encoded = await encodePreview(recap);
 
-    expect(encoded.hash).toMatch(/^#v=1&d=[A-Za-z0-9_-]+$/);
-    expect(await decodePreviewHash(encoded.hash)).toEqual(recap);
-  });
-
-  test("encodes structured preview payload details", async () => {
-    const encoded = await encodePreview(recap);
-
     expect(encoded.version).toBe("1");
+    expect(encoded.payload).toMatch(/^[A-Za-z0-9_-]+$/);
     expect(encoded.hash).toBe(`#v=1&d=${encoded.payload}`);
     expect(await decodePreviewHash(encoded.hash)).toEqual(recap);
   });

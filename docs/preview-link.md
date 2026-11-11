@@ -1,6 +1,6 @@
 # Preview link format
 
-A preview link carries a complete video recap inside the URL, so the web app can render it without the recap ever being sent to or stored on the server. This document is the contract between the code that **produces** links (the `commonplace-cli` package, which the `commonplace-youtube-recap` agent skill runs) and the code that **consumes** them (the `/preview` route in `apps/web`).
+A preview link carries a complete video recap inside the URL, so the web app can render it in the browser without server-side recap storage. See [sharing and privacy](sharing.md) for the broader privacy boundary. This document is the contract between the code that **produces** links (the `commonplace-cli` package, which the `commonplace-youtube-recap` agent skill runs) and the code that **consumes** them (the `/preview` route in `apps/web`).
 
 Status: format version `v=1`, decided 2026-10-01. The `/preview` route is implemented in `apps/web`.
 
@@ -26,10 +26,10 @@ https://commonplace.video/preview#v=1&d=bZJBaxsxEIX_yjAXX5b1xsFxEZRSEnpoe6r...
 
 Browsers never send the part after `#` to the server. The server only sees `GET /preview`, so:
 
-- the recap is not uploaded, logged, or stored anywhere: the page decodes it in the browser;
+- the fragment payload is not included in that HTTP request or its server-side URL logs; the page decodes it in the browser;
 - server and proxy limits on URL length do not apply (browsers accept multi-megabyte URLs; servers often stop at 8–16 KB).
 
-The payload is compressed, **not encrypted**. Anyone who has the link can read the recap.
+The payload is compressed, **not encrypted**. Anyone who has the link can read the recap. This does not prevent browser history, extensions, or messaging services from retaining the full link.
 
 ## Encoding (`v=1`)
 
@@ -189,7 +189,7 @@ Cases a decoder should reject:
 
 - **Chat apps truncate long links.** Some messaging apps cut URLs past roughly 2 KB, and every real recap link is longer. Not handled yet. One option, used by Plannotator, is an opt-in short link that stores only an encrypted payload and keeps the key in the fragment.
 - **The app URL is embedded in every link.** The CLI defaults to `https://commonplace.video/preview`; `RECAP_APP_URL` can point links at another deployment or a local development server.
-- **Nothing is saved.** A recap opened from a preview link is not searchable on the site. Storing recaps is planned for logged-in users.
+- **No server-side recap storage.** A recap opened from a preview link is not saved to a searchable library on the site. Account-backed storage would require separate product and privacy decisions.
 
 ## Where the code lives
 
