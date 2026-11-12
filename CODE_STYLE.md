@@ -16,6 +16,7 @@ Shared rules:
 - Do not wrap a one-line expression in its own function. Write it inline.
 - Do not build variants of one value with functions that call each other. Write
   one function, with an optional parameter for the variant.
+- Handle errors from awaited calls with `try`/`catch`, not `.catch()` chains.
 
 ## Frontend
 
