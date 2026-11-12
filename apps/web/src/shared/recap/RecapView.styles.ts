@@ -195,7 +195,7 @@ export const NotesScroll = styled.div`
 
   ${RecapShell}[data-layout="watch"] & {
     gap: 32px;
-    padding: 0 28px 64px;
+    padding: 48px 28px 64px;
   }
 
   @media (max-width: 980px) {
@@ -221,12 +221,6 @@ export const Intro = styled.section`
     letter-spacing: -0.02em;
     line-height: 1.14;
   }
-`;
-
-export const Meta = styled.div`
-  color: var(--muted);
-  font-size: 14px;
-  font-weight: 500;
 `;
 
 export const Abstract = styled.p`

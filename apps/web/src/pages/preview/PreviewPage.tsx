@@ -6,9 +6,14 @@ import { LogoLink } from "../../shared/brand/Logo";
 import { RecapView } from "../../shared/recap/RecapView";
 import type { Recap } from "../../shared/recap/types";
 import { MakeRecapLink } from "../../shared/ui/MakeRecapLink";
-import { StatusMessagePage } from "../../shared/ui/MessagePage";
+import { MessagePage, type PageMessage } from "../../shared/ui/MessagePage";
 
-const INVALID_PREVIEW_MESSAGE = "This preview link is invalid or incomplete.";
+const INVALID_PREVIEW_MESSAGE: PageMessage = {
+  icon: "broken",
+  title: "This preview link is broken",
+  message:
+    "It's invalid or incomplete. Ask the person who shared it for the full link.",
+};
 
 export function PreviewPage() {
   const { hash } = useLocation();
@@ -34,7 +39,7 @@ export function PreviewPage() {
         }
 
         if (!cancelled) {
-          setRecapState({ status: "error", message: INVALID_PREVIEW_MESSAGE });
+          setRecapState({ status: "error", error: INVALID_PREVIEW_MESSAGE });
         }
       });
 
@@ -44,11 +49,11 @@ export function PreviewPage() {
   }, [hash]);
 
   if (recapState.status === "loading") {
-    return <StatusMessagePage message="Loading preview..." />;
+    return <MessagePage icon="loading" title="Loading preview…" />;
   }
 
   if (recapState.status === "error") {
-    return <StatusMessagePage message={recapState.message} />;
+    return <MessagePage {...recapState.error} />;
   }
 
   return (

@@ -32,12 +32,7 @@ import {
   VideoColumn,
   WatchLink,
 } from "./RecapView.styles";
-import {
-  buildChapters,
-  collectTimepoints,
-  findActiveTime,
-  formatTime,
-} from "./timepoints";
+import { buildChapters, collectTimepoints, findActiveTime } from "./timepoints";
 import type { Recap, SeekRequest } from "./types";
 import { useFollowActivePoint } from "./useFollowActivePoint";
 import { useNotesResize } from "./useNotesResize";
@@ -45,14 +40,14 @@ import { useNotesResize } from "./useNotesResize";
 const NARROW_QUERY = "(max-width: 980px)";
 
 type RecapViewProps = {
-  banner?: ReactNode;
+  actions?: ReactNode;
   callToAction?: ReactNode;
   nav?: ReactNode;
   recap: Recap;
 };
 
 export function RecapView({
-  banner,
+  actions,
   callToAction,
   nav,
   recap,
@@ -90,13 +85,9 @@ export function RecapView({
   );
 
   const title = recap.video.title;
-  const channel = recap.video.channel;
   const activeTime = findActiveTime(timepoints, playbackSeconds);
   const notesScrollRef = useRef<HTMLDivElement>(null);
   const skipFollowTo = useFollowActivePoint(notesScrollRef, activeTime);
-  const meta = [channel, durationSeconds ? formatTime(durationSeconds) : null]
-    .filter(Boolean)
-    .join(" · ");
   const videoUrl = `https://www.youtube.com/watch?v=${encodeURIComponent(recap.video.id)}`;
 
   const seekTo = (seconds: number) => {
@@ -121,7 +112,6 @@ export function RecapView({
     <RecapIntro
       abstract={recap.abstract}
       mainTakeaway={recap.mainTakeaway}
-      meta={meta}
       title={title}
     />
   );
@@ -142,10 +132,9 @@ export function RecapView({
           </svg>
         </WatchLink>
         <LayoutSwitch layout={savedLayout} onChange={changeLayout} />
+        {actions}
         <ThemeSelect />
       </TopBar>
-
-      {banner}
 
       <RecapShell
         data-layout={layout}

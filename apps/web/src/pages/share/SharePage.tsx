@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  ownerSecretSchema,
+  parseShortLinkFragment,
+} from "@commonplace/video-util";
+import { useLocation, useParams } from "react-router-dom";
 import { LogoLink } from "../../shared/brand/Logo";
 import { RecapView } from "../../shared/recap/RecapView";
 import { MakeRecapLink } from "../../shared/ui/MakeRecapLink";
-import { StatusMessagePage } from "../../shared/ui/MessagePage";
+import { MessagePage } from "../../shared/ui/MessagePage";
 import type { LoadState } from "../../shared/lib/load-state";
 import { loadSharedRecap, type SharedRecap } from "./api";
 import { LOAD_ERROR_MESSAGES } from "./messages";
-import { claimOwnerSecret } from "./owner-secret";
-import { ShareBanner } from "./ShareBanner";
+import { ManageMenu } from "./ManageMenu";
 
 export function SharePage() {
   const { id = "" } = useParams();
-  const { hash, pathname } = useLocation();
-  const navigate = useNavigate();
-  const { key, hashWithoutSecret } = claimOwnerSecret(id, hash);
+  const { hash } = useLocation();
+  const { key, ownerSecret } = parseShortLinkFragment(hash);
   const [state, setState] = useState<LoadState<SharedRecap>>({
     status: "loading",
   });
@@ -27,12 +29,6 @@ export function SharePage() {
 
     return () => meta.remove();
   }, []);
-
-  useEffect(() => {
-    if (hashWithoutSecret !== null) {
-      navigate({ pathname, hash: hashWithoutSecret }, { replace: true });
-    }
-  }, [hashWithoutSecret, navigate, pathname]);
 
   useEffect(() => {
     if (!key) {
@@ -50,7 +46,7 @@ export function SharePage() {
       setState(
         result.status === "ready"
           ? result
-          : { status: "error", message: LOAD_ERROR_MESSAGES[result.reason] },
+          : { status: "error", error: LOAD_ERROR_MESSAGES[result.reason] },
       );
     });
 
@@ -60,26 +56,29 @@ export function SharePage() {
   }, [id, key]);
 
   if (!key) {
-    return <StatusMessagePage message={LOAD_ERROR_MESSAGES.incomplete} />;
+    return <MessagePage {...LOAD_ERROR_MESSAGES.incomplete} />;
   }
 
   if (state.status === "loading") {
-    return <StatusMessagePage message="Loading recap..." />;
+    return <MessagePage icon="loading" title="Loading recap…" />;
   }
 
   if (state.status === "error") {
-    return <StatusMessagePage message={state.message} />;
+    return <MessagePage {...state.error} />;
   }
 
   return (
     <RecapView
-      banner={
-        <ShareBanner
-          key={id}
-          expiresAt={state.data.expiresAt}
-          id={id}
-          shareKey={key}
-        />
+      actions={
+        ownerSecret && ownerSecretSchema.safeParse(ownerSecret).success ? (
+          <ManageMenu
+            key={id}
+            expiresAt={state.data.expiresAt}
+            id={id}
+            ownerSecret={ownerSecret}
+            shareKey={key}
+          />
+        ) : undefined
       }
       callToAction={<MakeRecapLink />}
       nav={<LogoLink />}
