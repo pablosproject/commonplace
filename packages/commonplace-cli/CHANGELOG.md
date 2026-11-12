@@ -6,6 +6,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Added `link --ttl DURATION` (`1h`, `7d`, `2y`; default 15 days, at most 2 years) and `RECAP_SHARE_URL` for the short-link service.
+- Added `link --public`, which prints the long preview link as `link` did before, with no server call.
+
+### Changed
+
+- Made `link` create an encrypted short link: it encrypts the recap locally, uploads only the ciphertext, prints `Share link:`, `Manage link (private):` and `Expires:`, saves the share link to `preview_url.txt` and opens the manage link in the browser. If the service is unavailable, `link` exits 1 and suggests `--public`.
+
 ## [0.3.1] - 2026-10-17
 
 ### Fixed

@@ -1,10 +1,6 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import {
-  encodePreview,
-  safeParseRecap,
-  type Recap,
-} from "@commonplace/video-util";
+import { safeParseRecap, type Recap } from "@commonplace/video-util";
 import { z } from "zod";
 import { transcriptFile, videoInfoFile } from "./youtube-transcript.js";
 
@@ -103,23 +99,6 @@ export function generateJsonStub({
     `Transcript: ${transcriptFile}`,
     `Fill in ${dataJson}, then run: ${bin} validate && ${bin} link`,
   ];
-}
-
-export async function createPreviewLink({
-  workDir,
-  dataJson,
-  appUrl,
-  linkOut,
-}: {
-  workDir: string;
-  dataJson: string;
-  appUrl: string;
-  linkOut: string;
-}) {
-  const encoded = await encodePreview(getRecap({ workDir, dataJson }));
-  const link = `${appUrl}${encoded.hash}`;
-  writeFileSync(join(workDir, linkOut), `${link}\n`);
-  return link;
 }
 
 function formatDuration(seconds: number) {

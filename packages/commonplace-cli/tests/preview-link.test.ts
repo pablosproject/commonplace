@@ -39,7 +39,7 @@ describe("encode output decodes in the web app", () => {
   });
 });
 
-describe("preview link URL", () => {
+describe("public preview link URL", () => {
   let workDir: string;
 
   beforeEach(() => {
@@ -53,7 +53,7 @@ describe("preview link URL", () => {
 
   test("uses the Commonplace app by default", async () => {
     const result = await runYoutubeRecapCommand(
-      ["link"],
+      ["link", "--public"],
       { RECAP_NO_OPEN: "1" },
       workDir,
     );
@@ -68,7 +68,7 @@ describe("preview link URL", () => {
 
   test("allows the app URL to be overridden", async () => {
     const result = await runYoutubeRecapCommand(
-      ["link"],
+      ["link", "--public"],
       {
         RECAP_APP_URL: "http://localhost:5173/preview",
         RECAP_NO_OPEN: "1",
