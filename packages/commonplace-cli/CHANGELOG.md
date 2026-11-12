@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-12
+
 ### Added
 
 - Added `link --ttl DURATION` (`1h`, `7d`, `2y`; default 15 days, at most 2 years) and `RECAP_SHARE_URL` for the short-link service.
