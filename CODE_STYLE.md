@@ -56,6 +56,13 @@ Frontend rules:
 - Add TanStack Query when server state needs caching, invalidation, retries,
   polling, optimistic updates, or shared loading state.
 
+Component rules:
+
+- Prefer one simple component per screen. Avoid nesting components and passing
+  props down through layers that do not use them.
+- Extract a subcomponent only when the original becomes too long to read, or
+  when the extracted component is shared.
+
 State rules:
 
 - Prefer URL state for filters, search terms, tabs, pagination, and anything

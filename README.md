@@ -91,10 +91,10 @@ The web app runs on `http://localhost:5173`.
 Open a sample recap in the local web app:
 
 ```sh
-RECAP_APP_URL=http://localhost:5173/preview npm run preview:link -- vS-gfLhxYDg
+npm run preview:link -- vS-gfLhxYDg
 ```
 
-Without the override, preview links point to `https://commonplace.video/preview`.
+This and the other test scripts are described in `scripts/README.md`.
 
 Check and test everything:
 

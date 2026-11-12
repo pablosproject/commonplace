@@ -30,3 +30,26 @@ namespace_id = "1002"
 [ratelimits.simple]
 limit = 30
 period = 60
+
+# Local development (`npm run dev:worker`): same bindings, relaxed rate limits.
+[env.dev]
+
+[[env.dev.kv_namespaces]]
+binding = "SHORT_LINKS"
+id = "887222fbd1d642b5971a8910f9c2d7e9"
+
+[[env.dev.ratelimits]]
+name = "CREATE_LIMITER"
+namespace_id = "1001"
+
+[env.dev.ratelimits.simple]
+limit = 1000
+period = 60
+
+[[env.dev.ratelimits]]
+name = "READ_LIMITER"
+namespace_id = "1002"
+
+[env.dev.ratelimits.simple]
+limit = 1000
+period = 60

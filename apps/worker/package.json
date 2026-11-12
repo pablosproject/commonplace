@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "wrangler dev --config ../../wrangler.toml",
+    "dev": "wrangler dev --config ../../wrangler.toml --env dev",
     "types": "wrangler types --config ../../wrangler.toml src/worker-configuration.d.ts",
     "check": "tsc -p tsconfig.json --noEmit",
     "test": "npm run build -w @commonplace/web && vitest run"

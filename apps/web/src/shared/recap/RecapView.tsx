@@ -45,12 +45,18 @@ import { useNotesResize } from "./useNotesResize";
 const NARROW_QUERY = "(max-width: 980px)";
 
 type RecapViewProps = {
+  banner?: ReactNode;
   callToAction?: ReactNode;
   nav?: ReactNode;
   recap: Recap;
 };
 
-export function RecapView({ callToAction, nav, recap }: RecapViewProps) {
+export function RecapView({
+  banner,
+  callToAction,
+  nav,
+  recap,
+}: RecapViewProps) {
   const [playbackSeconds, setPlaybackSeconds] = useState(0);
   const [savedLayout, setLayout] = useLayout();
   const isNarrow = useMediaQuery(NARROW_QUERY);
@@ -138,6 +144,8 @@ export function RecapView({ callToAction, nav, recap }: RecapViewProps) {
         <LayoutSwitch layout={savedLayout} onChange={changeLayout} />
         <ThemeSelect />
       </TopBar>
+
+      {banner}
 
       <RecapShell
         data-layout={layout}
