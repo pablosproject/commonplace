@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-12
+
 ### Added
 
 - Added `--ttl` when the user asks for a link lifetime, and `--public` when they ask for a permanent, unencrypted or long link.
