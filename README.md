@@ -75,7 +75,7 @@ Or copy the skill files manually. See the [skill README](skills/commonplace-yout
 ## How it works
 
 1. **Generate a recap with your agent.** The [`commonplace-youtube-recap`](skills/commonplace-youtube-recap/README.md) agent skill runs the `commonplace` command from the [`commonplace-cli`](packages/commonplace-cli/README.md) package. The command downloads the transcript, the agent writes the recap, and the command validates it and turns it into a link.
-2. **Open the returned link.** The recap is self-contained in the URL and decoded in the browser, without server-side recap storage. Anyone with the full link can read it. See [sharing and privacy](docs/sharing.md) for the boundaries of local generation and link sharing.
+2. **Open the returned link.** By default it is a [short link](docs/short-link.md): the recap is encrypted on your machine and stored until the link expires (15 days unless you choose otherwise), and the key stays in the link, so the server can't read it. Ask for a permanent link to get a long preview link instead (`link --public`), which holds the recap itself and is stored nowhere. Anyone with the full link can read the recap. See [sharing and privacy](docs/sharing.md) for the boundaries of local generation and link sharing.
 
 ## Development
 
@@ -94,7 +94,7 @@ Open a sample recap in the local web app:
 npm run preview:link -- vS-gfLhxYDg
 ```
 
-This and the other test scripts are described in `scripts/README.md`.
+The script makes a long preview link, like `link --public`. This and the other test scripts are described in `scripts/README.md`.
 
 Check and test everything:
 

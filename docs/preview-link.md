@@ -2,7 +2,7 @@
 
 A preview link carries a complete video recap inside the URL, so the web app can render it in the browser without server-side recap storage. See [sharing and privacy](sharing.md) for the broader privacy boundary. This document is the contract between the code that **produces** links (the `commonplace-cli` package, which the `commonplace-youtube-recap` agent skill runs) and the code that **consumes** them (the `/preview` route in `apps/web`).
 
-Status: format version `v=1`, decided 2026-10-01. The `/preview` route is implemented in `apps/web`.
+Status: format version `v=1`, decided 2026-10-01. The `/preview` route is implemented in `apps/web`. Since short links, the CLI produces preview links only with `commonplace link --public`; its default is a [short link](short-link.md).
 
 ## At a glance
 
@@ -187,17 +187,17 @@ Cases a decoder should reject:
 
 ## Known limitations
 
-- **Chat apps truncate long links.** Some messaging apps cut URLs past roughly 2 KB, and every real recap link is longer. Not handled yet. One option, used by Plannotator, is an opt-in short link that stores only an encrypted payload and keeps the key in the fragment.
+- **Chat apps truncate long links.** Some messaging apps cut URLs past roughly 2 KB, and every real recap link is longer. [Short links](short-link.md), the CLI's default, avoid this.
 - **The app URL is embedded in every link.** The CLI defaults to `https://commonplace.video/preview`; `RECAP_APP_URL` can point links at another deployment or a local development server.
 - **No server-side recap storage.** A recap opened from a preview link is not saved to a searchable library on the site. Account-backed storage would require separate product and privacy decisions.
 
 ## Where the code lives
 
-| Side           | Location                                                                                                                                                      |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Shared codec   | `packages/video-util`                                                                                                                                         |
-| Producer       | `packages/commonplace-cli` (`commonplace encode` / `link`: validates, encodes the hash with `@commonplace/video-util`, assembles the app URL locally)         |
-| Dev shortcut   | `npm run preview:link -- <sample-id\|recap.json> [app-url] [--no-open]` (validates and encodes with `@commonplace/video-util`, assembles the app URL locally) |
-| Consumer       | `apps/web/src/pages/preview/PreviewPage.tsx`                                                                                                                  |
-| Contract tests | `packages/video-util/tests/`, `packages/commonplace-cli/tests/preview-link.test.ts`                                                                           |
-| Recap schema   | `packages/video-util/src/recap.ts`                                                                                                                            |
+| Side           | Location                                                                                                                                                       |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Shared codec   | `packages/video-util`                                                                                                                                          |
+| Producer       | `packages/commonplace-cli` (`commonplace encode` / `link --public`: validates, encodes the hash with `@commonplace/video-util`, assembles the app URL locally) |
+| Dev shortcut   | `npm run preview:link -- <sample-id\|recap.json> [app-url] [--no-open]` (validates and encodes with `@commonplace/video-util`, assembles the app URL locally)  |
+| Consumer       | `apps/web/src/pages/preview/PreviewPage.tsx`                                                                                                                   |
+| Contract tests | `packages/video-util/tests/`, `packages/commonplace-cli/tests/preview-link.test.ts`                                                                            |
+| Recap schema   | `packages/video-util/src/recap.ts`                                                                                                                             |
