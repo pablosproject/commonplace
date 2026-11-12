@@ -6,8 +6,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Added `--ttl` when the user asks for a link lifetime, and `--public` when they ask for a permanent, unencrypted or long link.
+
 ### Changed
 
+- Made the deliverable an encrypted short link: the final reply gives the share link, the private manage link (to invalidate it) and the expiry.
+- If the short-link service is unavailable, the agent re-runs `link --public` and tells the user why the link is long.
+- The skill description now promises a share link instead of a preview link.
 - Clarified preview-link privacy and documented local generation's network and model-provider boundaries.
 
 ### Fixed

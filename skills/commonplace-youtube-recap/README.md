@@ -2,7 +2,7 @@
 
 Turn long YouTube videos into structured recaps your agent hands you as a single link to the Commonplace web app.
 
-The recap travels inside the link: the app decodes and renders it in the browser without server-side recap storage. Anyone with the full link can read it. Local generation may use a remote model provider; see [sharing and privacy](../../docs/sharing.md).
+The link is short enough to paste into any chat. The recap is encrypted on your machine and stored on Commonplace only until the link expires, 15 days by default; the key stays in the link, so the server can't read the recap, but anyone with the full link can. You can instead ask for a long link that holds the recap itself and is stored nowhere. Local generation may use a remote model provider; see [sharing and privacy](../../docs/sharing.md).
 
 It lives in the Commonplace monorepo next to the app it feeds. It was previously the standalone `pablosproject/youtube-recap-skilll` repository, now archived.
 
@@ -23,9 +23,10 @@ npx --yes commonplace-cli@latest validate
 npx --yes commonplace-cli@latest link
 ```
 
-- The CLI downloads and cleans the transcript, writes a recap skeleton with the video's details, validates the recap JSON, and encodes the preview link.
+- The CLI downloads and cleans the transcript, writes a recap skeleton with the video's details, validates the recap JSON, and creates the share link.
 - The agent reads the transcript and fills in `video-recap-data.json`, following `SKILL.md`.
-- `link` opens the preview and prints the full URL in its tool result; the agent's final reply can stay short.
+- `link` prints the share link and its expiry in its tool result and opens a private page in the browser where you can invalidate the link. The agent's reply gives the share link and never that private page.
+- If the short-link service is unavailable, the agent re-runs `link --public` and tells you why the link is long.
 - The skill folder holds no scripts and needs no `npm install`.
 
 `SKILL.md` uses `commonplace-cli@latest` so each run fetches the latest published CLI package through `npx`.
@@ -36,7 +37,7 @@ npx --yes commonplace-cli@latest link
 - Node.js 20+ with `npx`
 - Python 3.10+ available as `python3` (the `yt-dlp` that `youtube-dl-exec` downloads is a Python zipapp)
 - `ffmpeg` on `PATH` (used to convert subtitles to `.srt`)
-- The Commonplace web app reachable at the link's address (by default `https://commonplace.video`)
+- The Commonplace web app and short-link service reachable at the link's address (by default `https://commonplace.video`)
 
 ## Installation
 
@@ -79,9 +80,16 @@ Without a specified language, the skill writes the recap in English. To choose a
 /commonplace-youtube-recap https://www.youtube.com/watch?v=VIDEO_ID Italian
 ```
 
-Environment variables for the CLI (`RECAP_APP_URL`, `RECAP_NO_OPEN`, `RECAP_COOKIES_FROM_BROWSER`, and others) are documented in the [CLI README](../../packages/commonplace-cli/README.md#environment).
+Ask for a lifetime to change the default 15 days (up to 2 years), or for a permanent or unencrypted link to get the long preview link instead:
 
-The link format is specified in [`docs/preview-link.md`](../../docs/preview-link.md).
+```text
+/commonplace-youtube-recap https://www.youtube.com/watch?v=VIDEO_ID, link valid for a week
+/commonplace-youtube-recap https://www.youtube.com/watch?v=VIDEO_ID, permanent link
+```
+
+Environment variables for the CLI (`RECAP_SHARE_URL`, `RECAP_APP_URL`, `RECAP_NO_OPEN`, `RECAP_COOKIES_FROM_BROWSER`, and others) are documented in the [CLI README](../../packages/commonplace-cli/README.md#environment).
+
+The link formats are specified in [`docs/short-link.md`](../../docs/short-link.md) and [`docs/preview-link.md`](../../docs/preview-link.md).
 
 ## License
 

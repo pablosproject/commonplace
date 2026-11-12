@@ -1,6 +1,6 @@
 ---
 name: commonplace-youtube-recap
-description: Summarize a YouTube video or ID into a skimmable recap with seekable timestamps and a Commonplace preview link. Use for video summaries, key moments, chapters, or deciding whether a video is worth watching.
+description: Summarize a YouTube video or ID into a skimmable recap with seekable timestamps and a Commonplace share link. Use for video summaries, key moments, chapters, or deciding whether a video is worth watching.
 license: MIT
 compatibility: Requires Node.js 20+ with npx, Python 3.10+ for the bundled yt-dlp, and ffmpeg for subtitle conversion.
 allowed-tools: Bash(node --version) Bash(python3 --version) Bash(ffmpeg -version) Bash(npx --yes commonplace-cli@latest *)
@@ -15,7 +15,7 @@ Turn a YouTube video into a recap that helps the user:
 - Find the most valuable moments.
 - Jump straight to those moments in the Commonplace web app's embedded player.
 
-The deliverable is a **preview link**. The recap data travels inside the link itself, in the URL fragment, so nothing is uploaded or stored anywhere: the web app decodes and renders it in the browser. The task is finished when the user has that link.
+The deliverable is a **share link** and its expiry date. The CLI encrypts the recap on the user's machine and uploads only the encrypted recap to Commonplace, which stores it until the link expires. The decryption key stays in the link, after the `#`, so the server cannot read the recap: anyone with the full link can. The task is finished when the user has that link.
 
 ## Language
 
@@ -30,7 +30,7 @@ Fetching and writing take a few minutes, and the user sees nothing while command
 ```text
 ✓ fetch     transcript · en · uploaded subtitles
 ✓ write     summary, takeaway, 9 highlights, 4 sections
-✓ link      opened in the browser
+✓ link      expires 2026-11-26
 ```
 
 Write the lines in the user's language. Include only facts that help the user, such as the transcript's language (the primary subtag of `fetch`'s language, like `en`), whether captions were auto-generated, and how many highlights and sections you wrote. Mention prerequisites and validation only when they fail. Mark a failed step with `✗` and its reason before retrying or stopping.
@@ -115,6 +115,13 @@ The first could describe any video; the second gives a reason to watch that mome
 
 ## Deliver the link
 
-`link` encodes the recap, saves `preview_url.txt`, prints the full URL in its tool result, and attempts to open it in the browser. Run it as a tool call without redirecting or filtering its output. Let that result deliver the long URL; do not construct or regenerate it by hand.
+`link` encrypts and uploads the recap, saves the share link to `preview_url.txt` and prints `Share link:` and `Expires:` in its tool result. It also opens a private page in the browser where the user can invalidate the link. Run it as a tool call without redirecting or filtering its output, and copy the share link from that result; do not construct or regenerate it by hand.
 
-In the final reply, give a brief takeaway and point to the opened preview or tool result. If neither is accessible to the user, include the full URL once from `preview_url.txt`. `RECAP_APP_URL` targets another app instance; `RECAP_NO_OPEN=1` skips browser opening when unavailable.
+Choose the options from the user's request:
+
+- A lifetime, such as "for a week" or "for a year": pass `--ttl` with a whole number followed by `h`, `d` or `y`, such as `--ttl 7d`. The default is 15 days and the maximum 2 years; if the user asks for longer, use `--ttl 2y` and say so.
+- A permanent, unencrypted or long link, or one that isn't stored on a server: run `link --public`. It prints the long preview link, which holds the recap itself, and uploads nothing. `--ttl` doesn't apply.
+
+If `link` says it couldn't reach the short-link service, run `link --public` and tell the user the short-link service was unavailable, so they got a long link that holds the recap unencrypted and that some chat apps may cut off. If the service refused the recap, report its message and stop.
+
+In the final reply, give a brief takeaway, the share link, the manage link and the expiry date, exactly as `link` printed them. Label the manage link as private: it lets the user invalidate the share link and should not be shared. For a `--public` link, point to the opened preview or tool result instead; if neither is accessible to the user, include the full URL once from `preview_url.txt`. `RECAP_SHARE_URL` and `RECAP_APP_URL` target another app instance; `RECAP_NO_OPEN=1` skips browser opening when unavailable.
