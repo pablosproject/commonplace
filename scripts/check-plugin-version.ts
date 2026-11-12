@@ -5,26 +5,31 @@ type SkillMetadata = {
 };
 
 const skillMetadata = JSON.parse(
-  readFileSync("skills/commonplace-youtube-recap/skill.json", "utf8"),
+  readFileSync("plugin/skills/commonplace-youtube-recap/skill.json", "utf8"),
 ) as SkillMetadata;
 
 const expectedVersion = skillMetadata.version;
 
 const checks = [
   {
-    label: ".claude-plugin/plugin.json version",
+    label: "plugin/.claude-plugin/plugin.json version",
     actual: () =>
       (
-        JSON.parse(readFileSync(".claude-plugin/plugin.json", "utf8")) as {
+        JSON.parse(
+          readFileSync("plugin/.claude-plugin/plugin.json", "utf8"),
+        ) as {
           version: string;
         }
       ).version,
   },
   {
-    label: "plugin.json version",
+    label: "plugin/plugin.json version",
     actual: () =>
-      (JSON.parse(readFileSync("plugin.json", "utf8")) as { version: string })
-        .version,
+      (
+        JSON.parse(readFileSync("plugin/plugin.json", "utf8")) as {
+          version: string;
+        }
+      ).version,
   },
   {
     label: ".github/plugin/marketplace.json metadata.version",

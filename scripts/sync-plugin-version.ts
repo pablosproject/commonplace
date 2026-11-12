@@ -6,26 +6,26 @@ type SkillMetadata = {
 };
 
 const skillMetadata = JSON.parse(
-  readFileSync("skills/commonplace-youtube-recap/skill.json", "utf8"),
+  readFileSync("plugin/skills/commonplace-youtube-recap/skill.json", "utf8"),
 ) as SkillMetadata;
 
 const skillVersion = skillMetadata.version;
 
 if (!/^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$/.test(skillVersion)) {
   throw new Error(
-    `Expected skills/commonplace-youtube-recap/skill.json to contain a semver version, got ${JSON.stringify(skillVersion)}`,
+    `Expected plugin/skills/commonplace-youtube-recap/skill.json to contain a semver version, got ${JSON.stringify(skillVersion)}`,
   );
 }
 
 const files = [
   {
-    path: ".claude-plugin/plugin.json",
+    path: "plugin/.claude-plugin/plugin.json",
     update: (value: Record<string, unknown>) => {
       value.version = skillVersion;
     },
   },
   {
-    path: "plugin.json",
+    path: "plugin/plugin.json",
     update: (value: Record<string, unknown>) => {
       value.version = skillVersion;
     },

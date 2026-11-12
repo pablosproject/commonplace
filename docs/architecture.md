@@ -4,14 +4,14 @@ Commonplace separates recap generation from viewing. An agent generates a recap 
 
 ## Responsibilities
 
-| Component                                              | Responsibility                                                                                                                                                                              |
-| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Skill](../skills/commonplace-youtube-recap/README.md) | Instructs the agent how to produce a useful recap.                                                                                                                                          |
-| [CLI](../packages/commonplace-cli/README.md)           | Downloads and cleans subtitles, prepares a recap skeleton, validates the completed recap, encrypts it and creates a short link, or generates a preview link. It does not write the summary. |
-| Agent                                                  | Reads the transcript and writes the summary, takeaway, highlights, sections, and conclusion.                                                                                                |
-| Shared utilities (`packages/video-util`)               | Define recap validity, preview-link encoding and decoding, short-link encryption and the short-link API bodies.                                                                             |
-| Worker (`apps/worker`)                                 | Serves the web app and the short-link API: stores encrypted recaps in Workers KV until they expire, and deletes them on invalidation. It cannot read them.                                  |
-| Web app (`apps/web`)                                   | Fetches and decrypts a short link (`/r/:id`) or decodes a preview link (`/preview`), validates the recap, then renders it beside an embedded YouTube player.                                |
+| Component                                                     | Responsibility                                                                                                                                                                              |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Skill](../plugin/skills/commonplace-youtube-recap/README.md) | Instructs the agent how to produce a useful recap.                                                                                                                                          |
+| [CLI](../packages/commonplace-cli/README.md)                  | Downloads and cleans subtitles, prepares a recap skeleton, validates the completed recap, encrypts it and creates a short link, or generates a preview link. It does not write the summary. |
+| Agent                                                         | Reads the transcript and writes the summary, takeaway, highlights, sections, and conclusion.                                                                                                |
+| Shared utilities (`packages/video-util`)                      | Define recap validity, preview-link encoding and decoding, short-link encryption and the short-link API bodies.                                                                             |
+| Worker (`apps/worker`)                                        | Serves the web app and the short-link API: stores encrypted recaps in Workers KV until they expire, and deletes them on invalidation. It cannot read them.                                  |
+| Web app (`apps/web`)                                          | Fetches and decrypts a short link (`/r/:id`) or decodes a preview link (`/preview`), validates the recap, then renders it beside an embedded YouTube player.                                |
 
 ## Data flow
 

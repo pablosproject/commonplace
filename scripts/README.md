@@ -46,6 +46,6 @@ These keep the skill version in sync across its manifests. See "Releases" in
 
 | npm script                            | Script                    | What it does                                                                                                     |
 | ------------------------------------- | ------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `release:skill:<patch\|minor\|major>` | `bump-skill-version.ts`   | Bumps the version in `skills/commonplace-youtube-recap/skill.json`, then runs `plugins:sync-version`.            |
+| `release:skill:<patch\|minor\|major>` | `bump-skill-version.ts`   | Bumps the version in `plugin/skills/commonplace-youtube-recap/skill.json`, then runs `plugins:sync-version`.     |
 | `plugins:sync-version`                | `sync-plugin-version.ts`  | Copies the skill version into `.claude-plugin/plugin.json`, `plugin.json` and `.github/plugin/marketplace.json`. |
 | `plugins:check-version`               | `check-plugin-version.ts` | Fails if those manifests don't match `skill.json`. CI runs it in `changelog-guard.yml`.                          |

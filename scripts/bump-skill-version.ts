@@ -15,7 +15,7 @@ if (!releaseType || !releaseTypes.includes(releaseType)) {
   );
 }
 
-const metadataPath = "skills/commonplace-youtube-recap/skill.json";
+const metadataPath = "plugin/skills/commonplace-youtube-recap/skill.json";
 const metadata = JSON.parse(
   readFileSync(metadataPath, "utf8"),
 ) as SkillMetadata;

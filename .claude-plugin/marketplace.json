@@ -8,7 +8,7 @@
   "plugins": [
     {
       "name": "commonplace-video",
-      "source": "./",
+      "source": "./plugin",
       "description": "A commonplace book for video: generate YouTube recap links for commonplace.video.",
       "category": "productivity",
       "keywords": ["youtube", "recap", "video"]

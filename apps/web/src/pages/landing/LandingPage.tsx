@@ -26,7 +26,7 @@ export function LandingPage() {
           </svg>
         </GitHubLink>
         <InstallLink
-          href="https://github.com/pablosproject/commonplace/tree/master/skills/commonplace-youtube-recap#installation"
+          href="https://github.com/pablosproject/commonplace/tree/master/plugin/skills/commonplace-youtube-recap#installation"
           target="_blank"
           rel="noopener"
         >

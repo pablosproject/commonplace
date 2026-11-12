@@ -9,6 +9,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 
 - Renamed the plugin from `commonplace-skills` to `commonplace-video`; existing Claude Code installs migrate through the marketplace `renames` entry.
+- Moved the plugin into `plugin/` with its own README, license and icon, set the author to Paolo Tagliani, and narrowed `allowed-tools` to the CLI's four commands.
 
 ## [0.4.0] - 2026-11-12
 

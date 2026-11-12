@@ -98,12 +98,14 @@ Testing:
 
 ## Skills
 
-`skills/<name>/` holds agent skills, one folder per skill, named after the
-skill's `name`. A skill is a thin `SKILL.md` template plus docs; it holds no
-code and is not an npm workspace.
+`plugin/` is the agent plugin: its manifests, icon, README and license, and
+`plugin/skills/<name>/` holds its skills, one folder per skill, named after the
+skill's `name`. It is self-contained so plugin directories can scan it alone. A
+skill is a thin `SKILL.md` template plus docs; it holds no code and is not an
+npm workspace.
 
 ```txt
-skills/commonplace-youtube-recap/
+plugin/skills/commonplace-youtube-recap/
   SKILL.md        instructions the agent follows, rendered by the installer
   README.md
   LICENSE

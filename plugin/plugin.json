@@ -3,7 +3,10 @@
   "name": "commonplace-video",
   "version": "0.4.0",
   "description": "A commonplace book for video: generate YouTube recap links for commonplace.video.",
-  "author": { "name": "Commonplace", "url": "https://commonplace.video" },
+  "author": {
+    "name": "Paolo Tagliani",
+    "url": "https://github.com/pablosproject"
+  },
   "homepage": "https://commonplace.video",
   "repository": "https://github.com/pablosproject/commonplace",
   "license": "MIT",
@@ -14,13 +17,13 @@
         "displayName": "Commonplace",
         "shortDescription": "A commonplace book for video.",
         "longDescription": "Generate YouTube recap links for commonplace.video.",
-        "developerName": "Commonplace",
+        "developerName": "Paolo Tagliani",
         "category": "Productivity",
         "capabilities": ["Read", "Write"],
         "websiteURL": "https://commonplace.video",
         "brandColor": "#000000",
-        "composerIcon": "./docs/branding/commonplace-app-icon.svg",
-        "logo": "./docs/branding/commonplace-logo.svg"
+        "composerIcon": "./assets/commonplace-app-icon.svg",
+        "logo": "./assets/commonplace-logo.svg"
       }
     }
   }

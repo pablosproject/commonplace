@@ -2,10 +2,14 @@
   "name": "commonplace-video",
   "version": "0.4.0",
   "description": "A commonplace book for video: generate YouTube recap links for commonplace.video.",
-  "author": { "name": "Commonplace" },
+  "author": {
+    "name": "Paolo Tagliani",
+    "url": "https://github.com/pablosproject"
+  },
   "homepage": "https://commonplace.video",
   "repository": "https://github.com/pablosproject/commonplace",
   "license": "MIT",
   "keywords": ["youtube", "recap", "video", "skills"],
-  "skills": ["./skills/commonplace-youtube-recap"]
+  "skills": ["./skills/commonplace-youtube-recap"],
+  "displayName": "Commonplace"
 }

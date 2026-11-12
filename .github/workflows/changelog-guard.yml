@@ -3,19 +3,19 @@ name: Changelog guard
 on:
   pull_request:
     paths:
-      - "skills/commonplace-youtube-recap/skill.json"
-      - "skills/commonplace-youtube-recap/CHANGELOG.md"
-      - ".claude-plugin/plugin.json"
-      - "plugin.json"
+      - "plugin/skills/commonplace-youtube-recap/skill.json"
+      - "plugin/skills/commonplace-youtube-recap/CHANGELOG.md"
+      - "plugin/.claude-plugin/plugin.json"
+      - "plugin/plugin.json"
       - ".github/plugin/marketplace.json"
   push:
     branches:
       - "**"
     paths:
-      - "skills/commonplace-youtube-recap/skill.json"
-      - "skills/commonplace-youtube-recap/CHANGELOG.md"
-      - ".claude-plugin/plugin.json"
-      - "plugin.json"
+      - "plugin/skills/commonplace-youtube-recap/skill.json"
+      - "plugin/skills/commonplace-youtube-recap/CHANGELOG.md"
+      - "plugin/.claude-plugin/plugin.json"
+      - "plugin/plugin.json"
       - ".github/plugin/marketplace.json"
 
 permissions:
@@ -46,9 +46,9 @@ jobs:
 
           CHANGED_FILES=$(git diff --name-only "$RANGE")
 
-          if echo "$CHANGED_FILES" | grep -qx "skills/commonplace-youtube-recap/skill.json"; then
-            if ! echo "$CHANGED_FILES" | grep -qx "skills/commonplace-youtube-recap/CHANGELOG.md"; then
-              echo "skills/commonplace-youtube-recap/skill.json changed, but skills/commonplace-youtube-recap/CHANGELOG.md did not."
+          if echo "$CHANGED_FILES" | grep -qx "plugin/skills/commonplace-youtube-recap/skill.json"; then
+            if ! echo "$CHANGED_FILES" | grep -qx "plugin/skills/commonplace-youtube-recap/CHANGELOG.md"; then
+              echo "plugin/skills/commonplace-youtube-recap/skill.json changed, but plugin/skills/commonplace-youtube-recap/CHANGELOG.md did not."
               echo "Update the skill changelog when releasing or changing skill metadata."
               exit 1
             fi
@@ -56,10 +56,10 @@ jobs:
 
       - name: Check skill changelog has released version
         run: |
-          VERSION=$(node -p "JSON.parse(require('fs').readFileSync('skills/commonplace-youtube-recap/skill.json', 'utf8')).version")
+          VERSION=$(node -p "JSON.parse(require('fs').readFileSync('plugin/skills/commonplace-youtube-recap/skill.json', 'utf8')).version")
 
-          if ! grep -Eq "^## \\[$VERSION\\] - [0-9]{4}-[0-9]{2}-[0-9]{2}$" skills/commonplace-youtube-recap/CHANGELOG.md; then
-            echo "skills/commonplace-youtube-recap/CHANGELOG.md must contain a release heading for $VERSION."
+          if ! grep -Eq "^## \\[$VERSION\\] - [0-9]{4}-[0-9]{2}-[0-9]{2}$" plugin/skills/commonplace-youtube-recap/CHANGELOG.md; then
+            echo "plugin/skills/commonplace-youtube-recap/CHANGELOG.md must contain a release heading for $VERSION."
             echo "Expected: ## [$VERSION] - YYYY-MM-DD"
             exit 1
           fi

@@ -2,7 +2,7 @@
 
 Turn long YouTube videos into structured recaps your agent hands you as a single link to the Commonplace web app.
 
-The link is short enough to paste into any chat. The recap is encrypted on your machine and stored on Commonplace only until the link expires, 15 days by default; the key stays in the link, so the server can't read the recap, but anyone with the full link can. You can instead ask for a long link that holds the recap itself and is stored nowhere. Local generation may use a remote model provider; see [sharing and privacy](../../docs/sharing.md).
+The link is short enough to paste into any chat. The recap is encrypted on your machine and stored on Commonplace only until the link expires, 15 days by default; the key stays in the link, so the server can't read the recap, but anyone with the full link can. You can instead ask for a long link that holds the recap itself and is stored nowhere. Local generation may use a remote model provider; see [sharing and privacy](https://github.com/pablosproject/commonplace/blob/master/docs/sharing.md).
 
 It lives in the Commonplace monorepo next to the app it feeds. It was previously the standalone `pablosproject/youtube-recap-skilll` repository, now archived.
 
@@ -14,7 +14,7 @@ Each recap includes a concise summary, the main takeaway, timestamped highlights
 
 ## Architecture
 
-The skill is a thin instruction file. All executable work lives in the npm CLI package [`commonplace-cli`](../../packages/commonplace-cli/README.md), which `SKILL.md` invokes with `npx`:
+The skill is a thin instruction file. All executable work lives in the npm CLI package [`commonplace-cli`](https://github.com/pablosproject/commonplace/blob/master/packages/commonplace-cli/README.md), which `SKILL.md` invokes with `npx`:
 
 ```bash
 npx --yes commonplace-cli@latest fetch "VIDEO_URL" [--language BCP_47_TAG]
@@ -87,9 +87,9 @@ Ask for a lifetime to change the default 15 days (up to 2 years), or for a perma
 /commonplace-youtube-recap https://www.youtube.com/watch?v=VIDEO_ID, permanent link
 ```
 
-Environment variables for the CLI (`RECAP_SHARE_URL`, `RECAP_APP_URL`, `RECAP_NO_OPEN`, `RECAP_COOKIES_FROM_BROWSER`, and others) are documented in the [CLI README](../../packages/commonplace-cli/README.md#environment).
+Environment variables for the CLI (`RECAP_SHARE_URL`, `RECAP_APP_URL`, `RECAP_NO_OPEN`, `RECAP_COOKIES_FROM_BROWSER`, and others) are documented in the [CLI README](https://github.com/pablosproject/commonplace/blob/master/packages/commonplace-cli/README.md#environment).
 
-The link formats are specified in [`docs/short-link.md`](../../docs/short-link.md) and [`docs/preview-link.md`](../../docs/preview-link.md).
+The link formats are specified in [`docs/short-link.md`](https://github.com/pablosproject/commonplace/blob/master/docs/short-link.md) and [`docs/preview-link.md`](https://github.com/pablosproject/commonplace/blob/master/docs/preview-link.md).
 
 ## License
 

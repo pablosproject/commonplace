@@ -10,7 +10,7 @@
       "name": "commonplace-video",
       "description": "A commonplace book for video: generate YouTube recap links for commonplace.video.",
       "version": "0.4.0",
-      "source": "./"
+      "source": "./plugin"
     }
   ]
 }
