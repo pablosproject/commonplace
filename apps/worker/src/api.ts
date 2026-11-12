@@ -30,6 +30,9 @@ api.onError((error, c) => {
 
 const notFound = { error: "Not found" };
 const invalidRequest = { error: "Invalid request" };
+const invalidTtl = {
+  error: "The lifetime must be between 1 minute and 2 years",
+};
 const forbidden = { error: "Forbidden" };
 
 api.post(
@@ -40,10 +43,19 @@ api.post(
     onError: (c) => c.json({ error: "Request body too large" }, 413),
   }),
   async (c) => {
-    const body = await c.req.json().catch(() => undefined);
+    let body: unknown;
+    try {
+      body = await c.req.json();
+    } catch {
+      return c.json(invalidRequest, 400);
+    }
+
     const request = createShortLinkRequestSchema.safeParse(body);
     if (!request.success) {
-      return c.json(invalidRequest, 400);
+      const badTtl = request.error.issues.some(
+        (issue) => issue.path[0] === "ttlSeconds",
+      );
+      return c.json(badTtl ? invalidTtl : invalidRequest, 400);
     }
 
     const { data, ttlSeconds = SHORT_LINK_DEFAULT_TTL_SECONDS } = request.data;
@@ -73,7 +85,13 @@ api.post("/r/:id/invalidate", rateLimit("READ_LIMITER"), async (c) => {
     return c.json(notFound, 404);
   }
 
-  const body = await c.req.json().catch(() => undefined);
+  let body: unknown;
+  try {
+    body = await c.req.json();
+  } catch {
+    return c.json(forbidden, 403);
+  }
+
   const request = invalidateShortLinkRequestSchema.safeParse(body);
   if (!request.success) {
     return c.json(forbidden, 403);

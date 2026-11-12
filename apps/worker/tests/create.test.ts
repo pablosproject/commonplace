@@ -63,12 +63,6 @@ describe("POST /api/r", () => {
     ["missing data", {}],
     ["data that is not base64url", { data: "not base64url!" + data }],
     ["data shorter than 28 bytes", { data: "A".repeat(36) }],
-    ["ttlSeconds below 60", { data, ttlSeconds: 59 }],
-    [
-      "ttlSeconds above 2 years",
-      { data, ttlSeconds: SHORT_LINK_MAX_TTL_SECONDS + 1 },
-    ],
-    ["ttlSeconds that is not an integer", { data, ttlSeconds: 60.5 }],
     ["unknown fields", { data, extra: true }],
   ])("returns 400 for %s", async (_, body) => {
     const response = await create(body);
@@ -76,6 +70,22 @@ describe("POST /api/r", () => {
     expect(response.status).toBe(400);
     expect(await response.json()).toEqual({ error: "Invalid request" });
   });
+
+  it.each([
+    ["below 60", 59],
+    ["above 2 years", SHORT_LINK_MAX_TTL_SECONDS + 1],
+    ["not an integer", 60.5],
+  ])(
+    "returns 400 naming the limits for ttlSeconds %s",
+    async (_, ttlSeconds) => {
+      const response = await create({ data, ttlSeconds });
+
+      expect(response.status).toBe(400);
+      expect(await response.json()).toEqual({
+        error: "The lifetime must be between 1 minute and 2 years",
+      });
+    },
+  );
 
   it("returns 413 for a body over 64 KB", async () => {
     const response = await create({
