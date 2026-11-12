@@ -11,5 +11,5 @@
   "license": "MIT",
   "keywords": ["youtube", "recap", "video", "skills"],
   "skills": ["./skills/commonplace-youtube-recap"],
-  "displayName": "Commonplace"
+  "displayName": "Commonplace Video"
 }
