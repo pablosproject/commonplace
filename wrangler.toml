@@ -1,6 +1,7 @@
 name = "commonplace"
 main = "apps/worker/src/index.ts"
 compatibility_date = "2026-11-01"
+routes = [{ pattern = "commonplace.video", custom_domain = true }]
 
 [assets]
 directory = "apps/web/dist"
