@@ -28,7 +28,7 @@ Use a managed plugin install when your agent supports it, or `skills.sh` when yo
 
 ```sh
 claude plugin marketplace add pablosproject/commonplace
-claude plugin install commonplace-skills@commonplace
+claude plugin install commonplace-video@commonplace
 ```
 
 Installs the managed plugin from this repository marketplace.
@@ -40,7 +40,7 @@ Installs the managed plugin from this repository marketplace.
 
 ```sh
 codex plugin marketplace add pablosproject/commonplace
-codex plugin add commonplace-skills@commonplace
+codex plugin add commonplace-video@commonplace
 ```
 
 Installs the managed plugin from this repository marketplace.
@@ -52,7 +52,7 @@ Installs the managed plugin from this repository marketplace.
 
 ```sh
 copilot plugin marketplace add pablosproject/commonplace
-copilot plugin install commonplace-skills@commonplace
+copilot plugin install commonplace-video@commonplace
 ```
 
 Installs the managed plugin from this repository marketplace.

@@ -7,11 +7,14 @@
   "description": "Skills that generate video recaps for commonplace.video.",
   "plugins": [
     {
-      "name": "commonplace-skills",
+      "name": "commonplace-video",
       "source": "./",
       "description": "A commonplace book for video: generate YouTube recap links for commonplace.video.",
       "category": "productivity",
       "keywords": ["youtube", "recap", "video"]
     }
-  ]
+  ],
+  "renames": {
+    "commonplace-skills": "commonplace-video"
+  }
 }

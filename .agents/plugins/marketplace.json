@@ -5,7 +5,7 @@
   },
   "plugins": [
     {
-      "name": "commonplace-skills",
+      "name": "commonplace-video",
       "source": {
         "source": "url",
         "url": "https://github.com/pablosproject/commonplace.git"

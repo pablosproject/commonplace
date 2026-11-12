@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Renamed the plugin from `commonplace-skills` to `commonplace-video`; existing Claude Code installs migrate through the marketplace `renames` entry.
+
 ## [0.4.0] - 2026-11-12
 
 ### Added
