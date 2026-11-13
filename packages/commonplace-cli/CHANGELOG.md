@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Updated Zod to prevent memory exhaustion when validating oversized constrained collections.
+
 ## [0.4.0] - 2026-11-12
 
 ### Added

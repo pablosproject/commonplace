@@ -14,19 +14,20 @@
     "@commonplace/video-util": "*",
     "@fontsource-variable/instrument-sans": "^5.3.0",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
-    "@linaria/core": "^8.2.0",
-    "@linaria/react": "^8.2.0",
+    "@linaria/core": "^8.3.0",
+    "@linaria/react": "^8.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.30.6"
+    "react-router-dom": "^7.18.5"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^6.1.1",
-    "@wyw-in-js/babel-preset": "^2.5.1",
-    "@wyw-in-js/vite": "^2.5.1",
-    "vite": "^8.3.0",
+    "@wyw-in-js/babel-preset": "^2.7.1",
+    "@wyw-in-js/vite": "^2.7.1",
+    "happy-dom": "^21.0.4",
+    "vite": "^8.3.8",
     "vitest": "^5.1.0"
   }
 }

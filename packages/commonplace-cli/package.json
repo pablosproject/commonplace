@@ -25,7 +25,7 @@
   "dependencies": {
     "typesbcp47": "^1.26.2",
     "youtube-dl-exec": "^3.1.17",
-    "zod": "^4.6.5"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@commonplace/video-util": "*",
