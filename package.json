@@ -28,6 +28,15 @@
     "release:cli:minor": "npm version minor -w commonplace-cli --tag-version-prefix commonplace-cli@",
     "release:cli:major": "npm version major -w commonplace-cli --tag-version-prefix commonplace-cli@"
   },
+  "overrides": {
+    "@wyw-in-js/shared@2.7.1": {
+      "minimatch": "11.0.8"
+    },
+    "@wyw-in-js/transform@2.7.1": {
+      "happy-dom": "21.0.4",
+      "minimatch": "11.0.8"
+    }
+  },
   "devDependencies": {
     "prettier": "^3.3.3",
     "tsx": "^4.19.2",

@@ -16,6 +16,6 @@
   "dependencies": {
     "@commonplace/video-util": "*",
     "hono": "^4.13.17",
-    "zod": "^4.6.5"
+    "zod": "^4.6.7"
   }
 }
