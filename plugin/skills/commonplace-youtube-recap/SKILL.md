@@ -3,7 +3,6 @@ name: commonplace-youtube-recap
 description: Summarize a YouTube video or ID into a skimmable recap with seekable timestamps and a Commonplace share link. Use for video summaries, key moments, chapters, or deciding whether a video is worth watching.
 license: MIT
 compatibility: Requires Node.js 20+ with npx, Python 3.10+ for the bundled yt-dlp, and ffmpeg for subtitle conversion.
-allowed-tools: Bash(node --version) Bash(python3 --version) Bash(ffmpeg -version) Bash(npx --yes commonplace-cli@latest fetch *) Bash(npx --yes commonplace-cli@latest generate-json-stub) Bash(npx --yes commonplace-cli@latest validate) Bash(npx --yes commonplace-cli@latest link) Bash(npx --yes commonplace-cli@latest link *)
 ---
 
 ## Purpose

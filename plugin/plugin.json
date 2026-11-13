@@ -22,8 +22,8 @@
         "capabilities": ["Read", "Write"],
         "websiteURL": "https://commonplace.video",
         "brandColor": "#000000",
-        "composerIcon": "./assets/commonplace-app-icon.svg",
-        "logo": "./assets/commonplace-logo.svg"
+        "composerIcon": "./assets/commonplace-app-icon.png",
+        "logo": "./assets/commonplace-logo.png"
       }
     }
   }
