@@ -26,7 +26,6 @@
     "@vitejs/plugin-react": "^6.1.1",
     "@wyw-in-js/babel-preset": "^2.7.1",
     "@wyw-in-js/vite": "^2.7.1",
-    "happy-dom": "^21.0.4",
     "vite": "^8.3.8",
     "vitest": "^5.1.0"
   }
