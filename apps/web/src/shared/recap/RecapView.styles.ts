@@ -46,6 +46,7 @@ export const WatchLink = styled.a`
   }
 
   @media (max-width: 620px) {
+    margin-left: auto;
     span {
       display: none;
     }

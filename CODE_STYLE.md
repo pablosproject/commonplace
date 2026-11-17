@@ -17,6 +17,14 @@ Shared rules:
 - Do not build variants of one value with functions that call each other. Write
   one function, with an optional parameter for the variant.
 - Handle errors from awaited calls with `try`/`catch`, not `.catch()` chains.
+- Always use braces for control-flow blocks, even for a single statement.
+  Write early exits on their own line and leave a blank line after each
+  early-exit guard before the next statement.
+- Within a function, separate distinct procedural steps with a blank line so
+  each block's purpose is easy to recognize. Keep related statements together;
+  do not add spacing between every statement or comments just to label blocks.
+- Put exported functions before private functions in each module. Imports,
+  types, and module-level constants may precede the functions.
 
 ## Frontend
 

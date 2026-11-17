@@ -21,11 +21,15 @@ export function LogoMark({ size }: { size: number }) {
   );
 }
 
-export function LogoLink() {
+export function LogoLink({
+  compactOnMobile = false,
+}: {
+  compactOnMobile?: boolean;
+}) {
   return (
-    <Lockup to="/">
+    <Lockup to="/" data-compact={compactOnMobile} aria-label="Commonplace home">
       <LogoMark size={22} />
-      {PRODUCT_NAME}
+      <span>{PRODUCT_NAME}</span>
     </Lockup>
   );
 }
@@ -39,6 +43,12 @@ const Lockup = styled(Link)`
   font-size: 18px;
   font-weight: 700;
   letter-spacing: -0.02em;
+
+  @media (max-width: 620px) {
+    &[data-compact="true"] span {
+      display: none;
+    }
+  }
 
   &:hover {
     color: var(--text-strong);

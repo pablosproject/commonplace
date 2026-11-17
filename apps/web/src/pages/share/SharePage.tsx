@@ -3,20 +3,28 @@ import {
   ownerSecretSchema,
   parseShortLinkFragment,
 } from "@commonplace/video-util";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { LogoLink } from "../../shared/brand/Logo";
 import { RecapView } from "../../shared/recap/RecapView";
 import { MakeRecapLink } from "../../shared/ui/MakeRecapLink";
 import { MessagePage } from "../../shared/ui/MessagePage";
 import type { LoadState } from "../../shared/lib/load-state";
-import { loadSharedRecap, type SharedRecap } from "./api";
-import { LOAD_ERROR_MESSAGES } from "./messages";
-import { ManageMenu } from "./ManageMenu";
+import { loadSharedRecap, type SharedRecap } from "../../shared/sharing/api";
+import { LOAD_ERROR_MESSAGES } from "../../shared/sharing/messages";
+import { RecapActions } from "../../shared/library/RecapActions";
+import { useLibrary } from "../../shared/library/useLibrary";
 
 export function SharePage() {
   const { id = "" } = useParams();
   const { hash } = useLocation();
   const { key, ownerSecret } = parseShortLinkFragment(hash);
+  const { entries } = useLibrary();
+  const savedCopy = entries.find(
+    (entry) =>
+      entry.managementMatchesRecap &&
+      entry.management?.linkId === id &&
+      entry.management.key === key,
+  );
   const [state, setState] = useState<LoadState<SharedRecap>>({
     status: "loading",
   });
@@ -64,24 +72,46 @@ export function SharePage() {
   }
 
   if (state.status === "error") {
-    return <MessagePage {...state.error} />;
+    return (
+      <MessagePage {...state.error}>
+        {savedCopy ? (
+          <>
+            <p>
+              This link could not be opened. You have a copy saved in this
+              browser.
+            </p>
+            <Link to={`/saved/${savedCopy.recap.video.id}`}>
+              Open saved copy
+            </Link>
+          </>
+        ) : null}
+      </MessagePage>
+    );
   }
 
   return (
     <RecapView
+      key={`${id}:${key}`}
       actions={
-        ownerSecret && ownerSecretSchema.safeParse(ownerSecret).success ? (
-          <ManageMenu
-            key={id}
-            expiresAt={state.data.expiresAt}
-            id={id}
-            ownerSecret={ownerSecret}
-            shareKey={key}
-          />
-        ) : undefined
+        <RecapActions
+          key={`${id}:${key}:${ownerSecret}`}
+          webRecap={{
+            recap: state.data.recap,
+            ...(ownerSecret && ownerSecretSchema.safeParse(ownerSecret).success
+              ? {
+                  management: {
+                    linkId: id,
+                    key,
+                    ownerSecret,
+                    expiresAt: state.data.expiresAt,
+                  },
+                }
+              : {}),
+          }}
+        />
       }
       callToAction={<MakeRecapLink />}
-      nav={<LogoLink />}
+      nav={<LogoLink compactOnMobile />}
       recap={state.data.recap}
     />
   );

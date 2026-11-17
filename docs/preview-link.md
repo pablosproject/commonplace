@@ -189,7 +189,7 @@ Cases a decoder should reject:
 
 - **Chat apps truncate long links.** Some messaging apps cut URLs past roughly 2 KB, and every real recap link is longer. [Short links](short-link.md), the CLI's default, avoid this.
 - **The app URL is embedded in every link.** The CLI defaults to `https://commonplace.video/preview`; `RECAP_APP_URL` can point links at another deployment or a local development server.
-- **No server-side recap storage.** A recap opened from a preview link is not saved to a searchable library on the site. Account-backed storage would require separate product and privacy decisions.
+- **No server-side recap storage.** A recipient can explicitly save a complete local copy in the browser library. It is not uploaded, synced or backed up. Account-backed storage would require separate product and privacy decisions.
 
 ## Where the code lives
 

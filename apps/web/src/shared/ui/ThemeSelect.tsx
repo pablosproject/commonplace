@@ -5,7 +5,11 @@ import { HiddenLabel, Select, SelectWrapper } from "./ThemeSelect.styles";
 
 const THEMES = ["light", "dark"] as const;
 
-export function ThemeSelect() {
+export function ThemeSelect({
+  compactOnMobile = false,
+}: {
+  compactOnMobile?: boolean;
+}) {
   const selectId = useId();
   const [savedTheme, setSavedTheme] = usePersistentChoice("theme", THEMES);
   const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
@@ -22,7 +26,7 @@ export function ThemeSelect() {
   };
 
   return (
-    <SelectWrapper>
+    <SelectWrapper data-compact={compactOnMobile}>
       <HiddenLabel htmlFor={selectId}>Theme</HiddenLabel>
       {theme === "dark" ? <MoonIcon /> : <SunIcon />}
       <Select id={selectId} value={savedTheme ?? "system"} onChange={onChange}>

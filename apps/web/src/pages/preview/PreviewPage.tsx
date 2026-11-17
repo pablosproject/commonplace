@@ -6,6 +6,7 @@ import { LogoLink } from "../../shared/brand/Logo";
 import { RecapView } from "../../shared/recap/RecapView";
 import type { Recap } from "../../shared/recap/types";
 import { MakeRecapLink } from "../../shared/ui/MakeRecapLink";
+import { RecapActions } from "../../shared/library/RecapActions";
 import { MessagePage, type PageMessage } from "../../shared/ui/MessagePage";
 
 const INVALID_PREVIEW_MESSAGE: PageMessage = {
@@ -58,9 +59,10 @@ export function PreviewPage() {
 
   return (
     <RecapView
-      key={recapState.data.video.id}
+      key={hash}
+      actions={<RecapActions webRecap={{ recap: recapState.data }} />}
       callToAction={<MakeRecapLink />}
-      nav={<LogoLink />}
+      nav={<LogoLink compactOnMobile />}
       recap={recapState.data}
     />
   );

@@ -18,14 +18,17 @@
     "@linaria/react": "^8.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^7.18.5"
+    "react-router-dom": "^7.18.5",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.3.3",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^6.1.1",
     "@wyw-in-js/babel-preset": "^2.7.1",
     "@wyw-in-js/vite": "^2.7.1",
+    "jsdom": "^31.0.1",
     "vite": "^8.3.8",
     "vitest": "^5.1.0"
   }

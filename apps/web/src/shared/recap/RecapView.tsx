@@ -1,4 +1,5 @@
 import {
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -44,6 +45,8 @@ type RecapViewProps = {
   callToAction?: ReactNode;
   nav?: ReactNode;
   recap: Recap;
+  startAtSeconds?: number;
+  onPlaybackTime?: (seconds: number) => void;
 };
 
 export function RecapView({
@@ -51,8 +54,18 @@ export function RecapView({
   callToAction,
   nav,
   recap,
+  startAtSeconds = 0,
+  onPlaybackTime,
 }: RecapViewProps) {
-  const [playbackSeconds, setPlaybackSeconds] = useState(0);
+  const initialStartAt = useRef(startAtSeconds);
+  const [playbackSeconds, setPlaybackSeconds] = useState(initialStartAt.current);
+  const handlePlaybackTime = useCallback(
+    (seconds: number) => {
+      setPlaybackSeconds(seconds);
+      onPlaybackTime?.(seconds);
+    },
+    [onPlaybackTime],
+  );
   const [savedLayout, setLayout] = useLayout();
   const isNarrow = useMediaQuery(NARROW_QUERY);
   const layout: Layout = isNarrow ? "watch" : savedLayout;
@@ -133,7 +146,7 @@ export function RecapView({
         </WatchLink>
         <LayoutSwitch layout={savedLayout} onChange={changeLayout} />
         {actions}
-        <ThemeSelect />
+        <ThemeSelect compactOnMobile />
       </TopBar>
 
       <RecapShell
@@ -153,10 +166,11 @@ export function RecapView({
             allowFloating={layout === "reader"}
             isFloating={isPlayerFloating}
             seekRequest={seekRequest}
+            startAtSeconds={initialStartAt.current}
             title={title}
             youtubeVideoId={recap.video.id}
             onFloatingChange={setIsPlayerFloating}
-            onPlaybackTime={setPlaybackSeconds}
+            onPlaybackTime={handlePlaybackTime}
           >
             <PlaybackPanel
               activeTime={activeTime}

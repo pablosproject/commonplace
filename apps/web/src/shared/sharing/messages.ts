@@ -1,4 +1,4 @@
-import type { PageMessage } from "../../shared/ui/MessagePage";
+import type { PageMessage } from "../ui/MessagePage";
 import type { InvalidateResult, LoadErrorReason } from "./api";
 
 export const LOAD_ERROR_MESSAGES: Record<LoadErrorReason, PageMessage> = {

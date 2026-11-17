@@ -1,9 +1,13 @@
 import { styled } from "@linaria/react";
+import { Link } from "react-router-dom";
+import { ErrorNotice } from "../../shared/library/Library.styles";
+import { useLibrary } from "../../shared/library/useLibrary";
 import { LogoLink, LogoMark, PRODUCT_NAME } from "../../shared/brand/Logo";
 import { ThemeSelect } from "../../shared/ui/ThemeSelect";
 import { TopBar } from "../../shared/ui/TopBar";
 
 export function LandingPage() {
+  const { entries, error } = useLibrary();
   return (
     <Page>
       <TopBar>
@@ -11,6 +15,29 @@ export function LandingPage() {
         <Spacer />
         <ThemeSelect />
       </TopBar>
+      {entries.length || error ? (
+        <ReturnStrip aria-label="Saved recaps">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 4h6a3 3 0 0 1 2 1 3 3 0 0 1 2-1h6v16h-6a3 3 0 0 0-2 1 3 3 0 0 0-2-1H4zM12 5v16" />
+          </svg>
+          <div>
+            {error ? (
+              <ErrorNotice role="alert">{error}</ErrorNotice>
+            ) : (
+              <>
+                <strong>
+                  {entries.length} saved{" "}
+                  {entries.length === 1 ? "recap" : "recaps"}
+                </strong>
+                <small>In this browser</small>
+              </>
+            )}
+          </div>
+          <Link to="/saved">
+            View your recaps <span aria-hidden="true">→</span>
+          </Link>
+        </ReturnStrip>
+      ) : null}
       <Hero>
         <LogoMark size={112} />
         <h1>{PRODUCT_NAME}</h1>
@@ -41,6 +68,55 @@ const Page = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
+`;
+
+const ReturnStrip = styled.aside`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(850px, calc(100% - 32px));
+  margin: 24px auto 0;
+  padding: 13px 17px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  font-size: 13px;
+  svg {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: var(--muted);
+    stroke-width: 1.7;
+  }
+  div {
+    min-width: 0;
+  }
+  strong {
+    font-weight: 600;
+  }
+  small {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+  }
+  a {
+    margin-left: auto;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  p {
+    margin: 0;
+  }
+  @media (max-width: 620px) {
+    flex-wrap: wrap;
+    margin-top: 16px;
+    padding: 12px;
+    gap: 8px;
+    a {
+      font-size: 12px;
+    }
+  }
 `;
 
 const Spacer = styled.div`

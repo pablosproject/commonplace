@@ -29,10 +29,11 @@ Glossary: a **recap** is the structured summary of one video; a **timepoint** is
 
 ## Project knowledge
 
-- When changing component responsibilities or package boundaries, read and update `docs/architecture.md`.
-- When changing sharing behavior or privacy boundaries, read and update `docs/sharing.md`.
-- When changing recap validity or link encoding, read and update `docs/preview-link.md`.
-- Update the relevant docs with the implementation. Record current behavior and enduring decisions there; keep session logs and exploratory notes separate. Private notes should link to public docs rather than duplicate them.
+- For each new feature, ask the user whether to create a document, update an existing document, or proceed without documentation. Wait for their decision before creating or updating feature documentation. If they decline, make no documentation changes.
+- When changing component responsibilities or package boundaries, read `docs/architecture.md`.
+- When changing sharing behavior or privacy boundaries, read `docs/sharing.md`.
+- When changing recap validity or link encoding, read `docs/preview-link.md`.
+- When documentation is approved, record current behavior and enduring decisions in the agreed document; keep session logs and exploratory notes separate. Private notes should link to public docs rather than duplicate them.
 
 ## Private notes
 

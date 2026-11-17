@@ -95,6 +95,12 @@ export const Menu = styled.div`
     0 12px 32px rgba(0, 0, 0, 0.18),
     0 2px 6px rgba(0, 0, 0, 0.08);
 
+  max-height: calc(100dvh - 88px);
+  overflow-y: auto;
+  &:focus {
+    outline: none;
+  }
+
   svg {
     flex-shrink: 0;
     width: 16px;

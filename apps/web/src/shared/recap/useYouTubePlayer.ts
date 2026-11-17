@@ -23,6 +23,7 @@ type UseYouTubePlayerOptions = {
   elementId: string;
   onPlaybackTime: (seconds: number) => void;
   seekRequest: SeekRequest;
+  startAtSeconds: number;
   videoId: string;
 };
 
@@ -44,6 +45,7 @@ export function useYouTubePlayer({
   elementId,
   onPlaybackTime,
   seekRequest,
+  startAtSeconds,
   videoId,
 }: UseYouTubePlayerOptions) {
   const playerRef = useRef<YouTubePlayer | null>(null);
@@ -61,6 +63,7 @@ export function useYouTubePlayer({
       playerRef.current = new window.YT.Player(elementId, {
         videoId,
         playerVars: {
+          ...(startAtSeconds > 0 ? { start: Math.floor(startAtSeconds) } : {}),
           rel: 0,
           modestbranding: 1,
           playsinline: 1,
@@ -108,7 +111,7 @@ export function useYouTubePlayer({
       playerRef.current?.destroy?.();
       playerRef.current = null;
     };
-  }, [elementId, onPlaybackTime, videoId]);
+  }, [elementId, onPlaybackTime, startAtSeconds, videoId]);
 
   useEffect(() => {
     if (seekRequest.nonce === 0) {

@@ -99,15 +99,18 @@ Storage is eventually consistent: an invalidated link can keep working for up to
 ## Limits and privacy
 
 - **Rate limits** per client IP: 1 create and 30 reads or invalidations per minute. They are approximate and per Cloudflare location.
-- **Expiry.** Records are stored with a TTL and are also refused past `expiresAt`.
+- **Expiry.** Records are stored with a TTL and are also refused past `expiresAt`. Recipients can explicitly save full copies in the browser library; expiry and invalidation do not delete those copies. Saved management credentials remain scoped to their original links.
 - **Logging.** Request bodies, `data`, keys and owner secrets are never logged.
 - **Indexing.** `/r/*` pages and API responses carry `X-Robots-Tag: noindex` and `Cache-Control: no-store`.
+
+The browser library does not change this format or add the YouTube id to the URL. The id is read from the validated decrypted recap. If an original link cannot load, the page offers a saved copy only when that exact link id and reading key were saved previously; it does not treat a shared video id as permission to manage other links.
 
 ## Where the code lives
 
 | Side         | Location                                                                                          |
 | ------------ | ------------------------------------------------------------------------------------------------- |
 | Shared codec | `packages/video-util/src/short-link.ts` (encryption, link builders, request and response schemas) |
+| Web consumer | `apps/web/src/pages/share/`, `apps/web/src/shared/sharing/`                                       |
 | Worker       | `apps/worker/src/` (`api.ts` routes, `shortLinks.ts` storage, `rateLimit.ts`)                     |
 | Config       | `wrangler.toml` (KV namespace `SHORT_LINKS`, rate limits, static assets)                          |
 | Tests        | `packages/video-util/tests/short-link.test.ts`, `apps/worker/tests/`                              |

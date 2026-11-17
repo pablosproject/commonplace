@@ -1,6 +1,6 @@
 import { encryptRecap, type Recap } from "@commonplace/video-util";
 import { afterEach, describe, expect, test, vi } from "vitest";
-import { invalidateLink, loadSharedRecap } from "../src/pages/share/api";
+import { invalidateLink, loadSharedRecap } from "../src/shared/sharing/api";
 
 const id = "AAAAAAAAAAAAAAAAAAAAAA";
 const ownerSecret = "s".repeat(43);

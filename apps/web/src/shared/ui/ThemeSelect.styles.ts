@@ -1,6 +1,21 @@
 import { styled } from "@linaria/react";
 
 export const SelectWrapper = styled.div`
+  @media (max-width: 620px) {
+    &[data-compact="true"] {
+      &::after {
+        display: none;
+      }
+      select {
+        width: 44px;
+        padding: 0;
+        color: transparent;
+      }
+      option {
+        color: var(--text);
+      }
+    }
+  }
   position: relative;
   display: inline-flex;
   flex-shrink: 0;

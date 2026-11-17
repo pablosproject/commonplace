@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { LogoLink } from "../brand/Logo";
 import { MakeRecapLink } from "./MakeRecapLink";
 import {
@@ -24,7 +25,12 @@ export type PageMessage = {
   message?: string;
 };
 
-export function MessagePage({ icon, title, message }: PageMessage) {
+export function MessagePage({
+  icon,
+  title,
+  message,
+  children,
+}: PageMessage & { children?: ReactNode }) {
   return (
     <Shell>
       <TopBar>
@@ -38,6 +44,7 @@ export function MessagePage({ icon, title, message }: PageMessage) {
         </IconBadge>
         <Title>{title}</Title>
         {message ? <Message>{message}</Message> : null}
+        {children}
       </Card>
       <Footer>
         <MakeRecapLink />

@@ -11,7 +11,7 @@ Commonplace separates recap generation from viewing. An agent generates a recap 
 | Agent                                                         | Reads the transcript and writes the summary, takeaway, highlights, sections, and conclusion.                                                                                                |
 | Shared utilities (`packages/video-util`)                      | Define recap validity, preview-link encoding and decoding, short-link encryption and the short-link API bodies.                                                                             |
 | Worker (`apps/worker`)                                        | Serves the web app and the short-link API: stores encrypted recaps in Workers KV until they expire, and deletes them on invalidation. It cannot read them.                                  |
-| Web app (`apps/web`)                                          | Fetches and decrypts a short link (`/r/:id`) or decodes a preview link (`/preview`), validates the recap, then renders it beside an embedded YouTube player.                                |
+| Web app (`apps/web`)                                          | Opens and validates shared recaps, renders a seekable YouTube player, and owns the explicit browser-local library and its source-specific management credentials.                           |
 
 ## Data flow
 
@@ -35,5 +35,13 @@ The CLI bundles `@commonplace/video-util` so it works outside the monorepo. The 
 The CLI's [preview-link tests](../packages/commonplace-cli/tests/preview-link.test.ts) round-trip sample recaps through the shared encoder, decoder, and validator used by the web app, and check link generation. Its [short-link tests](../packages/commonplace-cli/tests/short-link.test.ts) run `link` against a mocked service and decrypt what it uploads. These are contract tests, not browser rendering tests.
 
 The [preview-link specification](preview-link.md) defines the long link's wire format and its two independent versions: encoding version and recap schema version. The [short-link specification](short-link.md) defines the encryption, the stored record and the Worker API. Changes must account for links already shared.
+
+## Browser library
+
+The web app can explicitly save a complete recap and optional management credentials in `localStorage`, with one entry per YouTube video. The homepage preserves the product introduction and shows a small saved-recap return strip when the library is nonempty. `/saved` lists video titles and channels alphabetically; `/saved/:videoId` opens the local content without fetching a link. The local URL is not a share link.
+
+`apps/web/src/shared/library` owns versioned storage validation, save/replace/remove operations, cross-tab updates and library controls. Pages own navigation and loading workflows. `shared/sharing` owns the shared short-link API client and management UI used by both original-link and local-copy pages. `RecapActions` supplies the header's minimal save/check menu and reuses the original management menu for both manage-link and local-copy pages. It does not add panels to the recap notes. Each saved recap keeps at most one set of administrator credentials. `RecapView` remains a renderer with a slot for page-owned header controls; it does not persist recaps.
+
+No library data is uploaded. Each saved entry holds a recap and optional management credentials, without recording the original reader or preview link. A retained administrator link can refer to an older recap and is not offered for sharing as the current content. Only recaps with management access can be shared from the app. The library does not track link invalidation; the shared management menu calls the Worker without changing saved copies. Local saving changes neither Worker retention nor the existing wire formats.
 
 See [coding conventions](../CODE_STYLE.md) for implementation rules and [sharing decisions](sharing.md) for the current product boundary.

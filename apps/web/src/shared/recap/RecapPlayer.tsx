@@ -20,6 +20,7 @@ type RecapPlayerProps = {
   onFloatingChange: (isFloating: boolean) => void;
   onPlaybackTime: (seconds: number) => void;
   seekRequest: SeekRequest;
+  startAtSeconds?: number;
   title: string;
   youtubeVideoId: string;
 };
@@ -31,6 +32,7 @@ export function RecapPlayer({
   onFloatingChange,
   onPlaybackTime,
   seekRequest,
+  startAtSeconds = 0,
   title,
   youtubeVideoId,
 }: RecapPlayerProps) {
@@ -44,6 +46,7 @@ export function RecapPlayer({
     elementId: playerElementId,
     onPlaybackTime,
     seekRequest,
+    startAtSeconds,
     videoId: youtubeVideoId,
   });
 
