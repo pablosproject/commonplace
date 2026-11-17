@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import { useMediaQuery } from "../lib/useMediaQuery";
+import type { SavedRecap } from "../library/storage";
 import { ThemeSelect } from "../ui/ThemeSelect";
 import { TopBar } from "../ui/TopBar";
 import { ChapterSection } from "./ChapterSection";
@@ -45,7 +46,7 @@ type RecapViewProps = {
   callToAction?: ReactNode;
   nav?: ReactNode;
   recap: Recap;
-  startAtSeconds?: number;
+  savedRecap?: SavedRecap;
   onPlaybackTime?: (seconds: number) => void;
 };
 
@@ -54,11 +55,13 @@ export function RecapView({
   callToAction,
   nav,
   recap,
-  startAtSeconds = 0,
+  savedRecap,
   onPlaybackTime,
 }: RecapViewProps) {
-  const initialStartAt = useRef(startAtSeconds);
-  const [playbackSeconds, setPlaybackSeconds] = useState(initialStartAt.current);
+  const initialStartAt = useRef(savedRecap?.positionSeconds ?? 0);
+  const [playbackSeconds, setPlaybackSeconds] = useState(
+    initialStartAt.current,
+  );
   const handlePlaybackTime = useCallback(
     (seconds: number) => {
       setPlaybackSeconds(seconds);

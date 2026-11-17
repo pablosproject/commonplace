@@ -32,17 +32,24 @@ vi.mock("../src/shared/recap/RecapView", () => ({
     recap,
     actions,
     nav,
+    savedRecap,
+    onPlaybackTime,
   }: {
     recap: Recap;
     actions?: ReactNode;
     nav?: ReactNode;
+    savedRecap?: { positionSeconds?: number };
+    onPlaybackTime?: (seconds: number) => void;
   }) => (
     <>
       <header>
         {nav}
         {actions}
       </header>
-      <main>
+      <main
+        data-position={savedRecap?.positionSeconds ?? 0}
+        onClick={() => onPlaybackTime?.(120)}
+      >
         <h1>{recap.video.title}</h1>
         <p>{recap.abstract}</p>
       </main>
@@ -221,6 +228,10 @@ test("different contents require replacement confirmation and preserve existing 
     },
   });
   open(path);
+  await screen.findByRole("button", { name: "View link recap" });
+  expect(screen.getByText(recap.abstract)).toBeTruthy();
+  fireEvent.click(screen.getByRole("button", { name: "View link recap" }));
+  expect(screen.getByText("New summary")).toBeTruthy();
   await options();
   fireEvent.click(screen.getByRole("button", { name: "Save in this browser" }));
   expect(readLibrary()[0].recap.abstract).toBe(recap.abstract);
@@ -236,6 +247,57 @@ test("different contents require replacement confirmation and preserve existing 
     linkId,
     key: shareKey,
   });
+});
+
+test.each(["/preview#d=abc&v=1", path, `/saved/${recap.video.id}`])(
+  "restores and saves playback from %s",
+  async (url) => {
+    saveRecap(recap, source);
+    newTestLibrary().saveTime(recap.video.id, 45);
+    open(url);
+    await screen.findByRole("heading", { name: recap.video.title });
+    const main = screen.getByRole("main");
+    expect(main.getAttribute("data-position")).toBe("45");
+    fireEvent.click(main);
+    expect(readLibrary()[0].positionSeconds).toBe(120);
+  },
+);
+
+test("saving during preview playback starts recording progress", async () => {
+  open("/preview#d=abc&v=1");
+  await screen.findByRole("heading", { name: recap.video.title });
+  fireEvent.click(screen.getByRole("main"));
+  expect(readLibrary()).toEqual([]);
+  await options();
+  fireEvent.click(screen.getByRole("button", { name: "Save in this browser" }));
+  fireEvent.click(screen.getByRole("main"));
+  expect(readLibrary()[0].positionSeconds).toBe(120);
+});
+
+test("a different managed link does not associate its credentials with the displayed local recap", async () => {
+  saveRecap(recap, source);
+  vi.mocked(loadSharedRecap).mockResolvedValue({
+    status: "ready",
+    data: { recap: { ...recap, abstract: "Link summary" }, expiresAt },
+  });
+  open(adminPath);
+  await screen.findByRole("button", { name: "View link recap" });
+  expect(screen.queryByRole("button", { name: /Manage link,/ })).toBeNull();
+  fireEvent.click(screen.getByRole("button", { name: "View link recap" }));
+  expect(screen.getByRole("button", { name: /Manage link,/ })).toBeTruthy();
+  expect(readLibrary()[0].management).toBeUndefined();
+});
+
+test("preview prefers the saved recap and allows viewing a different link recap", async () => {
+  saveRecap(recap, source);
+  vi.mocked(decodePreviewHash).mockResolvedValue({
+    ...recap,
+    abstract: "Link summary",
+  });
+  open("/preview#d=abc&v=1");
+  expect(await screen.findByText(recap.abstract)).toBeTruthy();
+  fireEvent.click(screen.getByRole("button", { name: "View link recap" }));
+  expect(screen.getByText("Link summary")).toBeTruthy();
 });
 
 test("failed writes report an error instead of changing the plus to a check", async () => {
@@ -271,7 +333,7 @@ test("Home C keeps the original hero and links to a separate alphabetical collec
     screen.getAllByRole("heading", { level: 2 }).map((h) => h.textContent),
   ).toEqual(["Alpha", "Zulu"]);
   expect(screen.getAllByText("Example channel")).toHaveLength(2);
-  expect(screen.queryByText(recap.mainTakeaway)).toBeNull();
+  expect(screen.getAllByText(recap.mainTakeaway)).toHaveLength(2);
   expect(screen.queryByText(recap.abstract)).toBeNull();
   fireEvent.click(screen.getByRole("link", { name: "Zulu" }));
   expect(
@@ -292,7 +354,37 @@ test("the collection has an empty state and does not invent missing authors", ()
   open("/saved");
   expect(screen.getByText("Author unavailable")).toBeTruthy();
   expect(screen.getByRole("heading", { name: recap.video.title })).toBeTruthy();
+});
+
+test("the collection switches between list and grid views", () => {
+  saveRecap(
+    {
+      ...recap,
+      video: {
+        ...recap.video,
+        duration: { seconds: 2538, formatted: "00:42:18" },
+      },
+    },
+    source,
+  );
+  newTestLibrary().saveTime(recap.video.id, 1572);
+  open("/saved");
+  const list = screen.getByRole("button", { name: "List view" });
+  const grid = screen.getByRole("button", { name: "Grid view" });
+  expect(list.getAttribute("aria-pressed")).toBe("true");
+  expect(screen.getByText(recap.mainTakeaway)).toBeTruthy();
+  expect(screen.getByText("42:18")).toBeTruthy();
+  expect(
+    screen
+      .getByRole("progressbar", { name: "Watched" })
+      .getAttribute("aria-valuetext"),
+  ).toBe("26:12 of 42:18");
+
+  fireEvent.click(grid);
+  expect(grid.getAttribute("aria-pressed")).toBe("true");
+  expect(list.getAttribute("aria-pressed")).toBe("false");
   expect(screen.queryByText(recap.mainTakeaway)).toBeNull();
+  expect(screen.getByRole("heading", { name: recap.video.title })).toBeTruthy();
 });
 
 test("a missing local copy explains that its address is not a share link", () => {

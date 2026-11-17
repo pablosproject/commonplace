@@ -2,11 +2,9 @@ import { decodePreviewHash, parseRecap } from "@commonplace/video-util";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import type { LoadState } from "../../shared/lib/load-state";
-import { LogoLink } from "../../shared/brand/Logo";
-import { RecapView } from "../../shared/recap/RecapView";
+import { OpenedRecap } from "../../shared/library/OpenedRecap";
 import type { Recap } from "../../shared/recap/types";
-import { MakeRecapLink } from "../../shared/ui/MakeRecapLink";
-import { RecapActions } from "../../shared/library/RecapActions";
+
 import { MessagePage, type PageMessage } from "../../shared/ui/MessagePage";
 
 const INVALID_PREVIEW_MESSAGE: PageMessage = {
@@ -21,7 +19,6 @@ export function PreviewPage() {
   const [recapState, setRecapState] = useState<LoadState<Recap>>({
     status: "loading",
   });
-
   useEffect(() => {
     let cancelled = false;
 
@@ -57,13 +54,5 @@ export function PreviewPage() {
     return <MessagePage {...recapState.error} />;
   }
 
-  return (
-    <RecapView
-      key={hash}
-      actions={<RecapActions webRecap={{ recap: recapState.data }} />}
-      callToAction={<MakeRecapLink />}
-      nav={<LogoLink compactOnMobile />}
-      recap={recapState.data}
-    />
-  );
+  return <OpenedRecap key={hash} webRecap={{ recap: recapState.data }} />;
 }

@@ -2,15 +2,14 @@ import { useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import { LogoLink } from "../../shared/brand/Logo";
 import { RecapActions } from "../../shared/library/RecapActions";
-import { useLibrary } from "../../shared/library/useLibrary";
+import { useSavedRecap } from "../../shared/library/useSavedRecap";
 import { RecapView } from "../../shared/recap/RecapView";
 import { MakeRecapLink } from "../../shared/ui/MakeRecapLink";
 import { MessagePage } from "../../shared/ui/MessagePage";
 
 export function SavedRecapPage() {
   const { videoId } = useParams();
-  const { entries, error, actions } = useLibrary();
-  const entry = entries.find((item) => item.recap.video.id === videoId);
+  const { savedRecap: entry, error, actions } = useSavedRecap(videoId);
   const savePosition = useCallback(
     (seconds: number) => {
       if (videoId) {
@@ -43,7 +42,7 @@ export function SavedRecapPage() {
       key={videoId}
       nav={<LogoLink compactOnMobile />}
       recap={entry.recap}
-      startAtSeconds={entry.positionSeconds ?? 0}
+      savedRecap={entry}
       onPlaybackTime={savePosition}
       actions={<RecapActions webRecap={entry} local />}
       callToAction={<MakeRecapLink />}

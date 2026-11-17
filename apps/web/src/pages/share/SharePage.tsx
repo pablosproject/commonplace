@@ -4,14 +4,11 @@ import {
   parseShortLinkFragment,
 } from "@commonplace/video-util";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { LogoLink } from "../../shared/brand/Logo";
-import { RecapView } from "../../shared/recap/RecapView";
-import { MakeRecapLink } from "../../shared/ui/MakeRecapLink";
+import { OpenedRecap } from "../../shared/library/OpenedRecap";
 import { MessagePage } from "../../shared/ui/MessagePage";
 import type { LoadState } from "../../shared/lib/load-state";
 import { loadSharedRecap, type SharedRecap } from "../../shared/sharing/api";
 import { LOAD_ERROR_MESSAGES } from "../../shared/sharing/messages";
-import { RecapActions } from "../../shared/library/RecapActions";
 import { useLibrary } from "../../shared/library/useLibrary";
 
 export function SharePage() {
@@ -28,7 +25,6 @@ export function SharePage() {
   const [state, setState] = useState<LoadState<SharedRecap>>({
     status: "loading",
   });
-
   useEffect(() => {
     const meta = document.createElement("meta");
     meta.name = "robots";
@@ -89,30 +85,20 @@ export function SharePage() {
     );
   }
 
+  const management =
+    ownerSecret && ownerSecretSchema.safeParse(ownerSecret).success
+      ? {
+          linkId: id,
+          key,
+          ownerSecret,
+          expiresAt: state.data.expiresAt,
+        }
+      : undefined;
+
   return (
-    <RecapView
+    <OpenedRecap
       key={`${id}:${key}`}
-      actions={
-        <RecapActions
-          key={`${id}:${key}:${ownerSecret}`}
-          webRecap={{
-            recap: state.data.recap,
-            ...(ownerSecret && ownerSecretSchema.safeParse(ownerSecret).success
-              ? {
-                  management: {
-                    linkId: id,
-                    key,
-                    ownerSecret,
-                    expiresAt: state.data.expiresAt,
-                  },
-                }
-              : {}),
-          }}
-        />
-      }
-      callToAction={<MakeRecapLink />}
-      nav={<LogoLink compactOnMobile />}
-      recap={state.data.recap}
+      webRecap={{ recap: state.data.recap, management }}
     />
   );
 }
