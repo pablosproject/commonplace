@@ -101,6 +101,16 @@ export function RecapView({
   );
 
   const title = recap.video.title;
+
+  useEffect(() => {
+    const previousTitle = document.title;
+    document.title = `${title} | Commonplace`;
+
+    return () => {
+      document.title = previousTitle;
+    };
+  }, [title]);
+
   const activeTime = findActiveTime(timepoints, playbackSeconds);
   const notesScrollRef = useRef<HTMLDivElement>(null);
   const skipFollowTo = useFollowActivePoint(notesScrollRef, activeTime);
